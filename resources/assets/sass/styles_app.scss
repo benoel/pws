@@ -1,0 +1,17 @@
+.container-body{
+	min-height: calc(100vh - 132px);
+	padding: 15px 0;
+}
+
+table#dataTables tbody tr td:last-child,
+table#dataTables thead tr th:last-child{
+	text-align: right;
+}
+
+form small.form-text{
+	color: #999;
+}
+
+.form-delete{
+	display: inline-block;
+}

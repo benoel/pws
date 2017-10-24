@@ -11,10 +11,20 @@
 |
 */
 
+Auth::routes();
 Route::get('/', function () {
-	return view('welcome');
+	if (Auth::user()->role == 1 || Auth::user()->role == 2) {
+		return redirect('/admin/admin');
+	}else{
+		return redirect('tenant');
+	}
+})->middleware('auth');
+
+Route::group(['middleware' => ['tenant']], function () {
+	Route::resource('/tenant', 'TenantController');
 });
 
-Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+
+
+

@@ -9,11 +9,13 @@
     {{-- <link rel="icon" type="image/png" href="{{ asset('img/clues-logo.png') }}"> --}}
     
     <title>{{ config('app.name') }}</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/vendor.css') }}" rel="stylesheet">
+    
     <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/vendor.js') }}"></script>
 </head>
 <body>
-    <div class="flex-center position-ref full-height">
+   {{--  <div class="flex-center position-ref full-height">
         @if (Route::has('login'))
         <div class="top-right links">
             @if (Auth::check())
@@ -30,12 +32,12 @@
                 Primantara Wisesa Sejahtera
             </div>
         </div>
-    </div>
+    </div> --}}
 </body>
 </html>
 <script>
     $(document).ready(function(){
-       
+
     })
 </script>
 
