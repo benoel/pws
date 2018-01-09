@@ -34,11 +34,19 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Rent');
     }
-    public function bussiness_field()
+    public function business_field()
     {
         return $this->belongsTo('App\BusinessField');
     }
-
+    public function create_rents(){
+        return $this->hasMany('App\Rent', 'created_by');
+    }
+    public function devolutions_from(){
+        return $this->hasMany('App\Devolution', 'from_user');
+    }
+    public function devolutions_to(){
+        return $this->hasMany('App\Devolution', 'to_user');
+    }
 
 
 
@@ -57,12 +65,17 @@ class User extends Authenticatable
     }
 
     public function isAdmin(){
-        // this looks for an admin column in your users table
+        // this looks for an admin column in users table
         return $this->role == 1 || $this->role == 2 ? true : false; 
     }   
     public function isTenant(){
-        // this looks for an tenant column in your users table
+        // this looks for an tenant column in users table
         return $this->role == 0 ? true : false; 
     }
+    public function isActive(){
+        // this looks for an active column in users table
+        return $this->active == 0 ? true : false; 
+    }
+
 
 }

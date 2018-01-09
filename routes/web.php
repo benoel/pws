@@ -21,7 +21,18 @@ Route::get('/', function () {
 })->middleware('auth');
 
 Route::group(['middleware' => ['tenant']], function () {
+	Route::get('/tenant/invoice', 'TenantController@invoice')->name('tenant.invoice');
+	Route::get('/tenant/invoice/{invoice}/receipt', 'TenantController@receipt')->name('tenant.receipt');
+	Route::get('/tenant/invoice/{invoice}/agreement', 'TenantController@agreement')->name('tenant.agreement');
+	Route::get('/tenant/devolution', 'TenantController@devolution')->name('tenant.devolution');
+	Route::get('/tenant/devolution/{devolution}/agreement', 'TenantController@devolution_agreement')->name('tenant.devolution.agreement');
+	
 	Route::resource('/tenant', 'TenantController');
+	Route::get('/tenant/password/edit/{tenant}', 'TenantController@edit_password')->name('tenant.password.edit');
+	Route::put('/tenant/password/{tenant}', 'TenantController@update_password')->name('tenant.password.update');
+
+
+
 });
 
 

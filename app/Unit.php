@@ -24,4 +24,8 @@ class Unit extends Model
 	{
 		return $this->hasMany('App\Rent');
 	}
+	public function other_transactions()
+	{
+		return $this->hasMany('App\OtherTransaction');
+	}
 }

@@ -10,6 +10,21 @@ use Hash;
 
 class AdminController extends Controller
 {
+
+    protected function isSuperAdmin(){
+        if (Auth::user()->role == 1) {
+            return false;
+        }
+        return true;
+    }
+
+    protected function isCurrentUser($id){
+        if (Auth::user()->id != $id) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,13 +32,12 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $page_header = 'Admin Users';
+        $page_header = 'Admin';
         $admins = User::where('role', 1)->get();
-
         if (Auth::user()->role == 1) {
-            return view('admins.admin.index_regular_admin', compact('page_header'));
+            return view('admin.admin.index_regular_admin', compact('page_header'));
         }elseif(Auth::user()->role == 2) {
-            return view('admins.admin.index_super_admin', compact('page_header', 'admins'));
+            return view('admin.admin.index_super_admin', compact('page_header', 'admins'));
         }
     }
 
@@ -34,8 +48,12 @@ class AdminController extends Controller
      */
     public function create()
     {
+        if (!$this->isSuperAdmin()) {
+            return redirect()->back()->with('alert-danger', "Anda tidak punya hak akses!");
+        }
+
         $page_header = 'Buat Admin baru';
-        return view ('admins.admin.create', compact('page_header'));
+        return view ('admin.admin.create', compact('page_header'));
     }
 
     /**
@@ -47,13 +65,13 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama' => 'required|max:20',
+            'name' => 'required|max:20',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:6|confirmed',
         ]);  
 
         User::create([
-            'name' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'role' => 1,
@@ -81,9 +99,12 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
+        if (!$this->isCurrentUser($id)) {
+            return redirect('admin/admin')->with('alert-danger', 'Anda tidak punya hak akses!');
+        }
         $page_header = 'Edit Admin';
         $admin = User::find($id);
-        return view('admins.admin.edit', compact('admin', 'page_header'));
+        return view('admin.admin.edit', compact('admin', 'page_header'));
     }
 
     /**
@@ -96,12 +117,12 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama' => 'required|max:20',
+            'name' => 'required|max:20',
             'email' => "required|unique:users,email,$id"
         ]);
 
         User::find($id)->update([
-            'name' => $request->nama,
+            'name' => $request->name,
             'email' => $request->email
         ]);
 
@@ -123,7 +144,7 @@ class AdminController extends Controller
     public function change_password($id){
         $page_header = 'Rubah Password';
 
-        return view('admins.admin.change_password', compact('page_header'));
+        return view('admin.admin.change_password', compact('page_header'));
     }
 
 
@@ -138,9 +159,23 @@ class AdminController extends Controller
                 'password' => Hash::make($request->password)
             ]);
             Auth::logout();
-            return redirect('login')->with('alert-info', 'Silahkan login kembali.');
+            return redirect('login')->with('alert-info', 'Password Berhasil dirubah, silahkan login kembali!');
         }else{
             return redirect()->back()->with('alert-danger', 'Password lama tidak sesuai!');
         }
+    }
+
+    public function block_user(Request $request){
+        User::find($request->id)->update([
+            'active' => 1
+        ]);
+        return redirect('admin/admin')->with('alert-info', 'User berhasil di blok!');
+    }
+
+    public function active_user(Request $request){
+        User::find($request->id)->update([
+            'active' => 0
+        ]);
+        return redirect('admin/admin')->with('alert-info', 'User berhasil di aktifkan!');
     }
 }

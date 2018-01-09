@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 13);
+/******/ 	return __webpack_require__(__webpack_require__.s = 15);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11160,7 +11160,7 @@ if ("undefined" == typeof jQuery) throw new Error("Bootstrap's JavaScript requir
     }, m;
   })(jQuery);
 }();
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(11)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(13)))
 
 /***/ }),
 /* 2 */
@@ -11807,7 +11807,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
  ©2011-2015 SpryMedia Ltd - datatables.net/license
  */
 (function (b) {
-   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(10)], __WEBPACK_AMD_DEFINE_RESULT__ = function (a) {
+   true ? !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0), __webpack_require__(12)], __WEBPACK_AMD_DEFINE_RESULT__ = function (a) {
     return b(a, window, document);
   }.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__),
 				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)) : "object" === (typeof exports === "undefined" ? "undefined" : _typeof(exports)) ? module.exports = function (a, d) {
@@ -11850,6 +11850,6226 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = ty
 
 /***/ }),
 /* 5 */
+/***/ (function(module, exports) {
+
+var _typeof=typeof Symbol==="function"&&typeof Symbol.iterator==="symbol"?function(obj){return typeof obj;}:function(obj){return obj&&typeof Symbol==="function"&&obj.constructor===Symbol&&obj!==Symbol.prototype?"symbol":typeof obj;};/*
+ * Gijgo JavaScript Library v1.6.1
+ * http://gijgo.com/
+ *
+ * Copyright 2014, 2017 gijgo.com
+ * Released under the MIT license
+ */if(typeof gj==='undefined'){gj={};}gj.widget=function(){var self=this;self.xhr=null;self.generateGUID=function(){function s4(){return Math.floor((1+Math.random())*0x10000).toString(16).substring(1);}return s4()+s4()+'-'+s4()+'-'+s4()+'-'+s4()+'-'+s4()+s4()+s4();};self.mouseX=function(e){if(e){if(e.pageX){return e.pageX;}else if(e.clientX){return e.clientX+(document.documentElement.scrollLeft?document.documentElement.scrollLeft:document.body.scrollLeft);}else if(e.touches&&e.touches.length){return e.touches[0].pageX;}else if(e.changedTouches&&e.changedTouches.length){return e.changedTouches[0].pageX;}else if(e.originalEvent&&e.originalEvent.touches&&e.originalEvent.touches.length){return e.originalEvent.touches[0].pageX;}else if(e.originalEvent&&e.originalEvent.changedTouches&&e.originalEvent.changedTouches.length){return e.originalEvent.touches[0].pageX;}}return null;};self.mouseY=function(e){if(e){if(e.pageY){return e.pageY;}else if(e.clientY){return e.clientY+(document.documentElement.scrollTop?document.documentElement.scrollTop:document.body.scrollTop);}else if(e.touches&&e.touches.length){return e.touches[0].pageY;}else if(e.changedTouches&&e.changedTouches.length){return e.changedTouches[0].pageY;}else if(e.originalEvent&&e.originalEvent.touches&&e.originalEvent.touches.length){return e.originalEvent.touches[0].pageY;}else if(e.originalEvent&&e.originalEvent.changedTouches&&e.originalEvent.changedTouches.length){return e.originalEvent.touches[0].pageY;}}return null;};};gj.widget.prototype.init=function(jsConfig,type){var option,clientConfig,fullConfig;this.attr('data-type',type);clientConfig=$.extend(true,{},this.getHTMLConfig()||{});$.extend(true,clientConfig,jsConfig||{});fullConfig=this.getConfig(clientConfig,type);this.attr('data-guid',fullConfig.guid);this.data(fullConfig);// Initialize events configured as options
+for(option in fullConfig){if(gj[type].events.hasOwnProperty(option)){this.on(option,fullConfig[option]);delete fullConfig[option];}}// Initialize all plugins
+for(plugin in gj[type].plugins){if(gj[type].plugins.hasOwnProperty(plugin)){gj[type].plugins[plugin].configure(this,fullConfig,clientConfig);}}return this;};gj.widget.prototype.getConfig=function(clientConfig,type){var config,uiLibrary,iconsLibrary,plugin;config=$.extend(true,{},gj[type].config.base);uiLibrary=clientConfig.hasOwnProperty('uiLibrary')?clientConfig.uiLibrary:config.uiLibrary;if(gj[type].config[uiLibrary]){$.extend(true,config,gj[type].config[uiLibrary]);}iconsLibrary=clientConfig.hasOwnProperty('iconsLibrary')?clientConfig.iconsLibrary:config.iconsLibrary;if(gj[type].config[iconsLibrary]){$.extend(true,config,gj[type].config[iconsLibrary]);}for(plugin in gj[type].plugins){if(gj[type].plugins.hasOwnProperty(plugin)){$.extend(true,config,gj[type].plugins[plugin].config.base);if(gj[type].plugins[plugin].config[uiLibrary]){$.extend(true,config,gj[type].plugins[plugin].config[uiLibrary]);}if(gj[type].plugins[plugin].config[iconsLibrary]){$.extend(true,config,gj[type].plugins[plugin].config[iconsLibrary]);}}}$.extend(true,config,clientConfig);if(!config.guid){config.guid=this.generateGUID();}return config;};gj.widget.prototype.getHTMLConfig=function(){var result=this.data(),attrs=this[0].attributes;if(attrs['width']){result.width=attrs['width'].value;}if(attrs['height']){result.height=attrs['height'].value;}if(attrs['value']){result.value=attrs['value'].value;}if(attrs['align']){result.align=attrs['align'].value;}if(result&&result.source){result.dataSource=result.source;delete result.source;}return result;};gj.widget.prototype.createDoneHandler=function(){var $widget=this;return function(response){if(typeof response==='string'&&JSON){response=JSON.parse(response);}gj[$widget.data('type')].methods.render($widget,response);};};gj.widget.prototype.createErrorHandler=function(){var $widget=this;return function(response){if(response&&response.statusText&&response.statusText!=='abort'){alert(response.statusText);}};};gj.widget.prototype.reload=function(params){var ajaxOptions,result,data=this.data(),type=this.data('type');if(data.dataSource===undefined){gj[type].methods.useHtmlDataSource(this,data);}$.extend(data.params,params);if($.isArray(data.dataSource)){result=gj[type].methods.filter(this);gj[type].methods.render(this,result);}else if(typeof data.dataSource==='string'){ajaxOptions={url:data.dataSource,data:data.params};if(this.xhr){this.xhr.abort();}this.xhr=$.ajax(ajaxOptions).done(this.createDoneHandler()).fail(this.createErrorHandler());}else if(_typeof(data.dataSource)==='object'){if(!data.dataSource.data){data.dataSource.data={};}$.extend(data.dataSource.data,data.params);ajaxOptions=$.extend(true,{},data.dataSource);//clone dataSource object
+if(ajaxOptions.dataType==='json'&&_typeof(ajaxOptions.data)==='object'){ajaxOptions.data=JSON.stringify(ajaxOptions.data);}if(!ajaxOptions.success){ajaxOptions.success=this.createDoneHandler();}if(!ajaxOptions.error){ajaxOptions.error=this.createErrorHandler();}if(this.xhr){this.xhr.abort();}this.xhr=$.ajax(ajaxOptions);}return this;};gj.documentManager={events:{},subscribeForEvent:function subscribeForEvent(eventName,widgetId,callback){if(!gj.documentManager.events[eventName]||gj.documentManager.events[eventName].length===0){gj.documentManager.events[eventName]=[{widgetId:widgetId,callback:callback}];$(document).on(eventName,gj.documentManager.executeCallbacks);}else if(!gj.documentManager.events[eventName][widgetId]){gj.documentManager.events[eventName].push({widgetId:widgetId,callback:callback});}else{throw'Event '+eventName+' for widget with guid="'+widgetId+'" is already attached.';}},executeCallbacks:function executeCallbacks(e){var callbacks=gj.documentManager.events[e.type];if(callbacks){for(var i=0;i<callbacks.length;i++){callbacks[i].callback(e);}}},unsubscribeForEvent:function unsubscribeForEvent(eventName,widgetId){var success=false,events=gj.documentManager.events[eventName];if(events){for(var i=0;i<events.length;i++){if(events[i].widgetId===widgetId){events.splice(i,1);success=true;if(events.length===0){$(document).off(eventName);delete gj.documentManager.events[eventName];}}}}if(!success){throw'The "'+eventName+'" for widget with guid="'+widgetId+'" can\'t be removed.';}}};/**
+  * @widget Core
+  * @plugin Base
+  */gj.core={monthNames:['January','February','March','April','May','June','July','August','September','October','November','December'],monthShortNames:['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'],/** 
+     * @method
+     * @example String.1
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.parseDate('02/03/17', 'mm/dd/yy'));
+     * </script>
+     * @example String.2
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.parseDate('2017 2.3', 'yyyy m.d'));
+     * </script>
+     * @example String.dd.mmm.yyyy
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.parseDate('05 Feb 2017', 'dd mmm yyyy'));
+     * </script>
+     * @example String.dd.mmmm.yyyy
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.parseDate('05 February 2017', 'dd mmmm yyyy'));
+     * </script>
+     * @example ASP.NET.JSON.Date
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.parseDate("\/Date(349653600000)\/"));
+     * </script>
+     * @example UNIX.Timestamp
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.parseDate(349653600000));
+     * </script>
+
+     */parseDate:function parseDate(value,format){var i,date,month,year,dateParts,formatParts,result;if(value&&typeof value==='string'){if(/^\d+$/.test(value)){result=new Date(value);}else if(value.indexOf('/Date(')>-1){result=new Date(parseInt(value.substr(6),10));}else if(value){dateParts=value.split(/[\s,-\.//\:]+/);formatParts=format.split(/[\s,-\.//\:]+/);for(i=0;i<formatParts.length;i++){if(['d','dd'].indexOf(formatParts[i])>-1){date=parseInt(dateParts[i],10);}else if(['m','mm'].indexOf(formatParts[i])>-1){month=parseInt(dateParts[i],10)-1;}else if('mmm'===formatParts[i]){month=gj.core.monthShortNames.indexOf(dateParts[i]);}else if('mmmm'===formatParts[i]){month=gj.core.monthNames.indexOf(dateParts[i]);}else if(['yy','yyyy'].indexOf(formatParts[i])>-1){year=parseInt(dateParts[i],10);if(formatParts[i]==='yy'){year+=2000;}}}result=new Date(year,month,date);}}else if(typeof value==='number'){result=new Date(value);}else if(value instanceof Date){result=value;}return result;},/** 
+     * @method
+     * @example Sample.1
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.formatDate(new Date(2017, 1, 3), 'mm/dd/yy'));
+     * </script>
+     * @example Sample.2
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.formatDate(new Date(2017, 1, 3), 'yyyy m.d'));
+     * </script>
+     * @example Sample.dd.mmm.yyyy
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.formatDate(new Date(2017, 1, 3), 'dd mmm yyyy'));
+     * </script>
+     * @example Sample.dd.mmmm.yyyy
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.formatDate(new Date(2017, 1, 3), 'dd mmmm yyyy'));
+     * </script>
+     * @example Sample.5
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.formatDate(new Date(2017, 1, 3, 20, 43, 53), 'hh:MM:ss tt mm/dd/yyyy'));
+     * </script>
+     * @example Sample.6
+     * <div id="date"></div>
+     * <script>
+     *     $('#date').text(gj.core.formatDate(new Date(2017, 1, 3, 20, 43, 53), 'hh:MM TT'));
+     * </script>
+     */formatDate:function formatDate(date,format){var result='',separator,tmp,formatParts=format.split(/[\s,-\.//\:]+/),separators=format.replace(/[shtdmyHTDMY]/g,''),pad=function pad(val,len){val=String(val);len=len||2;while(val.length<len){val='0'+val;}return val;};for(i=0;i<formatParts.length;i++){separator=separators[i]||'';switch(formatParts[i]){case's':result+=date.getSeconds()+separator;break;case'ss':result+=pad(date.getSeconds())+separator;break;case'M':result+=date.getMinutes()+separator;break;case'MM':result+=pad(date.getMinutes())+separator;break;case'H':result+=date.getHours()+separator;break;case'HH':result+=pad(date.getHours())+separator;break;case'h':tmp=date.getHours()>12?date.getHours()%12:date.getHours();result+=tmp+separator;break;case'hh':tmp=date.getHours()>12?date.getHours()%12:date.getHours();result+=pad(tmp)+separator;break;case'tt':result+=(date.getHours()>=12?'pm':'am')+separator;break;case'TT':result+=(date.getHours()>=12?'PM':'AM')+separator;break;case'd':result+=date.getDate()+separator;break;case'dd':result+=pad(date.getDate())+separator;break;case'm':result+=date.getMonth()+1+separator;break;case'mm':result+=pad(date.getMonth()+1)+separator;break;case'mmm':result+=gj.core.monthShortNames[date.getMonth()]+separator;break;case'mmmm':result+=gj.core.monthNames[date.getMonth()]+separator;break;case'yy':result+=date.getFullYear().toString().substr(2)+separator;break;case'yyyy':result+=date.getFullYear()+separator;break;}}return result;},isIE:function isIE(){return!!navigator.userAgent.match(/Trident/g)||!!navigator.userAgent.match(/MSIE/g);}};if(typeof gj.dialog==='undefined'){gj.dialog={plugins:{},messages:[]};}gj.dialog.messages['en-us']={Close:'Close',DefaultTitle:'Dialog'};/* global window alert jQuery *//** 
+ * @widget Dialog 
+ * @plugin Base
+ */if(typeof gj.dialog==='undefined'){gj.dialog={plugins:{}};}gj.dialog.config={base:{/** If set to true, the dialog will automatically open upon initialization.
+         * If false, the dialog will stay hidden until the open() method is called.
+         * @type boolean
+         * @default true
+         * @example True <!-- dialog.base, draggable.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         autoOpen: true
+         *     });
+         * </script>
+         * @example False <!-- dialog.base, bootstrap -->
+         * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <button onclick="dialog.open()">Open Dialog</button>
+         * <script>
+         *     var dialog = $("#dialog").dialog({
+         *         uiLibrary: 'bootstrap',
+         *         autoOpen: false
+         *     });
+         * </script>
+         */autoOpen:true,/** Specifies whether the dialog should close when it has focus and the user presses the escape (ESC) key.
+         * @type boolean
+         * @default true
+         * @example True <!-- dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         closeOnEscape: true
+         *     });
+         * </script>
+         * @example False <!-- dialog.base, draggable.base -->
+         * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <button onclick="dialog.open()">Open Dialog</button>
+         * <script>
+         *     var dialog = $("#dialog").dialog({
+         *         closeOnEscape: false
+         *     });
+         * </script>
+         */closeOnEscape:true,/** Specifies whether the dialog should have a close button in right part of dialog header.
+         * @type boolean
+         * @default true
+         * @example True <!-- dialog.base, draggable.base -->
+         * <div id="dialog">
+         *     <div data-role="header"><h4 data-role="title">Dialog</h4></div>
+         *     <div data-role="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         *     <div data-role="footer">
+         *         <button onclick="dialog.close()" class="gj-button-md">Ok</button>
+         *         <button onclick="dialog.close()" class="gj-button-md">Cancel</button>
+         *     </div>
+         * </div>
+         * <script>
+         *     var dialog = $("#dialog").dialog({
+         *         closeButtonInHeader: true,
+         *         height: 200
+         *     });
+         * </script>
+         * @example False <!-- dialog.base, draggable.base -->
+         * <div id="dialog">
+         *     <div data-role="header"><h4 data-role="title">Dialog</h4></div>
+         *     <div data-role="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         *     <div data-role="footer">
+         *         <button onclick="dialog.close()" class="gj-button-md">Ok</button>
+         *         <button onclick="dialog.close()" class="gj-button-md">Cancel</button>
+         *     </div>
+         * </div>
+         * <script>
+         *     var dialog = $("#dialog").dialog({
+         *         closeButtonInHeader: false
+         *     });
+         * </script>
+         */closeButtonInHeader:true,/** If set to true, the dialog will be draggable by the title bar.
+         * @type boolean
+         * @default true
+         * @example True <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         draggable: true
+         *     });
+         * </script>
+         * @example False <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         draggable: false
+         *     });
+         * </script>
+         */draggable:true,/** The height of the dialog.
+         * @additionalinfo Support string and number values. The number value sets the height in pixels.
+         * The only supported string value is "auto" which will allow the dialog height to adjust based on its content.
+         * @type (number|string)
+         * @default "auto"
+         * @example Short.Text <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         height: 200
+         *     });
+         * </script>
+         * @example Long.Text.Material.Design <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor quam in magna vulputate, vitae laoreet odio ultrices. Phasellus at efficitur magna. Mauris purus dolor, egestas quis leo et, vulputate dictum mauris. Vivamus maximus lectus sollicitudin lorem blandit tempor. Maecenas eget posuere mi. Suspendisse id hendrerit nibh. Morbi eu odio euismod, venenatis ipsum in, egestas nunc. Mauris dignissim metus ac risus porta eleifend. Aliquam tempus libero orci, id placerat odio vehicula eu. Donec tincidunt justo dolor, sit amet tempus turpis varius sit amet. Suspendisse ut ex blandit, hendrerit enim tristique, iaculis ipsum. Vivamus venenatis dolor justo, eget scelerisque lacus dignissim quis. Duis imperdiet ex at aliquet cursus. Proin non ultricies leo. Fusce quam diam, laoreet quis fringilla vitae, viverra id magna. Nam laoreet sem in volutpat rhoncus.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         height: 350
+         *     });
+         * </script>
+         * @example Long.Text.Bootstrap3 <!-- bootstrap, draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor quam in magna vulputate, vitae laoreet odio ultrices. Phasellus at efficitur magna. Mauris purus dolor, egestas quis leo et, vulputate dictum mauris. Vivamus maximus lectus sollicitudin lorem blandit tempor. Maecenas eget posuere mi. Suspendisse id hendrerit nibh. Morbi eu odio euismod, venenatis ipsum in, egestas nunc. Mauris dignissim metus ac risus porta eleifend. Aliquam tempus libero orci, id placerat odio vehicula eu. Donec tincidunt justo dolor, sit amet tempus turpis varius sit amet. Suspendisse ut ex blandit, hendrerit enim tristique, iaculis ipsum. Vivamus venenatis dolor justo, eget scelerisque lacus dignissim quis. Duis imperdiet ex at aliquet cursus. Proin non ultricies leo. Fusce quam diam, laoreet quis fringilla vitae, viverra id magna. Nam laoreet sem in volutpat rhoncus.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         height: 350,
+         *         uiLibrary: 'bootstrap'
+         *     });
+         * </script>
+         * @example Long.Text.Bootstrap4 <!-- bootstrap4, draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor quam in magna vulputate, vitae laoreet odio ultrices. Phasellus at efficitur magna. Mauris purus dolor, egestas quis leo et, vulputate dictum mauris. Vivamus maximus lectus sollicitudin lorem blandit tempor. Maecenas eget posuere mi. Suspendisse id hendrerit nibh. Morbi eu odio euismod, venenatis ipsum in, egestas nunc. Mauris dignissim metus ac risus porta eleifend. Aliquam tempus libero orci, id placerat odio vehicula eu. Donec tincidunt justo dolor, sit amet tempus turpis varius sit amet. Suspendisse ut ex blandit, hendrerit enim tristique, iaculis ipsum. Vivamus venenatis dolor justo, eget scelerisque lacus dignissim quis. Duis imperdiet ex at aliquet cursus. Proin non ultricies leo. Fusce quam diam, laoreet quis fringilla vitae, viverra id magna. Nam laoreet sem in volutpat rhoncus.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         height: 350,
+         *         uiLibrary: 'bootstrap4'
+         *     });
+         * </script>
+         */height:'auto',/** The language that needs to be in use.
+         * @type string
+         * @default 'en-us'
+         * @example French.Default <!-- draggable.base, dialog.base-->
+         * <script src="../../dist/modular/dialog/js/messages/messages.fr-fr.js"></script>
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         resizable: true,
+         *         locale: 'fr-fr'
+         *     });
+         * </script>
+         * @example French.Custom <!-- draggable.base, dialog.base -->
+         * <script src="../../dist/modular/dialog/js/messages/messages.fr-fr.js"></script>
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     gj.dialog.messages['fr-fr'].DefaultTitle = 'Titre de la boÃ®te de dialogue';
+         *     $("#dialog").dialog({
+         *         resizable: true,
+         *         locale: 'fr-fr',
+         *         width: 700
+         *     });
+         * </script>
+         */locale:'en-us',/** The minimum height in pixels to which the dialog can be resized.
+         * @type number
+         * @default undefined
+         * @example sample <!-- draggable.base, dialog.base -->
+         * <div id="dialog">The minimum height of this dialog is set to 200 px. Try to resize it for testing.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         resizable: true,
+         *         height: 300,
+         *         minHeight: 200
+         *     });
+         * </script>
+         */minHeight:undefined,/** The maximum height in pixels to which the dialog can be resized.
+         * @type number
+         * @default undefined
+         * @example sample <!-- draggable.base, dialog.base -->
+         * <div id="dialog">The maximum height of this dialog is set to 300 px. Try to resize it for testing.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         resizable: true,
+         *         height: 200,
+         *         maxHeight: 300
+         *     });
+         * </script>
+         */maxHeight:undefined,/** The width of the dialog.
+         * @type number
+         * @default 300
+         * @example Fixed.Width <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         width: 400
+         *     });
+         * </script>
+         * @example Auto.Width <!-- draggable.base, dialog.base -->
+         * <div id="dialog" title="Wikipedia">
+         *   <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/80/Wikipedia-logo-v2.svg/1122px-Wikipedia-logo-v2.svg.png" width="420"/>
+         * </div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         width: 'auto'
+         *     });
+         * </script>
+         */width:300,/** The minimum width in pixels to which the dialog can be resized.
+         * @type number
+         * @default undefined
+         * @example sample <!-- draggable.base, dialog.base -->
+         * <div id="dialog">The minimum width of this dialog is set to 200 px. Try to resize it for testing.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         resizable: true,
+         *         minWidth: 200
+         *     });
+         * </script>
+         */minWidth:undefined,/** The maximum width in pixels to which the dialog can be resized.
+         * @type number
+         * @default undefined
+         * @example sample <!-- draggable.base, dialog.base -->
+         * <div id="dialog">The maximum width of this dialog is set to 400 px. Try to resize it for testing.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         resizable: true,
+         *         maxWidth: 400
+         *     });
+         * </script>
+         */maxWidth:undefined,/** If set to true, the dialog will have modal behavior.
+         * Modal dialogs create an overlay below the dialog, but above other page elements and you can't interact with them.
+         * @type boolean
+         * @default false
+         * @example True <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         modal: true
+         *     });
+         * </script>
+         * @example False <!-- draggable.base, dialog.base, bootstrap -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         modal: false
+         *     });
+         * </script>
+         */modal:false,/** If set to true, the dialog will be resizable.
+         * @type boolean
+         * @default false
+         * @example True <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         resizable: true
+         *     });
+         * </script>
+         * @example False <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         resizable: false
+         *     });
+         * </script>
+         */resizable:false,/** If set to true, add vertical scroller to the dialog body.
+         * @type Boolean
+         * @default false
+         * @example Bootstrap.3 <!-- bootstrap, draggable.base, dialog.base -->
+         * <div id="dialog">
+         *     <div data-role="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor quam in magna vulputate, vitae laoreet odio ultrices. Phasellus at efficitur magna. Mauris purus dolor, egestas quis leo et, vulputate dictum mauris. Vivamus maximus lectus sollicitudin lorem blandit tempor. Maecenas eget posuere mi. Suspendisse id hendrerit nibh. Morbi eu odio euismod, venenatis ipsum in, egestas nunc. Mauris dignissim metus ac risus porta eleifend. Aliquam tempus libero orci, id placerat odio vehicula eu. Donec tincidunt justo dolor, sit amet tempus turpis varius sit amet. Suspendisse ut ex blandit, hendrerit enim tristique, iaculis ipsum. Vivamus venenatis dolor justo, eget scelerisque lacus dignissim quis. Duis imperdiet ex at aliquet cursus. Proin non ultricies leo. Fusce quam diam, laoreet quis fringilla vitae, viverra id magna. Nam laoreet sem in volutpat rhoncus.</div>
+         *     <div data-role="footer">
+         *         <button class="btn btn-default" data-role="close">Cancel</button>
+         *         <button class="btn btn-default" onclick="dialog.close()">OK</button>
+         *     </div>
+         * </div>
+         * <script>
+         *     var dialog = $("#dialog").dialog({
+         *         scrollable: true,
+         *         height: 300,
+         *         uiLibrary: 'bootstrap'
+         *     });
+         * </script>
+         * @example Bootstrap.4 <!-- bootstrap4, draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor quam in magna vulputate, vitae laoreet odio ultrices. Phasellus at efficitur magna. Mauris purus dolor, egestas quis leo et, vulputate dictum mauris. Vivamus maximus lectus sollicitudin lorem blandit tempor. Maecenas eget posuere mi. Suspendisse id hendrerit nibh. Morbi eu odio euismod, venenatis ipsum in, egestas nunc. Mauris dignissim metus ac risus porta eleifend. Aliquam tempus libero orci, id placerat odio vehicula eu. Donec tincidunt justo dolor, sit amet tempus turpis varius sit amet. Suspendisse ut ex blandit, hendrerit enim tristique, iaculis ipsum. Vivamus venenatis dolor justo, eget scelerisque lacus dignissim quis. Duis imperdiet ex at aliquet cursus. Proin non ultricies leo. Fusce quam diam, laoreet quis fringilla vitae, viverra id magna. Nam laoreet sem in volutpat rhoncus.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         scrollable: true,
+         *         height: 300,
+         *         uiLibrary: 'bootstrap'
+         *     });
+         * </script>
+         * @example Material.Design <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus porttitor quam in magna vulputate, vitae laoreet odio ultrices. Phasellus at efficitur magna. Mauris purus dolor, egestas quis leo et, vulputate dictum mauris. Vivamus maximus lectus sollicitudin lorem blandit tempor. Maecenas eget posuere mi. Suspendisse id hendrerit nibh. Morbi eu odio euismod, venenatis ipsum in, egestas nunc. Mauris dignissim metus ac risus porta eleifend. Aliquam tempus libero orci, id placerat odio vehicula eu. Donec tincidunt justo dolor, sit amet tempus turpis varius sit amet. Suspendisse ut ex blandit, hendrerit enim tristique, iaculis ipsum. Vivamus venenatis dolor justo, eget scelerisque lacus dignissim quis. Duis imperdiet ex at aliquet cursus. Proin non ultricies leo. Fusce quam diam, laoreet quis fringilla vitae, viverra id magna. Nam laoreet sem in volutpat rhoncus.</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         scrollable: true,
+         *         height: 300,
+         *         uiLibrary: 'materialdesign'
+         *     });
+         * </script>
+         */scrollable:false,/** The title of the dialog. Can be also set through the title attribute of the html element.
+         * @type String
+         * @default "Dialog"
+         * @example Js.Config <!-- draggable.base, dialog.base -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         title: 'My Custom Title',
+         *         width: 400
+         *     });
+         * </script>
+         * @example Html.Config <!-- draggable.base, dialog.base -->
+         * <div id="dialog" title="My Custom Title" width="400">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog();
+         * </script>
+         */title:undefined,/** The name of the UI library that is going to be in use. Currently we support Material Design and Bootstrap.
+         * @additionalinfo The css file for bootstrap should be manually included if you use bootstrap.
+         * @type string (bootstrap|materialdesign)
+         * @default undefined
+         * @example Bootstrap.3 <!-- draggable.base, dialog.base, bootstrap -->
+         * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         * <script>
+         *     $("#dialog").dialog({
+         *         uiLibrary: 'bootstrap'
+         *     });
+         * </script>
+         * @example Bootstrap.4 <!-- draggable.base, dialog.base, bootstrap4 -->
+         * <div id="dialog">
+         *     <div data-role="body">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+         *     <div data-role="footer">
+         *         <button class="btn btn-default" data-role="close">Cancel</button>
+         *         <button class="btn btn-default" onclick="dialog.close()">OK</button>
+         *     </div>
+         * </div>
+         * <script>
+         *     var dialog = $("#dialog").dialog({
+         *         uiLibrary: 'bootstrap4'
+         *     });
+         * </script>
+         * @example Material.Design <!-- draggable.base, dialog.base  -->
+         * <div id="dialog">
+         *   <div data-role="body">
+         *     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+         *     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+         *   </div>
+         *   <div data-role="footer">
+         *     <button class="gj-button-md" onclick="dialog.close()">OK</button>
+         *     <button class="gj-button-md" data-role="close">Cancel</button>
+         *   </div>
+         * </div>
+         * <script>
+         *     var dialog = $("#dialog").dialog({
+         *         uiLibrary: 'materialdesign',
+         *         resizable: true
+         *     });
+         * </script>
+         */uiLibrary:undefined,style:{modal:'gj-modal',content:'gj-dialog-md',header:'gj-dialog-md-header gj-unselectable',headerTitle:'gj-dialog-md-title',headerCloseButton:'gj-dialog-md-close',body:'gj-dialog-md-body',footer:'gj-dialog-footer gj-dialog-md-footer'}},bootstrap:{style:{modal:'modal',content:'modal-content gj-dialog-bootstrap',header:'modal-header',headerTitle:'modal-title',headerCloseButton:'close',body:'modal-body',footer:'gj-dialog-footer modal-footer'}},bootstrap4:{style:{modal:'modal',content:'modal-content gj-dialog-bootstrap4',header:'modal-header',headerTitle:'modal-title',headerCloseButton:'close',body:'modal-body',footer:'gj-dialog-footer modal-footer'}}};/** 
+  * @widget Dialog 
+  * @plugin Base
+  */gj.dialog.events={/**
+     * Triggered when the dialog is initialized.
+     *
+     * @event initialized
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <script>
+     *     var dialog = $("#dialog").dialog({
+     *         autoOpen: false,
+     *         initialized: function (e) {
+     *             alert('The initialized event is fired.');
+     *         }
+     *     });
+     * </script>
+     */initialized:function initialized($dialog){$dialog.trigger("initialized");},/**
+     * Triggered before the dialog is opened.
+     * @event opening
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <script>
+     *     var dialog = $("#dialog").dialog({
+     *         autoOpen: false,
+     *         opening: function (e) {
+     *             alert('The opening event is fired.');
+     *         },
+     *         opened: function (e) {
+     *             alert('The opened event is fired.');
+     *         }
+     *     });
+     * </script>
+     */opening:function opening($dialog){$dialog.trigger("opening");},/**
+     * Triggered when the dialog is opened.
+     * @event opened
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <script>
+     *     var dialog = $("#dialog").dialog({
+     *         autoOpen: false,
+     *         opening: function (e) {
+     *             alert('The opening event is fired.');
+     *         },
+     *         opened: function (e) {
+     *             alert('The opened event is fired.');
+     *         }
+     *     });
+     * </script>
+     */opened:function opened($dialog){$dialog.trigger("opened");},/**
+     * Triggered before the dialog is closed.
+     * @event closing
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Close the dialog in order to fire closing event.</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <script>
+     *     var dialog = $("#dialog").dialog({
+     *         autoOpen: false,
+     *         closing: function (e) {
+     *             alert('The closing event is fired.');
+     *         },
+     *         closed: function (e) {
+     *             alert('The closed event is fired.');
+     *         }
+     *     });
+     * </script>
+     */closing:function closing($dialog){$dialog.trigger("closing");},/**
+     * Triggered when the dialog is closed.
+     * @event closed
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Close the dialog in order to fire closed event.</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <script>
+     *     var dialog = $("#dialog").dialog({
+     *         autoOpen: false,
+     *         closing: function (e) {
+     *             alert('The closing event is fired.');
+     *         },
+     *         closed: function (e) {
+     *             alert('The closed event is fired.');
+     *         }
+     *     });
+     * </script>
+     */closed:function closed($dialog){$dialog.trigger("closed");},/**
+     * Triggered while the dialog is being dragged.
+     * @event drag
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <div id="logPanel" class="col-xs-12 well pre-scrollable" style="height: 200px"></div>
+     * <script>
+     *     var log = $('#logPanel');
+     *     $("#dialog").dialog({
+     *         drag: function (e) {
+     *             log.append('<div class="row">The drag event is fired.</div>');
+     *         },
+     *         dragStart: function (e) {
+     *             log.append('<div class="row">The dragStart event is fired.</div>');
+     *         },
+     *         dragStop: function (e) {
+     *             log.append('<div class="row">The dragStop event is fired.</div>');
+     *         }
+     *     });
+     * </script>
+     */drag:function drag($dialog){$dialog.trigger("drag");},/**
+     * Triggered when the user starts dragging the dialog.
+     * @event dragStart
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <div id="logPanel" class="col-xs-12 well pre-scrollable" style="height: 200px"></div>
+     * <script>
+     *     var log = $('#logPanel');
+     *     $("#dialog").dialog({
+     *         drag: function (e) {
+     *             log.append('<div class="row">The drag event is fired.</div>');
+     *         },
+     *         dragStart: function (e) {
+     *             log.append('<div class="row">The dragStart event is fired.</div>');
+     *         },
+     *         dragStop: function (e) {
+     *             log.append('<div class="row">The dragStop event is fired.</div>');
+     *         }
+     *     });
+     * </script>
+     */dragStart:function dragStart($dialog){$dialog.trigger("dragStart");},/**
+     * Triggered after the dialog has been dragged.
+     * @event dragStop
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <div id="logPanel" class="col-xs-12 well pre-scrollable" style="height: 200px"></div>
+     * <script>
+     *     var log = $('#logPanel');
+     *     $("#dialog").dialog({
+     *         drag: function (e) {
+     *             log.append('<div class="row">The drag event is fired.</div>');
+     *         },
+     *         dragStart: function (e) {
+     *             log.append('<div class="row">The dragStart event is fired.</div>');
+     *         },
+     *         dragStop: function (e) {
+     *             log.append('<div class="row">The dragStop event is fired.</div>');
+     *         }
+     *     });
+     * </script>
+     */dragStop:function dragStop($dialog){$dialog.trigger("dragStop");},/**
+     * Triggered while the dialog is being resized.
+     * @event resize
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <div id="logPanel" class="col-xs-12 well pre-scrollable" style="height: 200px"></div>
+     * <script>
+     *     var log = $('#logPanel');
+     *     $("#dialog").dialog({
+     *         resizable: true,
+     *         resize: function (e) {
+     *             log.append('<div class="row">The resize event is fired.</div>');
+     *         },
+     *         resizeStart: function (e) {
+     *             log.append('<div class="row">The resizeStart event is fired.</div>');
+     *         },
+     *         resizeStop: function (e) {
+     *             log.append('<div class="row">The resizeStop event is fired.</div>');
+     *         }
+     *     });
+     * </script>
+     */resize:function resize($dialog){$dialog.trigger("resize");},/**
+     * Triggered when the user starts resizing the dialog.
+     * @event resizeStart
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <div id="logPanel" class="col-xs-12 well pre-scrollable" style="height: 200px"></div>
+     * <script>
+     *     var log = $('#logPanel');
+     *     $("#dialog").dialog({
+     *         resizable: true,
+     *         resize: function (e) {
+     *             log.append('<div class="row">The resize event is fired.</div>');
+     *         },
+     *         resizeStart: function (e) {
+     *             log.append('<div class="row">The resizeStart event is fired.</div>');
+     *         },
+     *         resizeStop: function (e) {
+     *             log.append('<div class="row">The resizeStop event is fired.</div>');
+     *         }
+     *     });
+     * </script>
+     */resizeStart:function resizeStart($dialog){$dialog.trigger("resizeStart");},/**
+     * Triggered after the dialog has been resized.
+     * @event resizeStop
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <div id="logPanel" class="col-xs-12 well pre-scrollable" style="height: 200px"></div>
+     * <script>
+     *     var log = $('#logPanel');
+     *     $("#dialog").dialog({
+     *         resizable: true,
+     *         resize: function (e) {
+     *             log.append('<div class="row">The resize event is fired.</div>');
+     *         },
+     *         resizeStart: function (e) {
+     *             log.append('<div class="row">The resizeStart event is fired.</div>');
+     *         },
+     *         resizeStop: function (e) {
+     *             log.append('<div class="row">The resizeStop event is fired.</div>');
+     *         }
+     *     });
+     * </script>
+     */resizeStop:function resizeStop($dialog){$dialog.trigger("resizeStop");}};gj.dialog.methods={init:function init(jsConfig){gj.widget.prototype.init.call(this,jsConfig,'dialog');gj.dialog.methods.localization(this);gj.dialog.methods.initialize(this);gj.dialog.events.initialized(this);return this;},localization:function localization($dialog){var data=$dialog.data();if(typeof data.title==='undefined'){data.title=gj.dialog.messages[data.locale].DefaultTitle;}},getHTMLConfig:function getHTMLConfig(){var result=gj.widget.prototype.getHTMLConfig.call(this),attrs=this[0].attributes;if(attrs['title']){result.title=attrs['title'].value;}return result;},initialize:function initialize($dialog){var data=$dialog.data(),$header,$body,$footer;$dialog.addClass(data.style.content);gj.dialog.methods.setSize($dialog);if(data.closeOnEscape){$(document).keyup(function(e){if(e.keyCode===27){$dialog.close();}});}$body=$dialog.children('div[data-role="body"]');if($body.length===0){$body=$('<div data-role="body"/>').addClass(data.style.body);$dialog.wrapInner($body);}else{$body.addClass(data.style.body);}$header=gj.dialog.methods.renderHeader($dialog);$footer=$dialog.children('div[data-role="footer"]').addClass(data.style.footer);$dialog.find('[data-role="close"]').on('click',function(){$dialog.close();});if(gj.draggable){if(data.draggable){gj.dialog.methods.draggable($dialog,$header);}if(data.resizable){gj.dialog.methods.resizable($dialog);}}if(data.scrollable&&data.height){$dialog.addClass('gj-dialog-scrollable');$dialog.on('opened',function(){var $body=$dialog.children('div[data-role="body"]');$body.css('height',data.height-$header.outerHeight()-($footer.length?$footer.outerHeight():0));});}gj.dialog.methods.setPosition($dialog);if(data.modal){$dialog.wrapAll('<div data-role="modal" class="'+data.style.modal+'"/>');}if(data.autoOpen){$dialog.open();}},setSize:function setSize($dialog){var data=$dialog.data();if(data.width){$dialog.css("width",data.width);}if(data.height){$dialog.css("height",data.height);}},renderHeader:function renderHeader($dialog){var $header,$title,$closeButton,data=$dialog.data();$header=$dialog.children('div[data-role="header"]');if($header.length===0){$header=$('<div data-role="header" />');$dialog.prepend($header);}$header.addClass(data.style.header);$title=$header.find('[data-role="title"]');if($title.length===0){$title=$('<h4 data-role="title">'+data.title+'</h4>');$header.append($title);}$title.addClass(data.style.headerTitle);$closeButton=$header.find('[data-role="close"]');if($closeButton.length===0&&data.closeButtonInHeader){$closeButton=$('<button type="button" data-role="close" title="'+gj.dialog.messages[data.locale].Close+'"><span>Ã—</span></button>');$closeButton.addClass(data.style.headerCloseButton);$header.append($closeButton);}else if($closeButton.length>0&&data.closeButtonInHeader===false){$closeButton.hide();}else{$closeButton.addClass(data.style.headerCloseButton);}return $header;},setPosition:function setPosition($dialog){var left=$(window).width()/2-$dialog.width()/2,top=$(window).height()/2-$dialog.height()/2;$dialog.css('position','absolute');$dialog.css('left',left>0?left:0);$dialog.css('top',top>0?top:0);},draggable:function draggable($dialog,$header){$dialog.appendTo('body');$header.addClass('gj-draggable');$dialog.draggable({handle:$header,start:function start(){$dialog.addClass('gj-unselectable');gj.dialog.events.dragStart($dialog);},stop:function stop(){$dialog.removeClass('gj-unselectable');gj.dialog.events.dragStop($dialog);}});},resizable:function resizable($dialog){var config={'drag':gj.dialog.methods.resize,'start':function start(){$dialog.addClass('gj-unselectable');gj.dialog.events.resizeStart($dialog);},'stop':function stop(){this.removeAttribute('style');$dialog.removeClass('gj-unselectable');gj.dialog.events.resizeStop($dialog);}};$dialog.append($('<div class="gj-resizable-handle gj-resizable-n"></div>').draggable($.extend(true,{horizontal:false},config)));$dialog.append($('<div class="gj-resizable-handle gj-resizable-e"></div>').draggable($.extend(true,{vertical:false},config)));$dialog.append($('<div class="gj-resizable-handle gj-resizable-s"></div>').draggable($.extend(true,{horizontal:false},config)));$dialog.append($('<div class="gj-resizable-handle gj-resizable-w"></div>').draggable($.extend(true,{vertical:false},config)));$dialog.append($('<div class="gj-resizable-handle gj-resizable-ne"></div>').draggable($.extend(true,{},config)));$dialog.append($('<div class="gj-resizable-handle gj-resizable-nw"></div>').draggable($.extend(true,{},config)));$dialog.append($('<div class="gj-resizable-handle gj-resizable-sw"></div>').draggable($.extend(true,{},config)));$dialog.append($('<div class="gj-resizable-handle gj-resizable-se"></div>').draggable($.extend(true,{},config)));},resize:function resize(e,offset){var $el,$dialog,data,height,width,top,left,result=false;$el=$(this);$dialog=$el.parent();data=$dialog.data();//TODO: Include margins in the calculations
+if($el.hasClass('gj-resizable-n')){height=$dialog.height()-offset.top;top=$dialog.offset().top+offset.top;}else if($el.hasClass('gj-resizable-e')){width=$dialog.width()+offset.left;}else if($el.hasClass('gj-resizable-s')){height=$dialog.height()+offset.top;}else if($el.hasClass('gj-resizable-w')){width=$dialog.width()-offset.left;left=$dialog.offset().left+offset.left;}else if($el.hasClass('gj-resizable-ne')){height=$dialog.height()-offset.top;top=$dialog.offset().top+offset.top;width=$dialog.width()+offset.left;}else if($el.hasClass('gj-resizable-nw')){height=$dialog.height()-offset.top;top=$dialog.offset().top+offset.top;width=$dialog.width()-offset.left;left=$dialog.offset().left+offset.left;}else if($el.hasClass('gj-resizable-se')){height=$dialog.height()+offset.top;width=$dialog.width()+offset.left;}else if($el.hasClass('gj-resizable-sw')){height=$dialog.height()+offset.top;width=$dialog.width()-offset.left;left=$dialog.offset().left+offset.left;}if(height&&(!data.minHeight||height>=data.minHeight)&&(!data.maxHeight||height<=data.maxHeight)){$dialog.height(height);if(top){$dialog.css('top',top);}result=true;}if(width&&(!data.minWidth||width>=data.minWidth)&&(!data.maxWidth||width<=data.maxWidth)){$dialog.width(width);if(left){$dialog.css('left',left);}result=true;}if(result){gj.dialog.events.resize($dialog);}return result;},open:function open($dialog,title){var $footer;gj.dialog.events.opening($dialog);$dialog.css('display','block');$dialog.closest('div[data-role="modal"]').css('display','block');$footer=$dialog.children('div[data-role="footer"]');if($footer.length&&$footer.outerHeight()){$dialog.children('div[data-role="body"]').css('margin-bottom',$footer.outerHeight());}if(title!==undefined){$dialog.find('[data-role="title"]').html(title);}gj.dialog.events.opened($dialog);return $dialog;},close:function close($dialog){if($dialog.is(':visible')){gj.dialog.events.closing($dialog);$dialog.css('display','none');$dialog.closest('div[data-role="modal"]').css('display','none');gj.dialog.events.closed($dialog);}return $dialog;},isOpen:function isOpen($dialog){return $dialog.is(':visible');},content:function content($dialog,html){var $body=$dialog.children('div[data-role="body"]');if(typeof html==="undefined"){return $body.html();}else{return $body.html(html);}},destroy:function destroy($dialog,keepHtml){var data=$dialog.data();if(data){if(keepHtml===false){$dialog.remove();}else{$dialog.close();$dialog.off();$dialog.removeData();$dialog.removeAttr('data-type');$dialog.removeClass(data.style.content);$dialog.find('[data-role="header"]').removeClass(data.style.header);$dialog.find('[data-role="title"]').removeClass(data.style.headerTitle);$dialog.find('[data-role="close"]').remove();$dialog.find('[data-role="body"]').removeClass(data.style.body);$dialog.find('[data-role="footer"]').removeClass(data.style.footer);}}return $dialog;}};/** 
+  * @widget Dialog 
+  * @plugin Base
+  */gj.dialog.widget=function($element,jsConfig){var self=this,methods=gj.dialog.methods;/**
+     * Opens the dialog.
+     * @method
+     * @param {String} title - The dialog title.
+     * @fires opening, opened
+     * @return dialog
+     * @example Sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <script>
+     *     var dialog = $('#dialog').dialog({
+     *         autoOpen: false
+     *     });
+     * </script>
+     * @example Title <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="dialog.open('Custom Text')">Open Dialog</button>
+     * <script>
+     *     var dialog = $('#dialog').dialog({
+     *         autoOpen: false
+     *     });
+     * </script>
+     */self.open=function(title){return methods.open(this,title);};/**
+     * Close the dialog.
+     * @method
+     * @fires closing, closed
+     * @return dialog
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <button onclick="dialog.close()">Close Dialog</button>
+     * <script>
+     *     var dialog = $('#dialog').dialog();
+     * </script>
+     */self.close=function(){return methods.close(this);};/**
+     * Check if the dialog is currently open.
+     * @method
+     * @return boolean
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="dialog.open()">Open Dialog</button>
+     * <button onclick="dialog.close()">Close Dialog</button>
+     * <button onclick="alert($('#dialog').dialog('isOpen'))">isOpen</button>
+     * <script>
+     *     var dialog = $('#dialog').dialog();
+     * </script>
+     */self.isOpen=function(){return methods.isOpen(this);};/**
+     * Gets or set the content of a dialog. Supports chaining when used as a setter.
+     * @method
+     * @param {String} content - The content of the Dialog.
+     * @return String|Dialog
+     * @example sample <!-- draggable.base, dialog.base, bootstrap -->
+     * <div id="dialog">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="alert(dialog.content())" class="btn btn-default">Get Content</button>
+     * <button onclick="dialog.content('New Test Content Value')" class="btn btn-default">Set Content</button>
+     * <script>
+     *     var dialog = $('#dialog').dialog({ uiLibrary: 'bootstrap' });
+     * </script>
+     */self.content=function(content){return methods.content(this,content);};/**
+     * Destroy the dialog.
+     * @method
+     * @param {boolean} keepHtml - If this flag is set to false, the dialog html markup will be removed from the HTML dom tree.
+     * @return void
+     * @example Keep.HTML.Markup <!-- draggable.base, dialog.base -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="create()">Create</button>
+     * <button onclick="dialog.destroy()">Destroy</button>
+     * <script>
+     *     var dialog;
+     *     function create() { 
+     *         dialog = $('#dialog').dialog();
+     *     }
+     * </script>
+     * @example Remove.HTML.Markup <!-- draggable.base, dialog.base -->
+     * <div id="dialog" style="display: none">Lorem ipsum dolor sit amet, consectetur adipiscing elit...</div>
+     * <button onclick="create()">Create</button>
+     * <button onclick="dialog.destroy(false)">Destroy</button>
+     * <script>
+     *     var dialog;
+     *     function create() {
+     *         if ($('#dialog').length === 0) {
+     *             alert('The dialog can not be created.');
+     *         } else {
+     *             dialog = $('#dialog').dialog();
+     *         }
+     *     }
+     * </script>
+     */self.destroy=function(keepHtml){return methods.destroy(this,keepHtml);};$.extend($element,self);if('dialog'!==$element.attr('data-type')){methods.init.call($element,jsConfig);}return $element;};gj.dialog.widget.prototype=new gj.widget();gj.dialog.widget.constructor=gj.dialog.widget;gj.dialog.widget.prototype.getHTMLConfig=gj.dialog.methods.getHTMLConfig;(function($){$.fn.dialog=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.dialog.widget(this,method);}else{$widget=new gj.dialog.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);/* global window alert jQuery *//** 
+ * @widget Draggable 
+ * @plugin Base
+ */if(typeof gj.draggable==='undefined'){gj.draggable={plugins:{}};}gj.draggable.config={base:{/** If specified, restricts dragging from starting unless the mousedown occurs on the specified element.
+         * Only elements that descend from the draggable element are permitted.
+         * @type jquery element
+         * @default undefined
+         * @example sample <!-- draggable.base -->
+         * <style>
+         * .element { border: 1px solid #999; width: 300px; height: 200px; }
+         * .handle { background-color: #DDD; cursor: move; width: 200px; margin: 5px auto 0px auto; text-align: center; padding: 5px; }
+         * </style>
+         * <div id="element" class="element">
+         *   <div id="handle" class="handle">Handle for dragging</div>
+         * </div>
+         * <script>
+         *     $('#element').draggable({
+         *         handle: $('#handle')
+         *     });
+         * </script>
+         */handle:undefined,/** If set to false, restricts dragging on vertical direction.
+         * @type Boolean
+         * @default true
+         * @example sample <!-- draggable.base -->
+         * <style>
+         * .element { border: 1px solid #999; width: 300px; height: 200px; cursor: move; text-align: center; background-color: #DDD; }
+         * </style>
+         * <div id="element" class="element">
+         *     drag me<br/>
+         *     <i>(dragging on vertical direction is disabled)</i>
+         * </div>
+         * <script>
+         *     $('#element').draggable({
+         *         vertical: false
+         *     });
+         * </script>
+         */vertical:true,/** If set to false, restricts dragging on horizontal direction.
+         * @type Boolean
+         * @default true
+         * @example sample <!-- draggable.base -->
+         * <style>
+         * .element { border: 1px solid #999; width: 300px; height: 200px; cursor: move; text-align: center; background-color: #DDD; }
+         * </style>
+         * <div id="element" class="element">
+         *     drag me<br/>
+         *     <i>(dragging on horizontal direction is disabled)</i>
+         * </div>
+         * <script>
+         *     $('#element').draggable({
+         *         horizontal: false
+         *     });
+         * </script>
+         */horizontal:true}};gj.draggable.methods={init:function init(jsConfig){var $handleEl,$dragEl=this;gj.widget.prototype.init.call(this,jsConfig,'draggable');$dragEl.attr('data-draggable','true');$handleEl=gj.draggable.methods.getHandleElement($dragEl);$handleEl.on('touchstart mousedown',function(e){$dragEl.attr('data-draggable-dragging',true);$dragEl.removeAttr('data-draggable-x').removeAttr('data-draggable-y');$dragEl.css('position','absolute');gj.documentManager.subscribeForEvent('touchmove',$dragEl.data('guid'),gj.draggable.methods.createMoveHandler($dragEl));gj.documentManager.subscribeForEvent('mousemove',$dragEl.data('guid'),gj.draggable.methods.createMoveHandler($dragEl));});gj.documentManager.subscribeForEvent('mouseup',$dragEl.data('guid'),gj.draggable.methods.createUpHandler($dragEl));gj.documentManager.subscribeForEvent('touchend',$dragEl.data('guid'),gj.draggable.methods.createUpHandler($dragEl));gj.documentManager.subscribeForEvent('touchcancel',$dragEl.data('guid'),gj.draggable.methods.createUpHandler($dragEl));return $dragEl;},getHandleElement:function getHandleElement($dragEl){var $handle=$dragEl.data('handle');return $handle&&$handle.length?$handle:$dragEl;},createUpHandler:function createUpHandler($dragEl){return function(e){if($dragEl.attr('data-draggable-dragging')==='true'){$dragEl.attr('data-draggable-dragging',false);gj.documentManager.unsubscribeForEvent('mousemove',$dragEl.data('guid'));gj.documentManager.unsubscribeForEvent('touchmove',$dragEl.data('guid'));gj.draggable.events.stop($dragEl,{left:$dragEl.mouseX(e),top:$dragEl.mouseY(e)});}};},createMoveHandler:function createMoveHandler($dragEl){return function(e){var x,y,offsetX,offsetY,prevX,prevY;if($dragEl.attr('data-draggable-dragging')==='true'){x=$dragEl.mouseX(e);y=$dragEl.mouseY(e);prevX=$dragEl.attr('data-draggable-x');prevY=$dragEl.attr('data-draggable-y');if(prevX&&prevY){offsetX=$dragEl.data('horizontal')?x-parseInt(prevX,10):0;offsetY=$dragEl.data('vertical')?y-parseInt(prevY,10):0;if(false!==gj.draggable.events.drag($dragEl,offsetX,offsetY,x,y)){gj.draggable.methods.move($dragEl,offsetX,offsetY);}}else{gj.draggable.events.start($dragEl,x,y);}$dragEl.attr('data-draggable-x',x);$dragEl.attr('data-draggable-y',y);}};},move:function move($dragEl,offsetX,offsetY){var target=$dragEl.get(0),top=target.style.top?parseInt(target.style.top):$dragEl.position().top,left=target.style.left?parseInt(target.style.left):$dragEl.position().left;target.style.top=top+offsetY+'px';target.style.left=left+offsetX+'px';},destroy:function destroy($dragEl){if($dragEl.attr('data-draggable')==='true'){gj.documentManager.unsubscribeForEvent('mouseup',$dragEl.data('guid'));$dragEl.removeData();$dragEl.removeAttr('data-guid');$dragEl.removeAttr('data-draggable');$dragEl.off('drag').off('start').off('stop');gj.draggable.methods.getHandleElement($dragEl).off('mousedown');}return $dragEl;}};gj.draggable.events={/**
+     * Triggered while the mouse is moved during the dragging, immediately before the current move happens.
+     *
+     * @event drag
+     * @param {object} e - event data
+     * @param {object} offset - Current offset position as { top, left } object.
+     * @param {object} mousePosition - Current mouse position as { top, left } object.
+     * @example sample <!-- draggable.base -->
+     * <style>
+     * .element { border: 1px solid #999; width: 300px; height: 200px; cursor: move; text-align: center; background-color: #DDD; }
+     * </style>
+     * <div id="element" class="element gj-unselectable">drag me</div>
+     * <script>
+     *     $('#element').draggable({
+     *         drag: function (e, offset, mousePosition) {
+     *             $('body').append('<div>The drag event is fired. offset { top:' + offset.top + ', left: ' + offset.left + '}.</div>');
+     *         }
+     *     });
+     * </script>
+     */drag:function drag($dragEl,offsetX,offsetY,mouseX,mouseY){return $dragEl.triggerHandler('drag',[{top:offsetY,left:offsetX},{top:mouseY,left:mouseX}]);},/**
+     * Triggered when dragging starts.
+     *
+     * @event start
+     * @param {object} e - event data
+     * @example sample <!-- draggable.base -->
+     * <style>
+     * .element { border: 1px solid #999; width: 300px; height: 200px; cursor: move; text-align: center; background-color: #DDD; }
+     * </style>
+     * <div id="element" class="element gj-unselectable">
+     *   drag me
+     * </div>
+     * <script>
+     *     $('#element').draggable({
+     *         start: function (e, mousePosition) {
+     *             $('body').append('<div>The start event is fired. mousePosition { top:' + mousePosition.top + ', left: ' + mousePosition.left + '}.</div>');
+     *         }
+     *     });
+     * </script>
+     */start:function start($dragEl,mouseX,mouseY){$dragEl.triggerHandler('start',[{top:mouseY,left:mouseX}]);},/**
+     * Triggered when dragging stops.
+     *
+     * @event stop
+     * @param {object} e - event data
+     * @param {object} mousePosition - Current mouse position as { top, left } object.
+     * @example sample <!-- draggable.base -->
+     * <style>
+     * .element { border: 1px solid #999; width: 300px; height: 200px; cursor: move; text-align: center; background-color: #DDD; }
+     * </style>
+     * <div id="element" class="element gj-unselectable">
+     *   drag me
+     * </div>
+     * <script>
+     *     $('#element').draggable({
+     *         stop: function (e, offset) {
+     *             $('body').append('<div>The stop event is fired.</div>');
+     *         }
+     *     });
+     * </script>
+     */stop:function stop($dragEl,mousePosition){$dragEl.triggerHandler('stop',[mousePosition]);}};gj.draggable.widget=function($element,jsConfig){var self=this,methods=gj.draggable.methods;if(!$element.destroy){/** Remove draggable functionality from the element.
+         * @method
+         * @return jquery element
+         * @example sample <!-- draggable.base -->
+         * <style>
+         * .element { border: 1px solid #999; width: 300px; height: 200px; cursor: move; text-align: center; background-color: #DDD; }
+         * </style>
+         * <button onclick="dragEl.destroy()">Destroy</button>
+         * <div id="element" class="element">Drag Me</div>
+         * <script>
+         *     var dragEl = $('#element').draggable();
+         * </script>
+         */self.destroy=function(){return methods.destroy(this);};}$.extend($element,self);if('true'!==$element.attr('data-draggable')){methods.init.call($element,jsConfig);}return $element;};gj.draggable.widget.prototype=new gj.widget();gj.draggable.widget.constructor=gj.draggable.widget;(function($){$.fn.draggable=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.draggable.widget(this,method);}else{$widget=new gj.draggable.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);/* global window alert jQuery *//** 
+ * @widget Droppable 
+ * @plugin Base
+ */if(typeof gj.droppable==='undefined'){gj.droppable={plugins:{}};}gj.droppable.config={/** If specified, the class will be added to the droppable while draggable is being hovered over the droppable.
+     * @type string
+     * @default undefined
+     * @example sample <!-- droppable.base, draggable.base -->
+     * <style>
+     * .draggable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .droppable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .hover { background-color: #FF0000; }
+     * </style>
+     * <div id="droppable" class="droppable">Drop Here</div>
+     * <div id="draggable" class="draggable">Drag Me</div>
+     * <script>
+     *     $('#draggable').draggable();
+     *     $('#droppable').droppable({ hoverClass: 'hover' });
+     * </script>
+     */hoverClass:undefined};gj.droppable.methods={init:function init(jsConfig){var $dropEl=this;gj.widget.prototype.init.call(this,jsConfig,'droppable');$dropEl.attr('data-droppable','true');gj.documentManager.subscribeForEvent('mousedown',$dropEl.data('guid'),gj.droppable.methods.createMouseDownHandler($dropEl));gj.documentManager.subscribeForEvent('mousemove',$dropEl.data('guid'),gj.droppable.methods.createMouseMoveHandler($dropEl));gj.documentManager.subscribeForEvent('mouseup',$dropEl.data('guid'),gj.droppable.methods.createMouseUpHandler($dropEl));return $dropEl;},createMouseDownHandler:function createMouseDownHandler($dropEl){return function(e){$dropEl.isDragging=true;};},createMouseMoveHandler:function createMouseMoveHandler($dropEl){return function(e){if($dropEl.isDragging){var hoverClass=$dropEl.data('hoverClass'),mousePosition={left:$dropEl.mouseX(e),top:$dropEl.mouseY(e)},newIsOver=gj.droppable.methods.isOver($dropEl,mousePosition);if(newIsOver!=$dropEl.isOver){if(newIsOver){if(hoverClass){$dropEl.addClass(hoverClass);}gj.droppable.events.over($dropEl,mousePosition);}else{if(hoverClass){$dropEl.removeClass(hoverClass);}gj.droppable.events.out($dropEl);}}$dropEl.isOver=newIsOver;}};},createMouseUpHandler:function createMouseUpHandler($dropEl){return function(e){var mousePosition={left:$dropEl.mouseX(e),top:$dropEl.mouseY(e)};$dropEl.isDragging=false;if(gj.droppable.methods.isOver($dropEl,mousePosition)){gj.droppable.events.drop($dropEl);}};},isOver:function isOver($dropEl,mousePosition){var offsetTop=$dropEl.offset().top;// + parseInt($dropEl.css("border-top-width")) + parseInt($dropEl.css("margin-top")) + parseInt($dropEl.css("padding-top")),
+offsetLeft=$dropEl.offset().left;// + parseInt($dropEl.css("border-left-width")) + parseInt($dropEl.css("margin-left")) + parseInt($dropEl.css("padding-left"));
+return mousePosition.left>offsetLeft&&mousePosition.left<offsetLeft+$dropEl.outerWidth(true)&&mousePosition.top>offsetTop&&mousePosition.top<offsetTop+$dropEl.outerHeight(true);},destroy:function destroy($dropEl){if($dropEl.attr('data-droppable')==='true'){gj.documentManager.unsubscribeForEvent('mousedown',$dropEl.data('guid'));gj.documentManager.unsubscribeForEvent('mousemove',$dropEl.data('guid'));gj.documentManager.unsubscribeForEvent('mouseup',$dropEl.data('guid'));$dropEl.removeData();$dropEl.removeAttr('data-guid');$dropEl.removeAttr('data-droppable');$dropEl.off('drop').off('over').off('out');}return $dropEl;}};gj.droppable.events={/** Triggered when a draggable element is dropped.
+     * @event drop
+     * @param {object} e - event data
+     * @example sample <!-- droppable.base, draggable.base -->
+     * <style>
+     * .draggable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .droppable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .drop { background-color: #FF0000; }
+     * </style>
+     * <div id="droppable" class="droppable">Drop Here</div>
+     * <div id="draggable" class="draggable">Drag Me</div>
+     * <script>
+     *     $('#draggable').draggable();
+     *     $('#droppable').droppable({ drop: function() { $(this).addClass('drop') } });
+     * </script>
+     */drop:function drop($dropEl,offsetX,offsetY){$dropEl.trigger('drop',[{top:offsetY,left:offsetX}]);},/** Triggered when a draggable element is dragged over the droppable.
+     * @event over
+     * @param {object} e - event data
+     * @param {object} mousePosition - Current mouse position as { top, left } object.
+     * @example sample <!-- droppable.base, draggable.base -->
+     * <style>
+     * .draggable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .droppable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .hover { background-color: #FF0000; }
+     * </style>
+     * <div id="droppable" class="droppable">Drop Here</div>
+     * <div id="draggable" class="draggable">Drag Me</div>
+     * <script>
+     *     $('#draggable').draggable();
+     *     $('#droppable').droppable({
+     *         over: function() { 
+     *             $(this).addClass('hover')
+     *         },
+     *         out: function() {
+     *             $(this).removeClass('hover')
+     *         }
+     *     });
+     * </script>
+     */over:function over($dropEl,mousePosition){$dropEl.trigger('over',[mousePosition]);},/** Triggered when a draggable element is dragged out of the droppable.
+     * @event out
+     * @param {object} e - event data
+     * @example sample <!-- droppable.base, draggable.base -->
+     * <style>
+     * .draggable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .droppable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .hover { background-color: #FF0000; }
+     * </style>
+     * <div id="droppable" class="droppable">Drop Here</div>
+     * <div id="draggable" class="draggable">Drag Me</div>
+     * <script>
+     *     $('#draggable').draggable();
+     *     $('#droppable').droppable({
+     *         over: function() { $(this).addClass('hover') },
+     *         out: function() { $(this).removeClass('hover') }
+     *     });
+     * </script>
+     */out:function out($dropEl){$dropEl.trigger('out');}};gj.droppable.widget=function($element,jsConfig){var self=this,methods=gj.droppable.methods;self.isOver=false;self.isDragging=false;/** Removes the droppable functionality.
+     * @method
+     * @return jquery element
+     * @example sample <!-- draggable.base, droppable.base -->
+     * <button onclick="create()">Create</button>
+     * <button onclick="dropEl.destroy()">Destroy</button>
+     * <br/><br/>
+     * <style>
+     * .draggable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .droppable { border: 1px solid #999; width: 300px; height: 200px; text-align: center; }
+     * .hover { background-color: #FF0000; }
+     * </style>
+     * <div id="droppable" class="droppable">Drop Here</div>
+     * <div id="draggable" class="draggable">Drag Me</div>
+     * <script>
+     *     var dropEl;
+     *     $('#draggable').draggable();
+     *     function create() {
+     *         dropEl = $('#droppable').droppable({
+     *             hoverClass: 'hover'
+     *         });
+     *     }
+     *     create();
+     * </script>
+     */self.destroy=function(){return methods.destroy(this);};self.isOver=function(mousePosition){return methods.isOver(this,mousePosition);};$.extend($element,self);if('true'!==$element.attr('data-droppable')){methods.init.call($element,jsConfig);}return $element;};gj.droppable.widget.prototype=new gj.widget();gj.droppable.widget.constructor=gj.droppable.widget;(function($){$.fn.droppable=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.droppable.widget(this,method);}else{$widget=new gj.droppable.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);if(typeof gj.grid==='undefined'){gj.grid={plugins:{},messages:[]};}gj.grid.messages['en-us']={First:'First',Previous:'Previous',Next:'Next',Last:'Last',Page:'Page',FirstPageTooltip:'First Page',PreviousPageTooltip:'Previous Page',NextPageTooltip:'Next Page',LastPageTooltip:'Last Page',Refresh:'Refresh',Of:'of',DisplayingRecords:'Displaying records',RowsPerPage:'Rows per page:',Edit:'Edit',Delete:'Delete',Update:'Update',Cancel:'Cancel',NoRecordsFound:'No records found.',Loading:'Loading...'};/* global window alert jQuery gj *//**
+  * @widget Grid
+  * @plugin Base
+  */if(typeof gj.grid==='undefined'){gj.grid={plugins:{}};}gj.grid.config={base:{/** The data source for the grid.
+         * @additionalinfo If set to string, then the grid is going to use this string as a url for ajax requests to the server.<br />
+         * If set to object, then the grid is going to use this object as settings for the <a href="http://api.jquery.com/jquery.ajax/" target="_new">jquery ajax</a> function.<br />
+         * If set to array, then the grid is going to use the array as data for rows.
+         * @type (string|object|array)
+         * @default undefined
+         * @example Remote.JS.Configuration <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         columns: [ { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example Remote.Html.Configuration <!-- grid -->
+         * <table id="grid" data-source="/Players/Get">
+         *     <thead>
+         *         <tr>
+         *             <th width="56" data-field="ID">#</th>
+         *             <th>Name</th>
+         *             <th>PlaceOfBirth</th>
+         *         </tr>
+         *     </thead>
+         * </table>
+         * <script>
+         *     $('#grid').grid();
+         * </script>
+         * @example Local.DataSource <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var data = [
+         *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+         *         { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+         *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+         *     ];
+         *     $('#grid').grid({
+         *         dataSource: data,
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example Html.DataSource <!-- materialicons, grid -->
+         * <table id="grid">
+         *     <thead>
+         *         <tr>
+         *             <th width="56" data-field="ID">#</th>
+         *             <th data-sortable="true">Name</th>
+         *             <th data-field="PlaceOfBirth" data-sortable="true">Place Of Birth</th>
+         *         </tr>
+         *     </thead>
+         *     <tbody>
+         *         <tr>
+         *             <td>1</td>
+         *             <td>Hristo Stoichkov</td>
+         *             <td>Plovdiv, Bulgaria</td>
+         *         </tr>
+         *         <tr>
+         *             <td>2</td>
+         *             <td>Ronaldo Luis Nazario de Lima</td>
+         *             <td>Rio de Janeiro, Brazil</td>
+         *         </tr>
+         *         <tr>
+         *             <td>3</td>
+         *             <td>David Platt</td>
+         *             <td>Chadderton, Lancashire, England</td>
+         *         </tr>
+         *     </tbody>
+         * </table>
+         * <script>
+         *     $('#grid').grid({ pager: { limit: 2, sizes: [2, 5, 10, 20] }});
+         * </script>
+         * @example Remote.Custom.Render <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid, onSuccessFunc = function (response) {
+         *         alert('The result contains ' + response.records.length + ' records.');
+         *         grid.render(response);
+         *     };
+         *     grid = $('#grid').grid({
+         *         dataSource: { url: '/Players/Get', data: {}, success: onSuccessFunc },
+         *         columns: [ { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example Remote.Custom.Error <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid, onErrorFunc = function (response) {
+         *         alert('Server error.');
+         *     };
+         *     grid = $('#grid').grid({
+         *         dataSource: { url: '/DataSources/InvalidUrl', error: onErrorFunc },
+         *         columns: [ { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         */dataSource:undefined,/** An array that holds the configurations of each column from the grid.
+         * @type array
+         * @example JS.Configuration <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth', name: 'Birth Place' } ]
+         *     });
+         * </script>
+         */columns:[],/** Auto generate column for each field in the datasource when set to true.
+         * @type array
+         * @example sample <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         autoGenerateColumns: true
+         *     });
+         * </script>
+         */autoGenerateColumns:false,/** An object that holds the default configuration settings of each column from the grid.
+         * @type object
+         * @example sample <!-- materialicons, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         defaultColumnSettings: { align: 'right' },
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth', name: 'Birth Place' } ]
+         *     });
+         * </script>
+         */defaultColumnSettings:{/** If set to true the column will not be displayed in the grid. By default all columns are displayed.
+             * @alias column.hidden
+             * @type boolean
+             * @default false
+             * @example sample <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *            { field: 'ID', width: 56 },
+             *            { field: 'Name' },
+             *            { field: 'PlaceOfBirth', hidden: true }
+             *        ]
+             *     });
+             * </script>
+             */hidden:false,/** The width of the column. Numeric values are treated as pixels.
+             * If the width is undefined the width of the column is not set and depends on the with of the table(grid).
+             * @alias column.width
+             * @type number|string
+             * @default undefined
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', width: 120 },
+             *             { field: 'PlaceOfBirth' }
+             *         ]
+             *     });
+             * </script>
+             */width:undefined,/** Indicates if the column is sortable.
+             * If set to true the user can click the column header and sort the grid by the column source field.
+             * @alias column.sortable
+             * @type boolean|object
+             * @default false
+             * @example Remote <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', sortable: true },
+             *             { field: 'PlaceOfBirth', sortable: false }
+             *         ]
+             *     });
+             * </script>
+             * @example Local.Custom <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     var data = [
+             *         { 'ID': 1, 'Value1': 'Foo', 'Value2': 'Foo' },
+             *         { 'ID': 2, 'Value1': 'bar', 'Value2': 'bar' },
+             *         { 'ID': 3, 'Value1': 'moo', 'Value2': 'moo' },
+             *         { 'ID': 4, 'Value1': null, 'Value2': undefined }
+             *     ];
+             *     var caseSensitiveSort = function (direction, column) { 
+             *         return function (recordA, recordB) {
+             *             var a = recordA[column.field] || '',
+             *                 b = recordB[column.field] || '';
+             *             return (direction === 'asc') ? a < b : b < a;
+             *         };
+             *     };
+             *     $('#grid').grid({
+             *         dataSource: data,
+             *         columns: [
+             *             { field: 'ID' },
+             *             { field: 'Value1', sortable: true },
+             *             { field: 'Value2', sortable: { sorter: caseSensitiveSort } }
+             *         ]
+             *     });
+             * </script>
+             * @example Remote.Bootstrap.3 <!-- bootstrap, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap',
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', sortable: true },
+             *             { field: 'PlaceOfBirth', sortable: false }
+             *         ]
+             *     });
+             * @example Remote.Bootstrap.4.Material.Icons <!-- materialicons, bootstrap4, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap4',
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', sortable: true },
+             *             { field: 'PlaceOfBirth', sortable: false }
+             *         ]
+             *     });
+             * </script>
+             * @example Remote.Bootstrap.4.FontAwesome <!-- bootstrap4, fontawesome, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap4',
+             *         iconsLibrary: 'fontawesome',
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 42 },
+             *             { field: 'Name', sortable: true },
+             *             { field: 'PlaceOfBirth', sortable: false }
+             *         ]
+             *     });
+             * </script>
+             */sortable:false,/** Indicates the type of the column.
+             * @alias column.type
+             * @type text|checkbox|icon
+             * @default 'text'
+             * @example Icon <!-- grid, bootstrap -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', title: 'Player' },
+             *             { field: 'PlaceOfBirth', title: 'Place of Birth' },
+             *             {
+             *               title: '', field: 'Info', width: 32, type: 'icon', icon: 'glyphicon-info-sign',
+             *               events: {
+             *                 'click': function (e) {
+             *                     alert('record with id=' + e.data.id + ' is clicked.');
+             *                 }
+             *               }
+             *             }
+             *         ]
+             *     });
+             * </script>
+             * @example Checkbox <!-- grid, checkbox, bootstrap -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', title: 'Player' },
+             *             { field: 'PlaceOfBirth', title: 'Place of Birth' },
+             *             { title: 'Active?', field: 'IsActive', width: 80, type: 'checkbox', align: 'center' }
+             *         ]
+             *     });
+             * </script>
+             */type:'text',/** The caption that is going to be displayed in the header of the grid.
+             * @alias column.title
+             * @type string
+             * @default undefined
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', title: 'Player' },
+             *             { field: 'PlaceOfBirth', title: 'Place of Birth' }
+             *         ]
+             *     });
+             * </script>
+             */title:undefined,/** The field name to which the column is bound.
+             * If the column.title is not defined this value is used as column.title.
+             * @alias column.field
+             * @type string
+             * @default undefined
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name' },
+             *             { field: 'PlaceOfBirth', title: 'Place of Birth' }
+             *         ]
+             *     });
+             * </script>
+             */field:undefined,/** This setting control the alignment of the text in the cell.
+             * @alias column.align
+             * @type left|right|center|justify|initial|inherit
+             * @default "left"
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56, align: 'center' },
+             *             { field: 'Name', align: 'right' },
+             *             { field: 'PlaceOfBirth', align: 'left' }
+             *         ]
+             *     });
+             * </script>
+             */align:'left',/** The name(s) of css class(es) that are going to be applied to all cells inside that column, except the header cell.
+             * @alias column.cssClass
+             * @type string
+             * @default undefined
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <style>
+             * .nowrap { white-space: nowrap }
+             * .bold { font-weight: bold }
+             * </style>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', width: 100, cssClass: 'nowrap bold' },
+             *             { field: 'PlaceOfBirth' }
+             *         ]
+             *     });
+             * </script>
+             */cssClass:undefined,/** The name(s) of css class(es) that are going to be applied to the header cell of that column.
+             * @alias column.headerCssClass
+             * @type string
+             * @default undefined
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <style>
+             * .italic { font-style: italic }
+             * </style>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', width: 100, headerCssClass: 'italic' },
+             *             { field: 'PlaceOfBirth' }
+             *         ]
+             *     });
+             * </script>
+             */headerCssClass:undefined,/** The text for the cell tooltip.
+             * @alias column.tooltip
+             * @type string
+             * @default undefined
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56, tooltip: 'This is my tooltip 1.' },
+             *             { field: 'Name', tooltip: 'This is my tooltip 2.' },
+             *             { field: 'PlaceOfBirth', tooltip: 'This is my tooltip 3.' }
+             *         ]
+             *     });
+             * </script>
+             */tooltip:undefined,/** Css class for icon that is going to be in use for the cell.
+             * This setting can be in use only with combination of type icon.
+             * @alias column.icon
+             * @type string
+             * @default undefined
+             * @example sample <!-- bootstrap, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name' },
+             *             { field: 'PlaceOfBirth' },
+             *             { title: '', field: 'Edit', width: 32, type: 'icon', icon: 'glyphicon-pencil', events: { 'click': function (e) { alert('name=' + e.data.record.Name); } } }
+             *         ]
+             *     });
+             * </script>
+             */icon:undefined,/** Configuration object with event names as keys and functions as values that are going to be bind to each cell from the column.
+             * Each function is going to receive event information as a parameter with info in the "data" field for id, field name and record data.
+             * @alias column.events
+             * @type object
+             * @default undefined
+             * @example javascript.configuration <!-- bootstrap, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             {
+             *               field: 'Name',
+             *               events: {
+             *                 'mouseenter': function (e) {
+             *                     e.stopPropagation();
+             *                     $(e.currentTarget).css('background-color', 'red');
+             *                 },
+             *                 'mouseleave': function (e) {
+             *                     e.stopPropagation();
+             *                     $(e.currentTarget).css('background-color', '');
+             *                 }
+             *               }
+             *             },
+             *             { field: 'PlaceOfBirth' },
+             *             {
+             *               title: '', field: 'Info', width: 34, type: 'icon', icon: 'glyphicon-info-sign',
+             *               events: {
+             *                 'click': function (e) {
+             *                     alert('record with id=' + e.data.id + ' is clicked.'); }
+             *                 }
+             *             }
+             *         ]
+             *     });
+             * </script>
+             * @example html.configuration <!-- bootstrap, grid -->
+             * <table id="grid" data-source="/Players/Get" data-ui-library="bootstrap">
+             *     <thead>
+             *         <tr>
+             *             <th data-field="ID" width="34">ID</th>
+             *             <th data-events="mouseenter: onMouseEnter, mouseleave: onMouseLeave">Name</th>
+             *             <th data-field="PlaceOfBirth">Place Of Birth</th>
+             *             <th data-events="click: onClick" data-type="icon" data-icon="glyphicon-info-sign" width="32"></th>
+             *         </tr>
+             *     </thead>
+             * </table>
+             * <script>
+             *     function onMouseEnter (e) {
+             *         $(e.currentTarget).css('background-color', 'red');
+             *     }
+             *     function onMouseLeave (e) {
+             *         $(e.currentTarget).css('background-color', '');
+             *     }
+             *     function onClick(e) {
+             *         alert('record with id=' + e.data.id + ' is clicked.');
+             *     }
+             *     $('#grid').grid();
+             * </script>
+             */events:undefined,/** Format the date when the type of the column is date.
+             * @additionalinfo <b>d</b> - Day of the month as digits; no leading zero for single-digit days.<br/>
+             * <b>dd</b> - Day of the month as digits; leading zero for single-digit days.<br/>
+             * <b>m</b> - Month as digits; no leading zero for single-digit months.<br/>
+             * <b>mm</b> - Month as digits; leading zero for single-digit months.<br/>
+             * <b>yy</b> - Year as last two digits; leading zero for years less than 10.<br/>
+             * <b>yyyy</b> - Year represented by four digits.<br/>
+             * <b>s</b> - Seconds; no leading zero for single-digit seconds.<br/>
+             * <b>ss</b> - Seconds; leading zero for single-digit seconds.<br/>
+             * <b>M</b> - Minutes; no leading zero for single-digit minutes. Uppercase MM to avoid conflict with months.<br/>
+             * <b>MM</b> - Minutes; leading zero for single-digit minutes. Uppercase MM to avoid conflict with months.<br/>
+             * <b>H</b> - Hours; no leading zero for single-digit hours (24-hour clock).<br/>
+             * <b>HH</b> - Hours; leading zero for single-digit hours (24-hour clock).<br/>
+             * <b>h</b> - Hours; no leading zero for single-digit hours (12-hour clock).<br/>
+             * <b>hh</b> - Hours; leading zero for single-digit hours (12-hour clock).<br/>
+             * <b>tt</b> - Lowercase, two-character time marker string: am or pm.<br/>
+             * <b>TT</b> - Uppercase, two-character time marker string: AM or PM.<br/>
+             * @alias column.format
+             * @type string
+             * @default 'mm/dd/yyyy'
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name' },
+             *             { field: 'DateOfBirth', title: 'Date 1', type: 'date', format: 'HH:MM:ss mm/dd/yyyy' },
+             *             { field: 'DateOfBirth', title: 'Date 2', type: 'date' }
+             *         ]
+             *     });
+             * </script>
+             */format:'mm/dd/yyyy',/** Number of decimal digits after the decimal point.
+             * @alias column.decimalDigits
+             * @type number
+             * @default undefined
+             */decimalDigits:undefined,/** Template for the content in the column.
+             * Use curly brackets '{}' to wrap the names of data source columns from server response.
+             * @alias column.tmpl
+             * @type string
+             * @default undefined
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name' },
+             *             { title: 'Info', tmpl: '{Name} is born in {PlaceOfBirth}.' }
+             *         ]
+             *     });
+             * </script>
+             */tmpl:undefined,/** If set to true stop event propagation when event occur.
+             * @alias column.stopPropagation
+             * @type boolean
+             * @default false
+             * @example sample <!-- bootstrap, grid -->
+             * <table id="grid" data-source="/Players/Get"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', events: { 'click': function (e) { alert('name=' + e.data.record.Name); } }  },
+             *             { field: 'PlaceOfBirth', stopPropagation: true, events: { 'click': function (e) { alert('name=' + e.data.record.Name); } }   },
+             *             { title: '', field: 'Edit', width: 32, type: 'icon', icon: 'glyphicon-pencil', events: { 'click': function (e) { alert('name=' + e.data.record.Name); } } }
+             *         ]
+             *     });
+             * </script>
+             */stopPropagation:false,/** A renderer is an 'interceptor' function which can be used to transform data (value, appearance, etc.) before it is rendered.
+             * @additionalinfo If the renderer function return a value, then this value is going to be automatically set as value of the cell.<br/>
+             * If the renderer function doesn't return a value, then you have to set the content of the cell manually.
+             * @alias column.renderer
+             * @type function
+             * @default undefined
+             * @param {string} value - the record field value
+             * @param {object} record - the data of the row record
+             * @param {object} $cell - the current table cell presented as jquery object
+             * @param {object} $displayEl - inner div element for display of the cell value presented as jquery object
+             * @param {string} id - the id of the record
+             * @example sample <!-- grid -->
+             * <table id="grid" data-source="/Players/Get"></table>
+             * <script>
+             *     var nameRenderer = function (value, record, $cell, $displayEl) { 
+             *         $cell.css('font-style', 'italic'); 
+             *         $displayEl.css('background-color', '#EEE');
+             *         $displayEl.text(value);
+             *     };
+             *     $('#grid').grid({
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', renderer: nameRenderer },
+             *             { field: 'PlaceOfBirth', renderer: function (value, record) { return record.ID % 2 ? '<b>' + value + '</b>' : '<i>' + value + '</i>'; }  }
+             *         ]
+             *     });
+             * </script>
+             */renderer:undefined,/** Function which can be used to customize filtering with local data (javascript sourced data).
+             * @additionalinfo The default filtering is not case sensitive. The filtering with remote data sources needs to be handled on the server.
+             * @alias column.filter
+             * @type function
+             * @default undefined
+             * @param {string} value - the record field value
+             * @param {string} searchStr - the search string
+             * @example example <!-- grid -->
+             * <input type="text" id="txtValue1" placeholder="Value 1" /> &nbsp;
+             * <input type="text" id="txtValue2" placeholder="Value 2" /> &nbsp;
+             * <button id="btnSearch">Search</button> <br/><br/>
+             * <table id="grid"></table>
+             * <script>
+             *     var grid, data = [
+             *             { 'ID': 1, 'Value1': 'Foo', 'Value2': 'Foo' },
+             *             { 'ID': 2, 'Value1': 'bar', 'Value2': 'bar' },
+             *             { 'ID': 3, 'Value1': 'moo', 'Value2': 'moo' },
+             *             { 'ID': 4, 'Value1': null, 'Value2': undefined }
+             *         ],
+             *         caseSensitiveFilter = function (value, searchStr) { 
+             *             return value.indexOf(searchStr) > -1
+             *         };
+             *     grid = $('#grid').grid({
+             *         dataSource: data,
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Value1' },
+             *             { field: 'Value2', filter: caseSensitiveFilter }
+             *         ]
+             *     });
+             *     $('#btnSearch').on('click', function () {
+             *         grid.reload({ Value1: $('#txtValue1').val(), Value2: $('#txtValue2').val() });
+             *     });
+             * </script>
+             */filter:undefined},mapping:{/** The name of the object in the server response, that contains array with records, that needs to be display in the grid.
+             * @alias mapping.dataField
+             * @type string
+             * @default "records"
+             */dataField:'records',/** The name of the object in the server response, that contains the number of all records on the server.
+             * @alias mapping.totalRecordsField
+             * @type string
+             * @default "total"
+             */totalRecordsField:'total'},params:{},paramNames:{/** The name of the parameter that is going to send the name of the column for sorting.
+             * The "sortable" setting for at least one column should be enabled in order this parameter to be in use.
+             * @alias paramNames.sortBy
+             * @type string
+             * @default "sortBy"
+             */sortBy:'sortBy',/** The name of the parameter that is going to send the direction for sorting.
+             * The "sortable" setting for at least one column should be enabled in order this parameter to be in use.
+             * @alias paramNames.direction
+             * @type string
+             * @default "direction"
+             */direction:'direction'},/** The name of the UI library that is going to be in use. Currently we support Bootstrap 3, Bootstrap 4 and Material Design.
+         * @additionalinfo The css files for Bootstrap or Material Design should be manually included to the page where the grid is in use.
+         * @type (materialdesign|bootstrap|bootstrap4)
+         * @default 'materialdesign'
+         * @example Material.Design.With.Icons <!-- materialicons, dropdown, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+         *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+         *     });
+         * </script>
+         * @example Material.Design.Without.Icons <!-- materialicons, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         uiLibrary: 'materialdesign',
+         *         iconsLibrary: '',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+         *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+         *     });
+         * </script>
+         * @example Bootstrap.3 <!-- grid, dropdown, bootstrap -->
+         * <div class="container"><table id="grid"></table></div>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         uiLibrary: 'bootstrap',
+         *         columns: [
+         *             { field: 'ID' },
+         *             { field: 'Name', sortable: true },
+         *             { field: 'PlaceOfBirth' }
+         *         ],
+         *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+         *     });
+         * </script>
+         * @example Bootstrap.4.Font.Awesome <!-- bootstrap4, fontawesome, dropdown, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         uiLibrary: 'bootstrap4',
+         *         iconsLibrary: 'fontawesome',
+         *         columns: [ { field: 'ID', width: 38 }, { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+         *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+         *     });
+         * </script>
+         */uiLibrary:'materialdesign',/** The name of the icons library that is going to be in use. Currently we support Material Icons, Font Awesome and Glyphicons.
+         * @additionalinfo If you use Bootstrap 3 as uiLibrary, then the iconsLibrary is set to Glyphicons by default.<br/>
+         * If you use Material Design as uiLibrary, then the iconsLibrary is set to Material Icons by default.<br/>
+         * The css files for Material Icons, Font Awesome or Glyphicons should be manually included to the page where the grid is in use.
+         * @type (materialicons|fontawesome|glyphicons)
+         * @default 'materialicons'
+         * @example Font.Awesome <!-- fontawesome, grid, grid.pagination -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         iconsLibrary: 'fontawesome',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+         *         pager: { limit: 5 }
+         *     });
+         * </script>
+         */iconsLibrary:'materialicons',/** The type of the row selection.<br/>
+         * If the type is set to multiple the user will be able to select more then one row from the grid.
+         * @type (single|multiple)
+         * @default 'single'
+         * @example Multiple.Material.Design.Checkbox <!-- materialicons, checkbox, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         selectionType: 'multiple',
+         *         selectionMethod: 'checkbox',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example Multiple.Bootstrap.3.Checkbox <!-- bootstrap, checkbox, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         primaryKey: 'ID',
+         *         uiLibrary: 'bootstrap',
+         *         dataSource: '/Players/Get',
+         *         selectionType: 'multiple',
+         *         selectionMethod: 'checkbox',
+         *         columns: [ { field: 'ID', width: 32 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example Multiple.Bootstrap.4.Checkbox <!-- bootstrap4, materialicons, checkbox, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         uiLibrary: 'bootstrap4',
+         *         dataSource: '/Players/Get',
+         *         selectionType: 'multiple',
+         *         selectionMethod: 'checkbox',
+         *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example Single.Checkbox <!-- materialicons, checkbox, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         selectionType: 'single',
+         *         selectionMethod: 'checkbox',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         */selectionType:'single',/** The type of the row selection mechanism.
+         * @additionalinfo If this setting is set to "basic" when the user select a row, then this row will be highlighted.<br/>
+         * If this setting is set to "checkbox" a column with checkboxes will appear as first row of the grid and when the user select a row, then this row will be highlighted and the checkbox selected.
+         * @type (basic|checkbox)
+         * @default "basic"
+         * @example sample <!-- materialicons, checkbox, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         selectionType: 'single',
+         *         selectionMethod: 'checkbox',
+         *         columns: [ { field: 'ID' }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         */selectionMethod:'basic',/** When this setting is enabled the content of the grid will be loaded automatically after the creation of the grid.
+         * @type boolean
+         * @default true
+         * @example disabled <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         autoLoad: false,
+         *         columns: [ { field: 'ID' }, { field: 'Name' } ]
+         *     });
+         *     grid.reload(); //call .reload() explicitly in order to load the data in the grid
+         * </script>
+         * @example enabled <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         autoLoad: true,
+         *         columns: [ { field: 'ID' }, { field: 'Name' } ]
+         *     });
+         * </script>
+         */autoLoad:true,/** The text that is going to be displayed if the grid is empty.
+         * @type string
+         * @default "No records found."
+         * @example sample <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: { url: '/Players/Get', data: { name: 'not existing name' } },
+         *         notFoundText: 'No records found custom message',
+         *         columns: [ { field: 'ID' }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example localization <!-- grid -->
+         * <table id="grid"></table>
+         * <script src="../../dist/modular/grid/js/messages/messages.de-de.js"></script>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: { url: '/Players/Get', data: { name: 'not existing name' } },
+         *         locale: 'de-de',
+         *         columns: [ { field: 'ID' }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         */notFoundText:undefined,/** Width of the grid.
+         * @type number
+         * @default undefined
+         * @example sample <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         width: 400,
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         */width:undefined,/** Minimum width of the grid.
+         * @type number
+         * @default undefined
+         */minWidth:undefined,/** The size of the font in the grid.
+         * @type string
+         * @default undefined
+         * @example sample <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         fontSize: '16px',
+         *         columns: [ { field: 'ID' }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         */fontSize:undefined,/** Name of column that contains the record id. 
+         * @additionalinfo If you set primary key, we assume that this number is unique for each records presented in the grid.<br/>
+         * For example this should contains the column with primary key from your relation db table.<br/>
+         * If the primaryKey is undefined, we autogenerate id for each record in the table by starting from 1.
+         * @type string
+         * @default undefined
+         * @example defined <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var data = [
+         *         { 'ID': 101, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+         *         { 'ID': 102, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+         *         { 'ID': 103, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+         *     ];
+         *     $('#grid').grid({
+         *         dataSource: data,
+         *         primaryKey: 'ID',
+         *         columns: [ 
+         *             { field: 'ID', width: 70 },
+         *             { field: 'Name' },
+         *             { field: 'PlaceOfBirth' } ,
+         *             { tmpl: '<a href="#">click me</a>', events: { click: function(e) { alert('Your id is ' + e.data.id); } }, width: 100, stopPropagation: true } 
+         *         ]
+         *     });
+         * </script>
+         * @example undefined <!-- grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var data = [
+         *         { 'ID': 101, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+         *         { 'ID': 102, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+         *         { 'ID': 103, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+         *     ];
+         *     $('#grid').grid({
+         *         dataSource: data,
+         *         columns: [ 
+         *             { field: 'ID', width: 70 },
+         *             { field: 'Name' },
+         *             { field: 'PlaceOfBirth' } ,
+         *             { tmpl: '<a href="#">click me</a>', events: { click: function(e) { alert('Your id is ' + e.data.id); } }, width: 100, stopPropagation: true } 
+         *         ]
+         *     });
+         * </script>
+         */primaryKey:undefined,/** The language that needs to be in use.
+         * @type string
+         * @default 'en-us'
+         * @example German.Bootstrap.Default <!-- bootstrap, grid-->
+         * <script src="../../dist/modular/grid/js/messages/messages.de-de.js"></script>
+         * <table id="grid"></table>
+         * <script>
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         uiLibrary: 'bootstrap',
+         *         locale: 'de-de',
+         *         columns: [ 
+         *             { field: 'ID', width: 34 },
+         *             { field: 'Name', title: 'PrÃ©nom' },
+         *             { field: 'PlaceOfBirth', title: 'Lieu de naissance' }
+         *         ],
+         *         pager: { limit: 5 }
+         *     });
+         * </script>
+         * @example French.MaterialDesign.Custom <!-- materialicons, grid-->
+         * <script src="../../dist/modular/grid/js/messages/messages.fr-fr.js"></script>
+         * <table id="grid"></table>
+         * <script>
+         *     gj.grid.messages['fr-fr'].DisplayingRecords = 'Mes rÃ©sultats';
+         *     $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         uiLibrary: 'materialdesign',
+         *         locale: 'fr-fr',
+         *         columns: [ 
+         *             { field: 'ID', width: 56 },
+         *             { field: 'Name', title: 'PrÃ©nom' },
+         *             { field: 'PlaceOfBirth', title: 'Lieu de naissance' }
+         *         ],
+         *         pager: { limit: 5 }
+         *     });
+         * </script>
+         */locale:'en-us',defaultIconColumnWidth:70,defaultCheckBoxColumnWidth:70,style:{wrapper:'gj-grid-wrapper',table:'gj-grid gj-grid-md',loadingCover:'gj-grid-loading-cover',loadingText:'gj-grid-loading-text',header:{cell:undefined,sortable:'gj-cursor-pointer'},content:{rowHover:undefined,rowSelected:'gj-grid-md-select'}},icons:{asc:'â–²',desc:'â–¼'}},bootstrap:{style:{wrapper:'gj-grid-wrapper',table:'gj-grid gj-grid-bootstrap gj-grid-bootstrap-3 table table-bordered table-hover',content:{rowHover:undefined,rowSelected:'active'}},iconsLibrary:'glyphicons',defaultIconColumnWidth:34,defaultCheckBoxColumnWidth:36},bootstrap4:{style:{wrapper:'gj-grid-wrapper',table:'gj-grid gj-grid-bootstrap gj-grid-bootstrap-4 table table-bordered table-hover',content:{rowHover:undefined,rowSelected:'active'}},defaultIconColumnWidth:42,defaultCheckBoxColumnWidth:44},materialicons:{icons:{asc:'<i class="material-icons">arrow_upward</i>',desc:'<i class="material-icons">arrow_downward</i>'}},fontawesome:{icons:{asc:'<i class="fa fa-sort-amount-asc" aria-hidden="true"></i>',desc:'<i class="fa fa-sort-amount-desc" aria-hidden="true"></i>'}},glyphicons:{icons:{asc:'<span class="glyphicon glyphicon-sort-by-alphabet" />',desc:'<span class="glyphicon glyphicon-sort-by-alphabet-alt" />'}}};/**
+  * @widget Grid
+  * @plugin Base
+  */gj.grid.events={/**
+     * Event fires before addition of an empty row to the grid.
+     * @event beforeEmptyRowInsert
+     * @param {object} e - event data
+     * @param {object} $row - The empty row as jquery object
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: {
+     *             url: '/Players/Get',
+     *             data: { name: 'not existing data' } //search for not existing data in order to fire the event
+     *         },
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     grid.on('beforeEmptyRowInsert', function (e, $row) {
+     *         alert('beforeEmptyRowInsert is fired.');
+     *     });
+     * </script>
+     */beforeEmptyRowInsert:function beforeEmptyRowInsert($grid,$row){return $grid.triggerHandler('beforeEmptyRowInsert',[$row]);},/**
+     * Event fired before data binding takes place.
+     *
+     * @event dataBinding
+     * @param {object} e - event data
+     * @param {array} records - the list of records
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     grid.on('dataBinding', function (e, records) {
+     *         alert('dataBinding is fired. ' + records.length + ' records will be loaded in the grid.');
+     *     });
+     * </script>
+     */dataBinding:function dataBinding($grid,records){return $grid.triggerHandler('dataBinding',[records]);},/**
+     * Event fires after the loading of the data in the grid.
+     *
+     * @event dataBound
+     * @param {object} e - event data
+     * @param {array} records - the list of records
+     * @param {number} totalRecords - the number of the all records that can be presented in the grid
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     grid.on('dataBound', function (e, records, totalRecords) {
+     *         alert('dataBound is fired. ' + records.length + ' records are bound to the grid.');
+     *     });
+     * </script>
+     */dataBound:function dataBound($grid,records,totalRecords){return $grid.triggerHandler('dataBound',[records,totalRecords]);},/**
+     * Event fires after insert of a row in the grid during the loading of the data.
+     * @event rowDataBound
+     * @param {object} e - event data
+     * @param {object} $row - the row presented as jquery object
+     * @param {string} id - the id of the record
+     * @param {object} record - the data of the row record
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     grid.on('rowDataBound', function (e, $row, id, record) {
+     *         alert('rowDataBound is fired for row with id=' + id + '.');
+     *     });
+     * </script>
+     */rowDataBound:function rowDataBound($grid,$row,id,record){return $grid.triggerHandler('rowDataBound',[$row,id,record]);},/**
+     * Event fires after insert of a cell in the grid during the loading of the data
+     *
+     * @event cellDataBound
+     * @param {object} e - event data
+     * @param {object} $displayEl - inner div element for display of the cell value presented as jquery object
+     * @param {string} id - the id of the record
+     * @param {object} column - the column configuration data
+     * @param {object} record - the data of the row record
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' }, { field: 'Bulgarian', title: 'Is Bulgarian?' } ]
+     *     });
+     *     grid.on('cellDataBound', function (e, $displayEl, id, column, record) {
+     *         if ('Bulgarian' === column.field) {
+     *             $displayEl.text(record.PlaceOfBirth.indexOf('Bulgaria') > -1 ? 'Yes' : 'No');
+     *         }
+     *     });
+     * </script>
+     */cellDataBound:function cellDataBound($grid,$displayEl,id,column,record){return $grid.triggerHandler('cellDataBound',[$displayEl,id,column,record]);},/**
+     * Event fires on selection of row
+     *
+     * @event rowSelect
+     * @param {object} e - event data
+     * @param {object} $row - the row presented as jquery object
+     * @param {string} id - the id of the record
+     * @param {object} record - the data of the row record
+     * @example sample <!-- materialicons, checkbox, grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox'
+     *     });
+     *     grid.on('rowSelect', function (e, $row, id, record) {
+     *         alert('Row with id=' + id + ' is selected.');
+     *     });
+     * </script>
+     */rowSelect:function rowSelect($grid,$row,id,record){return $grid.triggerHandler('rowSelect',[$row,id,record]);},/**
+     * Event fires on un selection of row
+     *
+     * @event rowUnselect
+     * @param {object} e - event data
+     * @param {object} $row - the row presented as jquery object
+     * @param {string} id - the id of the record
+     * @param {object} record - the data of the row record
+     * @example sample <!-- materialicons, checkbox, grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox'
+     *     });
+     *     grid.on('rowUnselect', function (e, $row, id, record) {
+     *         alert('Row with id=' + id + ' is unselected.');
+     *     });
+     * </script>
+     */rowUnselect:function rowUnselect($grid,$row,id,record){return $grid.triggerHandler('rowUnselect',[$row,id,record]);},/**
+     * Event fires before deletion of row in the grid.
+     * @event rowRemoving
+     * @param {object} e - event data
+     * @param {object} $row - the row presented as jquery object
+     * @param {string} id - the id of the record
+     * @param {object} record - the data of the row record
+     * @example sample <!-- grid -->
+     * <button onclick="grid.removeRow('1')">Remove Row</button><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: [
+     *             { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *             { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *             { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *         ],
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     grid.on('rowRemoving', function (e, $row, id, record) {
+     *         alert('rowRemoving is fired for row with id=' + id + '.');
+     *     });
+     * </script>
+     */rowRemoving:function rowRemoving($grid,$row,id,record){return $grid.triggerHandler('rowRemoving',[$row,id,record]);},/**
+     * Event fires when the grid.destroy method is called.
+     *
+     * @event destroying
+     * @param {object} e - event data
+     * @example sample <!-- grid -->
+     * <button id="btnDestroy">Destroy</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     grid.on('destroying', function (e) {
+     *         alert('destroying is fired.');
+     *     });
+     *     $('#btnDestroy').on('click', function() {
+     *         grid.destroy();
+     *     });
+     * </script>
+     */destroying:function destroying($grid){return $grid.triggerHandler('destroying');},/**
+     * Event fires when column is hidding
+     *
+     * @event columnHide
+     * @param {object} e - event data
+     * @param {object} column - The data about the column that is hidding
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     grid.on('columnHide', function (e, column) {
+     *         alert('The ' + column.field + ' column is hidden.');
+     *     });
+     *     grid.hideColumn('PlaceOfBirth');
+     * </script>
+     */columnHide:function columnHide($grid,column){return $grid.triggerHandler('columnHide',[column]);},/**
+     * Event fires when column is showing
+     *
+     * @event columnShow
+     * @param {object} e - event data
+     * @param {object} column - The data about the column that is showing
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth', hidden: true } ]
+     *     });
+     *     grid.on('columnShow', function (e, column) {
+     *         alert('The ' + column.field + ' column is shown.');
+     *     });
+     *     grid.showColumn('PlaceOfBirth');
+     * </script>
+     */columnShow:function columnShow($grid,column){return $grid.triggerHandler('columnShow',[column]);},/**
+     * Event fires when grid is initialized.
+     *
+     * @event initialized
+     * @param {object} e - event data
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth', hidden: true } ],
+     *         initialized: function (e) {
+     *             alert('The grid is initialized.');
+     *         }
+     *     });
+     * </script>
+     */initialized:function initialized($grid){return $grid.triggerHandler('initialized');},/**
+     * Event fires when the grid data is filtered.
+     *
+     * @additionalinfo This event is firing only when you use local dataSource, because the filtering with remote dataSource needs to be done on the server side.
+     * @event dataFiltered
+     * @param {object} e - event data
+     * @param {object} records - The records after the filtering.
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid, data = [
+     *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria', Nationality: 'Bulgaria' },
+     *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil', Nationality: 'Brazil' },
+     *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England', Nationality: 'England' },
+     *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany', Nationality: 'Germany' },
+     *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia', Nationality: 'Colombia' },
+     *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria', Nationality: 'Bulgaria' }
+     *     ];
+     *     grid = $('#grid').grid({
+     *         dataSource: data,
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         dataFiltered: function (e, records) {
+     *             records.reverse(); // reverse the data
+     *             records.splice(3, 2); // remove 2 elements after the 3rd record
+     *         }
+     *     });
+     * </script>
+     */dataFiltered:function dataFiltered($grid,records){return $grid.triggerHandler('dataFiltered',[records]);}};/*global gj $*/gj.grid.methods={init:function init(jsConfig){gj.widget.prototype.init.call(this,jsConfig,'grid');gj.grid.methods.initialize(this);if(this.data('autoLoad')){this.reload();}return this;},getConfig:function getConfig(jsConfig,type){var config=gj.widget.prototype.getConfig.call(this,jsConfig,type);gj.grid.methods.setDefaultColumnConfig(config.columns,config.defaultColumnSettings);return config;},setDefaultColumnConfig:function setDefaultColumnConfig(columns,defaultColumnSettings){var column,i;if(columns&&columns.length){for(i=0;i<columns.length;i++){column=$.extend(true,{},defaultColumnSettings);$.extend(true,column,columns[i]);columns[i]=column;}}},getHTMLConfig:function getHTMLConfig(){var result=gj.widget.prototype.getHTMLConfig.call(this);result.columns=[];this.find('thead > tr > th').each(function(){var $el=$(this),title=$el.text(),config=gj.widget.prototype.getHTMLConfig.call($el);config.title=title;if(!config.field){config.field=title;}if(config.events){config.events=gj.grid.methods.eventsParser(config.events);}result.columns.push(config);});return result;},eventsParser:function eventsParser(events){var result={},list,i,key,func,position;list=events.split(',');for(i=0;i<list.length;i++){position=list[i].indexOf(':');if(position>0){key=$.trim(list[i].substr(0,position));func=$.trim(list[i].substr(position+1,list[i].length));result[key]=eval('window.'+func);//window[func]; //TODO: eveluate functions from string
+}}return result;},initialize:function initialize($grid){var data=$grid.data(),$wrapper=$grid.parent('div[data-role="wrapper"]');gj.grid.methods.localization(data);if($wrapper.length===0){$wrapper=$('<div data-role="wrapper" />').addClass(data.style.wrapper);//The css class needs to be added before the wrapping, otherwise doesn't work.
+$grid.wrap($wrapper);}else{$wrapper.addClass(data.style.wrapper);}if(data.width){$grid.parent().css('width',data.width);}if(data.minWidth){$grid.css('min-width',data.minWidth);}if(data.fontSize){$grid.css('font-size',data.fontSize);}$grid.addClass(data.style.table);if('checkbox'===data.selectionMethod){data.columns.splice(gj.grid.methods.getColumnPositionNotInRole($grid),0,{title:'',width:data.defaultCheckBoxColumnWidth,align:'center',type:'checkbox',role:'selectRow',events:{click:function click(e){gj.grid.methods.setSelected($grid,e.data.id,$(this).closest('tr'));}},headerCssClass:'gj-grid-select-all',stopPropagation:true});}if($grid.children('tbody').length===0){$grid.append($('<tbody/>'));}gj.grid.methods.renderHeader($grid);gj.grid.methods.appendEmptyRow($grid,'&nbsp;');gj.grid.events.initialized($grid);},localization:function localization(data){if(!data.notFoundText){data.notFoundText=gj.grid.messages[data.locale].NoRecordsFound;}},renderHeader:function renderHeader($grid){var data,columns,style,$thead,$row,$cell,$title,i,$checkAllBoxes;data=$grid.data();columns=data.columns;style=data.style.header;$thead=$grid.children('thead');if($thead.length===0){$thead=$('<thead />');$grid.prepend($thead);}$row=$('<tr data-role="caption" />');for(i=0;i<columns.length;i+=1){$cell=$('<th data-field="'+(columns[i].field||'')+'" />');if(columns[i].width){$cell.attr('width',columns[i].width);}else if(columns[i].type==='checkbox'){$cell.attr('width',data.defaultIconColumnWidth);}$cell.addClass(style.cell);if(columns[i].headerCssClass){$cell.addClass(columns[i].headerCssClass);}$cell.css('text-align',columns[i].align||'left');if('checkbox'===data.selectionMethod&&'multiple'===data.selectionType&&'checkbox'===columns[i].type&&'selectRow'===columns[i].role){$checkAllBoxes=$cell.find('input[data-role="selectAll"]');if($checkAllBoxes.length===0){$checkAllBoxes=$('<input type="checkbox" data-role="selectAll" />');$cell.append($checkAllBoxes);$checkAllBoxes.checkbox({uiLibrary:data.uiLibrary});}$checkAllBoxes.off('click').on('click',function(){if(this.checked){$grid.selectAll();}else{$grid.unSelectAll();}});}else{$title=$('<div data-role="title"/>').html(typeof columns[i].title==='undefined'?columns[i].field:columns[i].title);$cell.append($title);if(columns[i].sortable){$title.addClass(style.sortable);$title.on('click',gj.grid.methods.createSortHandler($grid,columns[i]));}}if(columns[i].hidden){$cell.hide();}$row.append($cell);}$thead.empty().append($row);},createSortHandler:function createSortHandler($grid,column){return function(){var data,params={};if($grid.count()>0){data=$grid.data();params[data.paramNames.sortBy]=column.field;column.direction=column.direction==='asc'?'desc':'asc';params[data.paramNames.direction]=column.direction;$grid.reload(params);}};},updateHeader:function updateHeader($grid){var $sortIcon,$cellTitle,data=$grid.data(),sortBy=data.params[data.paramNames.sortBy],direction=data.params[data.paramNames.direction];$grid.find('thead tr th [data-role="sorticon"]').remove();if(sortBy){position=gj.grid.methods.getColumnPosition($grid.data('columns'),sortBy);if(position>-1){$cellTitle=$grid.find('thead tr th:eq('+position+') div[data-role="title"]');$sortIcon=$('<div data-role="sorticon" class="gj-unselectable" />').append('desc'===direction?data.icons.desc:data.icons.asc);$cellTitle.after($sortIcon);}}},useHtmlDataSource:function useHtmlDataSource($grid,data){var dataSource=[],i,j,$cells,record,$rows=$grid.find('tbody tr[data-role != "empty"]');for(i=0;i<$rows.length;i++){$cells=$($rows[i]).find('td');record={};for(j=0;j<$cells.length;j++){record[data.columns[j].field]=$($cells[j]).html();}dataSource.push(record);}data.dataSource=dataSource;},startLoading:function startLoading($grid){var $tbody,$cover,$loading,width,height,top,data;gj.grid.methods.stopLoading($grid);data=$grid.data();if(0===$grid.outerHeight()){return;}$tbody=$grid.children('tbody');width=$tbody.outerWidth(false);height=$tbody.outerHeight(false);top=Math.abs($grid.parent().offset().top-$tbody.offset().top);$cover=$('<div data-role="loading-cover" />').addClass(data.style.loadingCover).css({width:width,height:height,top:top});$loading=$('<div data-role="loading-text">'+gj.grid.messages[data.locale].Loading+'</div>').addClass(data.style.loadingText);$loading.insertAfter($grid);$cover.insertAfter($grid);$loading.css({top:top+height/2-$loading.outerHeight(false)/2,left:width/2-$loading.outerWidth(false)/2});},stopLoading:function stopLoading($grid){$grid.parent().find('div[data-role="loading-cover"]').remove();$grid.parent().find('div[data-role="loading-text"]').remove();},createAddRowHoverHandler:function createAddRowHoverHandler($row,cssClass){return function(){$row.addClass(cssClass);};},createRemoveRowHoverHandler:function createRemoveRowHoverHandler($row,cssClass){return function(){$row.removeClass(cssClass);};},appendEmptyRow:function appendEmptyRow($grid,caption){var data,$row,$cell,$wrapper;data=$grid.data();$row=$('<tr data-role="empty"/>');$cell=$('<td/>').css({width:'100%','text-align':'center'});$cell.attr('colspan',gj.grid.methods.countVisibleColumns($grid));$wrapper=$('<div />').html(caption||data.notFoundText);$cell.append($wrapper);$row.append($cell);gj.grid.events.beforeEmptyRowInsert($grid,$row);$grid.append($row);},autoGenerateColumns:function autoGenerateColumns($grid,records){var names,value,type,i,data=$grid.data();data.columns=[];if(records.length>0){names=Object.getOwnPropertyNames(records[0]);for(i=0;i<names.length;i++){value=records[0][names[i]];type='text';if(value){if(typeof value==='number'){type='number';}else if(value.indexOf('/Date(')>-1){type='date';}}data.columns.push({field:names[i],type:type});}gj.grid.methods.setDefaultColumnConfig(data.columns,data.defaultColumnSettings);}gj.grid.methods.renderHeader($grid);},loadData:function loadData($grid){var data,records,i,recLen,rowCount,$tbody,$rows,$row;data=$grid.data();records=$grid.getAll();gj.grid.events.dataBinding($grid,records);recLen=records.length;gj.grid.methods.stopLoading($grid);if(data.autoGenerateColumns){gj.grid.methods.autoGenerateColumns($grid,records);}$tbody=$grid.children('tbody');if('checkbox'===data.selectionMethod&&'multiple'===data.selectionType){$grid.find('thead input[data-role="selectAll"]').prop('checked',false);}$tbody.children('tr').not('[data-role="row"]').remove();if(0===recLen){$tbody.empty();gj.grid.methods.appendEmptyRow($grid);}$rows=$tbody.children('tr');rowCount=$rows.length;for(i=0;i<rowCount;i++){if(i<recLen){$row=$rows.eq(i);gj.grid.methods.renderRow($grid,$row,records[i],i);}else{$tbody.find('tr[data-role="row"]:gt('+(i-1)+')').remove();break;}}for(i=rowCount;i<recLen;i++){gj.grid.methods.renderRow($grid,null,records[i],i);}gj.grid.events.dataBound($grid,records,data.totalRecords);},getId:function getId(record,primaryKey,position){return primaryKey&&record[primaryKey]?record[primaryKey]:position;},renderRow:function renderRow($grid,$row,record,position){var id,$cell,i,data,mode;data=$grid.data();if(!$row||$row.length===0){mode='create';$row=$('<tr data-role="row"/>');$grid.children('tbody').append($row);$row.on('mouseenter',gj.grid.methods.createAddRowHoverHandler($row,data.style.content.rowHover));$row.on('mouseleave',gj.grid.methods.createRemoveRowHoverHandler($row,data.style.content.rowHover));}else{mode='update';$row.removeClass(data.style.content.rowSelected).removeAttr('data-selected').off('click');}id=gj.grid.methods.getId(record,data.primaryKey,position+1);$row.attr('data-position',position+1);if(data.selectionMethod!=='checkbox'){$row.on('click',gj.grid.methods.createRowClickHandler($grid,id));}for(i=0;i<data.columns.length;i++){if(mode==='update'){$cell=$row.find('td:eq('+i+')');gj.grid.methods.renderCell($grid,$cell,data.columns[i],record,id);}else{$cell=gj.grid.methods.renderCell($grid,null,data.columns[i],record,id);$row.append($cell);}}gj.grid.events.rowDataBound($grid,$row,id,record);},renderCell:function renderCell($grid,$cell,column,record,id,mode){var $displayEl,key;if(!$cell||$cell.length===0){$cell=$('<td/>').css('text-align',column.align||'left');$displayEl=$('<div data-role="display" />');if(column.cssClass){$cell.addClass(column.cssClass);}$cell.append($displayEl);mode='create';}else{$displayEl=$cell.find('div[data-role="display"]');mode='update';}gj.grid.methods.renderDisplayElement($grid,$displayEl,column,record,id,mode);//remove all event handlers
+if('update'===mode){$cell.off();$displayEl.off();}if(column.events){for(key in column.events){if(column.events.hasOwnProperty(key)){$cell.on(key,{id:id,field:column.field,record:record},gj.grid.methods.createCellEventHandler(column,column.events[key]));}}}if(column.hidden){$cell.hide();}gj.grid.events.cellDataBound($grid,$displayEl,id,column,record);return $cell;},createCellEventHandler:function createCellEventHandler(column,func){return function(e){if(column.stopPropagation){e.stopPropagation();}func.call(this,e);};},renderDisplayElement:function renderDisplayElement($grid,$displayEl,column,record,id,mode){var text,$checkbox;if('checkbox'===column.type&&gj.checkbox){if('create'===mode){$checkbox=$('<input type="checkbox" />').val(id).prop('checked',record[column.field]?true:false);column.role&&$checkbox.attr('data-role',column.role);$displayEl.append($checkbox);$checkbox.checkbox({uiLibrary:$grid.data('uiLibrary')});if(column.role==='selectRow'){$checkbox.on('click',function(){return false;});}else{$checkbox.prop('disabled',true);}}else{$displayEl.find('input[type="checkbox"]').val(id).prop('checked',record[column.field]?true:false);}}else if('icon'===column.type){if('create'===mode){$displayEl.append($('<span/>').addClass($grid.data().uiLibrary==='bootstrap'?'glyphicon':'ui-icon').addClass(column.icon).css({cursor:'pointer'}));column.stopPropagation=true;}}else if(column.tmpl){text=column.tmpl;column.tmpl.replace(/\{(.+?)\}/g,function($0,$1){text=text.replace($0,gj.grid.methods.formatText(record[$1],column));});$displayEl.html(text);}else if(column.renderer&&typeof column.renderer==='function'){text=column.renderer(record[column.field],record,$displayEl.parent(),$displayEl,id,$grid);if(text){$displayEl.html(text);}}else{record[column.field]=gj.grid.methods.formatText(record[column.field],column);if(!column.tooltip&&record[column.field]){$displayEl.attr('title',record[column.field]);}$displayEl.html(record[column.field]);}if(column.tooltip&&'create'===mode){$displayEl.attr('title',column.tooltip);}},formatText:function formatText(text,column){if(text&&column.type==='date'){text=gj.core.formatDate(gj.core.parseDate(text,column.format),column.format);}else{text=typeof text==='undefined'||text===null?'':text.toString();}if(column.decimalDigits&&text){text=parseFloat(text).toFixed(column.decimalDigits);}return text;},setRecordsData:function setRecordsData($grid,response){var records=[],totalRecords=0,data=$grid.data();if($.isArray(response)){records=response;totalRecords=response.length;}else if(data&&data.mapping&&$.isArray(response[data.mapping.dataField])){records=response[data.mapping.dataField];totalRecords=response[data.mapping.totalRecordsField];if(!totalRecords||isNaN(totalRecords)){totalRecords=0;}}$grid.data('records',records);$grid.data('totalRecords',totalRecords);return records;},createRowClickHandler:function createRowClickHandler($grid,id){return function(){gj.grid.methods.setSelected($grid,id,$(this));};},selectRow:function selectRow($grid,data,$row,id){var $checkbox;$row.addClass(data.style.content.rowSelected);$row.attr('data-selected','true');if('checkbox'===data.selectionMethod){$checkbox=$row.find('input[type="checkbox"][data-role="selectRow"]');$checkbox.length&&!$checkbox.prop('checked')&&$checkbox.prop('checked',true);if('multiple'===data.selectionType&&$grid.getSelections().length===$grid.count(false)){$grid.find('thead input[data-role="selectAll"]').prop('checked',true);}}return gj.grid.events.rowSelect($grid,$row,id,$grid.getById(id));},unselectRow:function unselectRow($grid,data,$row,id){var $checkbox;if($row.attr('data-selected')==='true'){$row.removeClass(data.style.content.rowSelected);if('checkbox'===data.selectionMethod){$checkbox=$row.find('td input[type="checkbox"][data-role="selectRow"]');$checkbox.length&&$checkbox.prop('checked')&&$checkbox.prop('checked',false);if('multiple'===data.selectionType){$grid.find('thead input[data-role="selectAll"]').prop('checked',false);}}$row.removeAttr('data-selected');return gj.grid.events.rowUnselect($grid,$row,id,$grid.getById(id));}},setSelected:function setSelected($grid,id,$row){var data=$grid.data();if(!$row||!$row.length){$row=gj.grid.methods.getRowById($grid,id);}if($row){if($row.attr('data-selected')==='true'){gj.grid.methods.unselectRow($grid,data,$row,id);}else{if('single'===data.selectionType){$row.siblings('[data-selected="true"]').each(function(){var $row=$(this),id=gj.grid.methods.getId($row,data.primaryKey,$row.data('position'));gj.grid.methods.unselectRow($grid,data,$row,id);});}gj.grid.methods.selectRow($grid,data,$row,id);}}return $grid;},selectAll:function selectAll($grid){var data=$grid.data();$grid.find('tbody tr[data-role="row"]').each(function(){var $row=$(this),position=$row.data('position'),record=$grid.get(position),id=gj.grid.methods.getId(record,data.primaryKey,position);gj.grid.methods.selectRow($grid,data,$row,id);});$grid.find('thead input[data-role="selectAll"]').prop('checked',true);return $grid;},unSelectAll:function unSelectAll($grid){var data=$grid.data();$grid.find('tbody tr').each(function(){var $row=$(this),position=$row.data('position'),record=$grid.get(position),id=gj.grid.methods.getId(record,data.primaryKey,position);gj.grid.methods.unselectRow($grid,data,$row,id);$row.find('input[type="checkbox"][data-role="selectRow"]').prop('checked',false);});$grid.find('thead input[data-role="selectAll"]').prop('checked',false);return $grid;},getSelected:function getSelected($grid){var result=null,selections,record,position;selections=$grid.find('tbody>tr[data-selected="true"]');if(selections.length>0){position=$(selections[0]).data('position');record=$grid.get(position);result=gj.grid.methods.getId(record,$grid.data().primaryKey,position);}return result;},getSelectedRows:function getSelectedRows($grid){var data=$grid.data();return $grid.find('tbody>tr[data-selected="true"]');},getSelections:function getSelections($grid){var result=[],position,record,data=$grid.data(),$selections=gj.grid.methods.getSelectedRows($grid);if(0<$selections.length){$selections.each(function(){position=$(this).data('position');record=$grid.get(position);result.push(gj.grid.methods.getId(record,data.primaryKey,position));});}return result;},getById:function getById($grid,id){var result=null,i,primaryKey=$grid.data('primaryKey'),records=$grid.data('records');if(primaryKey){for(i=0;i<records.length;i++){if(records[i][primaryKey]==id){result=records[i];break;}}}else{result=$grid.get(id);}return result;},getRecVPosById:function getRecVPosById($grid,id){var result=id,i,data=$grid.data();if(data.primaryKey){for(i=0;i<data.dataSource.length;i++){if(data.dataSource[i][data.primaryKey]==id){result=i;break;}}}return result;},getRowById:function getRowById($grid,id){var records=$grid.getAll(false),primaryKey=$grid.data('primaryKey'),$result=undefined,position,i;if(primaryKey){for(i=0;i<records.length;i++){if(records[i][primaryKey]==id){position=i+1;break;}}}else{position=id;}if(position){$result=$grid.find('tbody > tr[data-position="'+position+'"]');}return $result;},getByPosition:function getByPosition($grid,position){return $grid.getAll(false)[position-1];},getColumnPosition:function getColumnPosition(columns,field){var position=-1,i;for(i=0;i<columns.length;i++){if(columns[i].field===field){position=i;break;}}return position;},getColumnInfo:function getColumnInfo($grid,field){var i,result={},data=$grid.data();for(i=0;i<data.columns.length;i+=1){if(data.columns[i].field===field){result=data.columns[i];break;}}return result;},getCell:function getCell($grid,id,field){var position,$row,$result=null;position=gj.grid.methods.getColumnPosition($grid.data('columns'),field);if(position>-1){$row=gj.grid.methods.getRowById($grid,id);$result=$row.find('td:eq('+position+') div[data-role="display"]');}return $result;},setCellContent:function setCellContent($grid,id,field,value){var column,$displayEl=gj.grid.methods.getCell($grid,id,field);if($displayEl){$displayEl.empty();if((typeof value==='undefined'?'undefined':_typeof(value))==='object'){$displayEl.append(value);}else{column=gj.grid.methods.getColumnInfo($grid,field);gj.grid.methods.renderDisplayElement($grid,$displayEl,column,$grid.getById(id),id,'update');}}},clone:function clone(source){var target=[];$.each(source,function(){target.push(this.clone());});return target;},getAll:function getAll($grid){return $grid.data('records');},countVisibleColumns:function countVisibleColumns($grid){var columns,count,i;columns=$grid.data().columns;count=0;for(i=0;i<columns.length;i++){if(columns[i].hidden!==true){count++;}}return count;},clear:function clear($grid,showNotFoundText){var data=$grid.data();$grid.xhr&&$grid.xhr.abort();$grid.children('tbody').empty();data.records=[];gj.grid.methods.stopLoading($grid);gj.grid.methods.appendEmptyRow($grid,showNotFoundText?data.notFoundText:'&nbsp;');gj.grid.events.dataBound($grid,[],0);return $grid;},render:function render($grid,response){if(response){gj.grid.methods.setRecordsData($grid,response);gj.grid.methods.updateHeader($grid);gj.grid.methods.loadData($grid);}return $grid;},filter:function filter($grid){var field,column,data=$grid.data(),records=data.dataSource.slice();if(data.params[data.paramNames.sortBy]){column=gj.grid.methods.getColumnInfo($grid,data.params[data.paramNames.sortBy]);records.sort(column.sortable.sorter?column.sortable.sorter(column.direction,column):gj.grid.methods.createDefaultSorter(column.direction,column.field));}for(field in data.params){if(data.params[field]&&!data.paramNames[field]){column=gj.grid.methods.getColumnInfo($grid,field);records=$.grep(records,function(record){var value=record[field]||'',searchStr=data.params[field]||'';return column&&typeof column.filter==='function'?column.filter(value,searchStr):value.toUpperCase().indexOf(searchStr.toUpperCase())>-1;});}}gj.grid.events.dataFiltered($grid,records);return records;},createDefaultSorter:function createDefaultSorter(direction,field){return function(recordA,recordB){var a=(recordA[field]||'').toString(),b=(recordB[field]||'').toString();return direction==='asc'?a.localeCompare(b):b.localeCompare(a);};},destroy:function destroy($grid,keepTableTag,keepWrapperTag){var data=$grid.data();if(data){gj.grid.events.destroying($grid);gj.grid.methods.stopLoading($grid);$grid.xhr&&$grid.xhr.abort();$grid.off();if(keepWrapperTag===false&&$grid.parent('div[data-role="wrapper"]').length>0){$grid.unwrap();}$grid.removeData();if(keepTableTag===false){$grid.remove();}else{$grid.removeClass().empty();}$grid.removeAttr('data-type');}return $grid;},showColumn:function showColumn($grid,field){var data=$grid.data(),position=gj.grid.methods.getColumnPosition(data.columns,field),$cells;if(position>-1){$grid.find('thead>tr').each(function(){$(this).children('th').eq(position).show();});$.each($grid.find('tbody>tr'),function(){$(this).children('td').eq(position).show();});data.columns[position].hidden=false;$cells=$grid.find('tbody > tr[data-role="empty"] > td');if($cells&&$cells.length){$cells.attr('colspan',gj.grid.methods.countVisibleColumns($grid));}gj.grid.events.columnShow($grid,data.columns[position]);}return $grid;},hideColumn:function hideColumn($grid,field){var data=$grid.data(),position=gj.grid.methods.getColumnPosition(data.columns,field),$cells;if(position>-1){$grid.find('thead>tr').each(function(){$(this).children('th').eq(position).hide();});$.each($grid.find('tbody>tr'),function(){$(this).children('td').eq(position).hide();});data.columns[position].hidden=true;$cells=$grid.find('tbody > tr[data-role="empty"] > td');if($cells&&$cells.length){$cells.attr('colspan',gj.grid.methods.countVisibleColumns($grid));}gj.grid.events.columnHide($grid,data.columns[position]);}return $grid;},isLastRecordVisible:function isLastRecordVisible(){return true;},addRow:function addRow($grid,record){var data=$grid.data();data.totalRecords=$grid.data('totalRecords')+1;gj.grid.events.dataBinding($grid,[record]);data.records.push(record);if($.isArray(data.dataSource)){data.dataSource.push(record);}if(data.totalRecords===1){$grid.children('tbody').empty();}if(gj.grid.methods.isLastRecordVisible($grid)){gj.grid.methods.renderRow($grid,null,record,$grid.count()-1);}gj.grid.events.dataBound($grid,[record],data.totalRecords);return $grid;},updateRow:function updateRow($grid,id,record){var $row=gj.grid.methods.getRowById($grid,id),data=$grid.data(),position;data.records[$row.data('position')-1]=record;if($.isArray(data.dataSource)){position=gj.grid.methods.getRecVPosById($grid,id);data.dataSource[position]=record;}gj.grid.methods.renderRow($grid,$row,record,$row.index());return $grid;},removeRow:function removeRow($grid,id){var position,data=$grid.data(),$row=gj.grid.methods.getRowById($grid,id);gj.grid.events.rowRemoving($grid,$row,id,$grid.getById(id));if($.isArray(data.dataSource)){position=gj.grid.methods.getRecVPosById($grid,id);data.dataSource.splice(position,1);}$grid.reload();return $grid;},count:function count($grid,includeAllRecords){return includeAllRecords?$grid.data().totalRecords:$grid.getAll().length;},getColumnPositionByRole:function getColumnPositionByRole($grid,role){var i,result,columns=$grid.data('columns');for(i=0;i<columns.length;i++){if(columns[i].role===role){result=i;break;}}return result;},getColumnPositionNotInRole:function getColumnPositionNotInRole($grid){var i,result=0,columns=$grid.data('columns');for(i=0;i<columns.length;i++){if(!columns[i].role){result=i;break;}}return result;}};/**
+  * @widget Grid
+  * @plugin Base
+  */gj.grid.widget=function($grid,jsConfig){var self=this,methods=gj.grid.methods;/**
+     * Reload the data in the grid from a data source.
+     * @method
+     * @param {object} params - An object that contains a list with parameters that are going to be send to the server.
+     * @fires beforeEmptyRowInsert, dataBinding, dataBound, cellDataBound
+     * @return grid
+     * @example sample <!-- grid -->
+     * <input type="text" id="txtSearch">
+     * <button id="btnSearch">Search</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     $('#btnSearch').on('click', function () {
+     *         grid.reload({ name: $('#txtSearch').val() });
+     *     });
+     * </script>
+     */self.reload=function(params){methods.startLoading(this);return gj.widget.prototype.reload.call(this,params);};/**
+     * Clear the content in the grid.
+     * @method
+     * @param {boolean} showNotFoundText - Indicates if the "Not Found" text is going to show after the clearing of the grid.
+     * @return grid
+     * @example sample <!-- materialicons, grid -->
+     * <button id="btnClear">Clear</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         pager: { limit: 5 }
+     *     });
+     *     $('#btnClear').on('click', function () {
+     *         grid.clear();
+     *     });
+     * </script>
+     */self.clear=function(showNotFoundText){return methods.clear(this,showNotFoundText);};/**
+     * Return the number of records in the grid. By default return only the records that are visible in the grid.
+     * @method
+     * @param {boolean} includeAllRecords - include records that are not visible when you are using local dataSource.
+     * @return number
+     * @example Local.DataSource <!-- bootstrap, grid, grid.pagination -->
+     * <button class="btn btn-default" onclick="alert(grid.count())">Count Visible Records</button>
+     * <button class="btn btn-default" onclick="alert(grid.count(true))">Count All Records</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var data, grid;
+     *     data = [
+     *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *         { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *     ];
+     *     grid = $('#grid').grid({
+     *         dataSource: data,
+     *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         uiLibrary: 'bootstrap',
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     * </script>
+     * @example Remote.DataSource <!-- bootstrap, grid, grid.pagination -->
+     * <button onclick="alert(grid.count())">Count Visible Records</button>
+     * <button onclick="alert(grid.count(true))">Count All Records</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         uiLibrary: 'bootstrap',
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     * </script>
+     */self.count=function(includeAllRecords){return methods.count(this,includeAllRecords);};/**
+     * Render data in the grid
+     * @method
+     * @param {object} response - An object that contains the data that needs to be loaded in the grid.
+     * @fires beforeEmptyRowInsert, dataBinding, dataBound, cellDataBound
+     * @return grid
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid, onSuccessFunc;
+     *     onSuccessFunc = function (response) {
+     *         //you can modify the response here if needed
+     *         grid.render(response);
+     *     };
+     *     grid = $('#grid').grid({
+     *         dataSource: { url: '/Players/Get', success: onSuccessFunc },
+     *         columns: [ { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     * </script>
+     */self.render=function(response){return methods.render($grid,response);};/**
+     * Destroy the grid. This method remove all data from the grid and all events attached to the grid.
+     * @additionalinfo The grid table tag and wrapper tag are kept by default after the execution of destroy method,
+     * but you can remove them if you pass false to the keepTableTag and keepWrapperTag parameters.
+     * @method
+     * @param {boolean} keepTableTag - If this flag is set to false, the table tag will be removed from the HTML dom tree.
+     * @param {boolean} keepWrapperTag - If this flag is set to false, the table wrapper tag will be removed from the HTML dom tree.
+     * @fires destroying
+     * @return void
+     * @example keep.wrapper.and.table <!-- grid -->
+     * <button class="gj-button-md" id="btnDestroy">Destroy</button>
+     * <button class="gj-button-md" id="btnCreate">Create</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var createFunc = function() {
+     *         $('#grid').grid({
+     *             dataSource: '/Players/Get',
+     *             columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *         });
+     *     };
+     *     createFunc();
+     *     $('#btnDestroy').on('click', function () {
+     *         $('#grid').grid('destroy', true, true);
+     *     });
+     *     $('#btnCreate').on('click', function () {
+     *         createFunc();
+     *     });
+     * </script>
+     * @example remove.wrapper.and.table <!-- grid -->
+     * <button class="gj-button-md" id="btnRemove">Remove</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     $('#btnRemove').on('click', function () {
+     *         grid.destroy();
+     *     });
+     * </script>
+     */self.destroy=function(keepTableTag,keepWrapperTag){return methods.destroy(this,keepTableTag,keepWrapperTag);};/**
+     * Select a row from the grid based on id parameter.
+     * @method
+     * @param {string} id - The id of the row that needs to be selected
+     * @return grid
+     * @example sample <!-- materialicons, checkbox, grid -->
+     * <input type="text" id="txtNumber" value="1" />
+     * <button id="btnSelect" class="gj-button-md">Select</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox'
+     *     });
+     *     $('#btnSelect').on('click', function () {
+     *         grid.setSelected(parseInt($('#txtNumber').val(), 10));
+     *     });
+     * </script>
+     */self.setSelected=function(id){return methods.setSelected(this,id);};/**
+     * Return the id of the selected record.
+     * If the multiple selection method is one this method is going to return only the id of the first selected record.
+     * @method
+     * @return string
+     * @example sample <!-- materialicons, checkbox, grid -->
+     * <button id="btnShowSelection" class="gj-button-md">Show Selection</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox'
+     *     });
+     *     $('#btnShowSelection').on('click', function () {
+     *         alert(grid.getSelected());
+     *     });
+     * </script>
+     */self.getSelected=function(){return methods.getSelected(this);};/**
+     * Return an array with the ids of the selected record.
+     * @additionalinfo Specify primaryKey if you want to use field from the dataSource as identificator for selection.
+     * @method
+     * @return array
+     * @example With.Primary.Ket <!-- materialicons, checkbox, grid, dropdown -->
+     * <button id="btnShowSelection" class="gj-button-md">Show Selections</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid, data = [
+     *         { 'ID': 101, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *         { 'ID': 102, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *         { 'ID': 103, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' },
+     *         { 'ID': 104, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany' }
+     *     ];
+     *     grid = $('#grid').grid({
+     *         dataSource: data,
+     *         primaryKey: 'ID',
+     *         columns: [ { field: 'ID', width: 70 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox',
+     *         selectionType: 'multiple',
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     *     $('#btnShowSelection').on('click', function () {
+     *         var selections = grid.getSelections();
+     *         alert(selections.join());
+     *     });
+     * </script>
+     * @example Without.Primary.Ket <!-- materialicons, checkbox, grid, dropdown -->
+     * <button id="btnShowSelection" class="gj-button-md">Show Selections</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid, data = [
+     *         { 'ID': 101, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *         { 'ID': 102, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *         { 'ID': 103, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' },
+     *         { 'ID': 104, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany' }
+     *     ];
+     *     grid = $('#grid').grid({
+     *         dataSource: data,
+     *         columns: [ { field: 'ID', width: 70 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox',
+     *         selectionType: 'multiple',
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     *     $('#btnShowSelection').on('click', function () {
+     *         var selections = grid.getSelections();
+     *         alert(selections.join());
+     *     });
+     * </script>
+     */self.getSelections=function(){return methods.getSelections(this);};/**
+     * Select all records from the grid.
+     * @method
+     * @return grid
+     * @example sample <!-- materialicons, checkbox, grid -->
+     * <button id="btnSelectAll">Select All</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox',
+     *         selectionType: 'multiple'
+     *     });
+     *     $('#btnSelectAll').on('click', function () {
+     *         grid.selectAll();
+     *     });
+     * </script>
+     */self.selectAll=function(){return methods.selectAll(this);};/**
+     * Unselect all records from the grid.
+     * @method
+     * @return void
+     * @example sample <!-- materialicons, checkbox, grid -->
+     * <button id="btnSelectAll">Select All</button>
+     * <button id="btnUnSelectAll">UnSelect All</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         selectionMethod: 'checkbox',
+     *         selectionType: 'multiple'
+     *     });
+     *     $('#btnSelectAll').on('click', function () {
+     *         grid.selectAll();
+     *     });
+     *     $('#btnUnSelectAll').on('click', function () {
+     *         grid.unSelectAll();
+     *     });
+     * </script>
+     */self.unSelectAll=function(){return methods.unSelectAll(this);};/**
+     * Return record by id of the record.
+     * @method
+     * @param {string} id - The id of the row that needs to be returned.
+     * @return object
+     * @example sample <!-- grid -->
+     * <button id="btnGetData" class="gj-button-md">Get Data</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         primaryKey: 'ID' //define the name of the column that you want to use as ID here.
+     *     });
+     *     $('#btnGetData').on('click', function () {
+     *         var data = grid.getById('2');
+     *         alert(data.Name + ' born in ' + data.PlaceOfBirth);
+     *     });
+     * </script>
+     */self.getById=function(id){return methods.getById(this,id);};/**
+     * Return record from the grid based on position.
+     * @method
+     * @param {number} position - The position of the row that needs to be return.
+     * @return object
+     * @example sample <!-- grid -->
+     * <button id="btnGetData" class="gj-button-md">Get Data</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     $('#btnGetData').on('click', function () {
+     *         var data = grid.get(3);
+     *         alert(data.Name + ' born in ' + data.PlaceOfBirth);
+     *     });
+     * </script>
+     */self.get=function(position){return methods.getByPosition(this,position);};/**
+     * Return an array with all records presented in the grid.
+     * @method
+     * @param {boolean} includeAllRecords - include records that are not visible when you are using local dataSource.
+     * @return number
+     * @example Local.DataSource <!-- bootstrap, grid, grid.pagination -->
+     * <button onclick="alert(JSON.stringify(grid.getAll()))" class="btn btn-default">Get All Visible Records</button>
+     * <button onclick="alert(JSON.stringify(grid.getAll(true)))" class="btn btn-default">Get All Records</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var data, grid;
+     *     data = [
+     *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *         { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *     ];
+     *     grid = $('#grid').grid({
+     *         dataSource: data,
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         uiLibrary: 'bootstrap',
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     * </script>
+     * @example Remote.DataSource <!-- bootstrap, grid, grid.pagination -->
+     * <button onclick="alert(JSON.stringify(grid.getAll()))" class="btn btn-default">Get All Visible Records</button>
+     * <button onclick="alert(JSON.stringify(grid.getAll(true)))" class="btn btn-default">Get All Records</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+     *         uiLibrary: 'bootstrap',
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     * </script>
+     */self.getAll=function(includeAllRecords){return methods.getAll(this,includeAllRecords);};/**
+     * Show hidden column.
+     * @method
+     * @param {string} field - The name of the field bound to the column.
+     * @return grid
+     * @example sample <!-- grid -->
+     * <button id="btnShowColumn" class="gj-button-md">Show Column</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth', hidden: true } ]
+     *     });
+     *     $('#btnShowColumn').on('click', function () {
+     *         grid.showColumn('PlaceOfBirth');
+     *     });
+     * </script>
+     */self.showColumn=function(field){return methods.showColumn(this,field);};/**
+     * Hide column from the grid.
+     * @method
+     * @param {string} field - The name of the field bound to the column.
+     * @return grid
+     * @example sample <!-- grid -->
+     * <button id="btnHideColumn" class="gj-button-md">Hide Column</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     $('#btnHideColumn').on('click', function () {
+     *         grid.hideColumn('PlaceOfBirth');
+     *     });
+     * </script>
+     */self.hideColumn=function(field){return methods.hideColumn(this,field);};/**
+     * Add new row to the grid.
+     * @method
+     * @param {object} record - Object with data for the new record.
+     * @return grid
+     * @example without.pagination <!-- materialicons, grid -->
+     * <button id="btnAdd" class="gj-button-md">Add Row</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: [
+     *             { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *             { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *             { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *         ],
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+     *     });
+     *     $('#btnAdd').on('click', function () {
+     *         grid.addRow({ 'ID': grid.count(true) + 1, 'Name': 'Test Player', 'PlaceOfBirth': 'Test City, Test Country' });
+     *     });
+     * </script>
+     * @example with.pagination <!-- materialicons, grid -->
+     * <button id="btnAdd" class="gj-button-md">Add Row</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: [
+     *             { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *             { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *             { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *         ],
+     *         columns: [ 
+     *             { field: 'ID', width: 56 },
+     *             { field: 'Name' },
+     *             { field: 'PlaceOfBirth' },
+     *             { width: 70, align: 'center', tmpl: '<i class="material-icons">delete</i>', events: { 'click': function(e) { grid.removeRow(e.data.id); } } }
+     *         ],
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     *     $('#btnAdd').on('click', function () {
+     *         grid.addRow({ 'ID': grid.count(true) + 1, 'Name': 'Test Player', 'PlaceOfBirth': 'Test City, Test Country' });
+     *     });
+     * </script>
+     */self.addRow=function(record){return methods.addRow(this,record);};/**
+     * Update row data.
+     * @method
+     * @param {string} id - The id of the row that needs to be updated
+     * @param {object} record - Object with data for the new record.
+     * @return grid
+     * @example sample <!-- materialicons, grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid;
+     *     grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: [
+     *             { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *             { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *             { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *         ],
+     *         columns: [
+     *             { field: 'ID', width: 56 },
+     *             { field: 'Name' },
+     *             { field: 'PlaceOfBirth' },
+     *             { title: '', width: 50, align: 'center', tmpl: '<u>Edit</u>', events: { 'click': Edit } }
+     *         ],
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     *     function Edit(e) {
+     *         grid.updateRow(e.data.id, { 'ID': e.data.id, 'Name': 'Ronaldo', 'PlaceOfBirth': 'Rio, Brazil' });
+     *     }
+     * </script>
+     */self.updateRow=function(id,record){return methods.updateRow(this,id,record);};//TODO: needs to be removed
+self.setCellContent=function(id,index,value){methods.setCellContent(this,id,index,value);};/**
+     * Remove row from the grid
+     * @additionalinfo This method is design to work only with local datasources. If you use remote datasource, you need to send a request to the server to remove the row and then reload the data in the grid.
+     * @method
+     * @param {string} id - Id of the record that needs to be removed.
+     * @return grid
+     * @example Without.Pagination <!-- materialicons, grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid;
+     *     function Delete(e) {
+     *         if (confirm('Are you sure?')) {
+     *             grid.removeRow(e.data.id);
+     *         }
+     *     }
+     *     grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: [
+     *             { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *             { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *             { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *         ],
+     *         columns: [
+     *             { field: 'ID', width: 56 },
+     *             { field: 'Name' },
+     *             { field: 'PlaceOfBirth' },
+     *             { width: 100, align: 'center', tmpl: '<u class="gj-cursor-pointer">Delete</u>', events: { 'click': Delete } }
+     *         ]
+     *     });
+     * </script>
+     * @example With.Pagination <!-- materialicons, grid, grid.pagination -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid;
+     *     function Delete(e) {
+     *         if (confirm('Are you sure?')) {
+     *             grid.removeRow(e.data.id);
+     *         }
+     *     }
+     *     grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: [
+     *             { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+     *             { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+     *             { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+     *         ],
+     *         columns: [
+     *             { field: 'ID', width: 56 },
+     *             { field: 'Name' },
+     *             { field: 'PlaceOfBirth' },
+     *             { width: 100, align: 'center', tmpl: '<u class="gj-cursor-pointer">Delete</u>', events: { 'click': Delete } }
+     *         ],
+     *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+     *     });
+     * </script>
+     */self.removeRow=function(id){return methods.removeRow(this,id);};$.extend($grid,self);if('grid'!==$grid.attr('data-type')){methods.init.call($grid,jsConfig);}return $grid;};gj.grid.widget.prototype=new gj.widget();gj.grid.widget.constructor=gj.grid.widget;gj.grid.widget.prototype.getConfig=gj.grid.methods.getConfig;gj.grid.widget.prototype.getHTMLConfig=gj.grid.methods.getHTMLConfig;(function($){$.fn.grid=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.grid.widget(this,method);}else{$widget=new gj.grid.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);/** 
+ * @widget Grid 
+ * @plugin Expand Collapse Rows
+ */gj.grid.plugins.expandCollapseRows={config:{base:{/** Template for the content in the detail section of the row.
+             * Automatically add expand collapse column as a first column in the grid during initialization.
+             * @type string
+             * @default undefined
+             * @example Material.Design <!-- materialicons, grid, grid.expandCollapseRows -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'materialdesign',
+             *         detailTemplate: '<div style="text-align: left"><b>Place Of Birth:</b> {PlaceOfBirth}</div>',
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'DateOfBirth', type: 'date' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.3 <!-- bootstrap, grid, grid.expandCollapseRows -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>',
+             *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'DateOfBirth', type: 'date' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.4.Font.Awesome <!-- bootstrap4, fontawesome, grid, grid.expandCollapseRows -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap4',
+             *         iconsLibrary: 'fontawesome',
+             *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>',
+             *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'DateOfBirth', type: 'date' } ]
+             *     });
+             * </script>
+             */detailTemplate:undefined,/** If set try to persist the state of expanded rows.
+             * You need to specify primaryKey on the initialization of the grid in order to enable this feature.
+             * @default true
+             * @example True <!-- bootstrap, grid  -->
+             * <div class="container">
+             *     <div class="row">
+             *         <div class="col-xs-12">
+             *             <p>Expand row, then change the page and return back to the page with expanded row in order to see that the expansion is kept.</p>
+             *             <table id="grid"></table>
+             *         </div>
+             *     </div>
+             * </div>
+             * <script>
+             *     var grid = $('#grid').grid({
+             *         uiLibrary: 'bootstrap',
+             *         primaryKey: 'ID',
+             *         dataSource: '/Players/Get',
+             *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' } ],
+             *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>',
+             *         keepExpandedRows: true,
+             *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+             *     });
+             * </script>
+             */keepExpandedRows:true,icons:{/** Expand row icon definition.
+                 * @alias icons.expandRow
+                 * @type String
+                 * @default '<i class="material-icons">keyboard_arrow_right</i>'
+                 * @example Plus.Minus.Icons <!-- materialicons, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         primaryKey: 'ID',
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' } ],
+                 *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>',
+                 *         icons: {
+                 *             expandRow: '<i class="material-icons">add</i>',
+                 *             collapseRow: '<i class="material-icons">remove</i>'
+                 *         }
+                 *     });
+                 * </script>
+                 */expandRow:'<i class="material-icons">keyboard_arrow_right</i>',/** Collapse row icon definition.
+                 * @alias icons.collapseRow
+                 * @type String
+                 * @default '<i class="material-icons">keyboard_arrow_down</i>'
+                 * @example Plus.Minus.Icons <!-- materialicons, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         primaryKey: 'ID',
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' } ],
+                 *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>',
+                 *         icons: {
+                 *             expandRow: '<i class="material-icons">add</i>',
+                 *             collapseRow: '<i class="material-icons">remove</i>'
+                 *         }
+                 *     });
+                 * </script>
+                 */collapseRow:'<i class="material-icons">keyboard_arrow_down</i>'}},fontawesome:{icons:{expandRow:'<i class="fa fa-angle-right" aria-hidden="true"></i>',collapseRow:'<i class="fa fa-angle-down" aria-hidden="true"></i>'}},glyphicons:{icons:{expandRow:'<span class="glyphicon glyphicon-chevron-right" />',collapseRow:'<span class="glyphicon glyphicon-chevron-down" />'}}},'private':{detailExpand:function detailExpand($grid,$cell){var $contentRow=$cell.closest('tr'),$detailsRow=$('<tr data-role="details" />'),$detailsCell=$('<td colspan="'+gj.grid.methods.countVisibleColumns($grid)+'" />'),$detailsWrapper=$('<div data-role="display" />'),data=$grid.data(),position=$contentRow.data('position'),record=$grid.get(position),id=gj.grid.methods.getId(record,data.primaryKey,record);$detailsRow.append($detailsCell.append($detailsWrapper.append($contentRow.data('details'))));$detailsRow.insertAfter($contentRow);$cell.children('div[data-role="display"]').empty().append(data.icons.collapseRow);$grid.updateDetails($contentRow);gj.grid.plugins.expandCollapseRows.events.detailExpand($grid,$detailsRow.find('td>div'),id);},detailCollapse:function detailCollapse($grid,$cell){var $contentRow=$cell.closest('tr'),$detailsRow=$contentRow.next('tr[data-role="details"]'),data=$grid.data(),id=gj.grid.methods.getId($contentRow,data.primaryKey,$contentRow.data('position'));$detailsRow.remove();$cell.children('div[data-role="display"]').empty().append(data.icons.expandRow);gj.grid.plugins.expandCollapseRows.events.detailCollapse($grid,$detailsRow.find('td>div'),id);},keepSelection:function keepSelection($grid,id){var data=$grid.data();if(data.keepExpandedRows){if($.isArray(data.expandedRows)){if(data.expandedRows.indexOf(id)==-1){data.expandedRows.push(id);}}else{data.expandedRows=[id];}}},removeSelection:function removeSelection($grid,id){var data=$grid.data();if(data.keepExpandedRows&&$.isArray(data.expandedRows)&&data.expandedRows.indexOf(id)>-1){data.expandedRows.splice(data.expandedRows.indexOf(id),1);}},updateDetailsColSpan:function updateDetailsColSpan($grid){var $cells=$grid.find('tbody > tr[data-role="details"] > td');if($cells&&$cells.length){$cells.attr('colspan',gj.grid.methods.countVisibleColumns($grid));}}},'public':{//TODO: add documentation
+collapseAll:function collapseAll(){var $grid=this,position=gj.grid.methods.getColumnPositionByRole($grid,'expander');$grid.find('tbody tr[data-role="row"]').each(function(){gj.grid.plugins.expandCollapseRows.private.detailCollapse($grid,$(this).find('td:eq('+position+')'));});},//TODO: add documentation
+expandAll:function expandAll(){var $grid=this,position=gj.grid.methods.getColumnPositionByRole($grid,'expander');$grid.find('tbody tr[data-role="row"]').each(function(){gj.grid.plugins.expandCollapseRows.private.detailExpand($grid,$(this).find('td:eq('+position+')'));});},//TODO: add documentation
+updateDetails:function updateDetails($contentRow){var $grid=this,$detailWrapper=$contentRow.data('details'),content=$detailWrapper.html(),record=$grid.get($contentRow.data('position'));if(record&&content){$detailWrapper.html().replace(/\{(.+?)\}/g,function($0,$1){var column=gj.grid.methods.getColumnInfo($grid,$1);content=content.replace($0,gj.grid.methods.formatText(record[$1],column));});$detailWrapper.html(content);}}},'events':{/**
+         * Event fires when detail row is showing
+         *
+         * @event detailExpand
+         * @param {object} e - event data
+         * @param {object} detailWrapper - the detail wrapper as jQuery object 
+         * @param {string} id - the id of the record
+         * @example sample <!-- materialicons, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         primaryKey: 'ID',
+         *         dataSource: '/Players/Get',
+         *         detailTemplate: '<div></div>',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'DateOfBirth', type: 'date' } ]
+         *     });
+         *     grid.on('detailExpand', function (e, $detailWrapper, id) {
+         *         var record = grid.getById(id);
+         *         $detailWrapper.empty().append('<b>Place Of Birth:</b> ' + record.PlaceOfBirth);
+         *     });
+         * </script>
+         */detailExpand:function detailExpand($grid,$detailWrapper,id){$grid.triggerHandler('detailExpand',[$detailWrapper,id]);},/**
+         * Event fires when detail row is hiding
+         *
+         * @event detailCollapse
+         * @param {object} e - event data
+         * @param {object} detailWrapper - the detail wrapper as jQuery object 
+         * @param {string} id - the id of the record
+         * @example sample <!-- materialicons, grid -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         primaryKey: 'ID',
+         *         dataSource: '/Players/Get',
+         *         detailTemplate: '<div></div>',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'DateOfBirth', type: 'date' } ]
+         *     });
+         *     grid.on('detailExpand', function (e, $detailWrapper, id) {
+         *         var record = grid.getById(id);
+         *         $detailWrapper.append('<b>Place Of Birth:</b>' + record.PlaceOfBirth);
+         *     });
+         *     grid.on('detailCollapse', function (e, $detailWrapper, id) {
+         *         $detailWrapper.empty();
+         *         alert('detailCollapse is fired.');
+         *     });
+         * </script>
+         */detailCollapse:function detailCollapse($grid,$detailWrapper,id){$grid.triggerHandler('detailCollapse',[$detailWrapper,id]);}},'configure':function configure($grid){var column,data=$grid.data();$.extend(true,$grid,gj.grid.plugins.expandCollapseRows.public);if(typeof data.detailTemplate!=='undefined'){column={title:'',width:data.defaultIconColumnWidth,align:'center',stopPropagation:true,cssClass:'gj-cursor-pointer gj-unselectable',tmpl:data.icons.expandRow,role:'expander',events:{'click':function click(e){var $cell=$(this),methods=gj.grid.plugins.expandCollapseRows.private;if($cell.closest('tr').next().attr('data-role')==='details'){methods.detailCollapse($grid,$cell);methods.removeSelection($grid,e.data.id);}else{methods.detailExpand($grid,$(this));methods.keepSelection($grid,e.data.id);}}}};data.columns=[column].concat(data.columns);$grid.on('rowDataBound',function(e,$row,id,record){$row.data('details',$(data.detailTemplate));});$grid.on('columnShow',function(e,column){gj.grid.plugins.expandCollapseRows.private.updateDetailsColSpan($grid);});$grid.on('columnHide',function(e,column){gj.grid.plugins.expandCollapseRows.private.updateDetailsColSpan($grid);});$grid.on('rowRemoving',function(e,$row,id,record){gj.grid.plugins.expandCollapseRows.private.detailCollapse($grid,$row.children('td').first());});$grid.on('dataBinding',function(){$grid.collapseAll();});$grid.on('pageChanging',function(){$grid.collapseAll();});$grid.on('dataBound',function(){var i,$cell,$row,position,data=$grid.data();if(data.keepExpandedRows&&$.isArray(data.expandedRows)){for(i=0;i<data.expandedRows.length;i++){$row=gj.grid.methods.getRowById($grid,data.expandedRows[i]);if($row&&$row.length){position=gj.grid.methods.getColumnPositionByRole($grid,'expander');$cell=$row.children('td:eq('+position+')');if($cell&&$cell.length){gj.grid.plugins.expandCollapseRows.private.detailExpand($grid,$cell);}}}}});}}};/** 
+ * @widget Grid 
+ * @plugin Inline Editing
+ */gj.grid.plugins.inlineEditing={renderers:{editManager:function editManager(value,record,$cell,$displayEl,id,$grid){var data=$grid.data(),$edit=$(data.inlineEditing.editButton).attr('data-key',id),$delete=$(data.inlineEditing.deleteButton).attr('data-key',id),$update=$(data.inlineEditing.updateButton).attr('data-key',id).hide(),$cancel=$(data.inlineEditing.cancelButton).attr('data-key',id).hide();$edit.on('click',function(e){$grid.edit($(this).data('key'));$edit.hide();$delete.hide();$update.show();$cancel.show();});$delete.on('click',function(e){$grid.removeRow($(this).data('key'));});$update.on('click',function(e){$grid.update($(this).data('key'));$edit.show();$delete.show();$update.hide();$cancel.hide();});$cancel.on('click',function(e){$grid.cancel($(this).data('key'));$edit.show();$delete.show();$update.hide();$cancel.hide();});$displayEl.empty().append($edit).append($delete).append($update).append($cancel);}}};gj.grid.plugins.inlineEditing.config={base:{defaultColumnSettings:{/** Provides a way to specify a custom editing UI for the column.
+             * @alias column.editor
+             * @type function|boolean
+             * @default undefined
+             * @example sample <!-- grid, checkbox, bootstrap -->
+             * <table id="grid"></table>
+             * <script>
+             *     function editRenderer($container, currentValue, record) {
+             *         $container.append('<input type="text" value="' + currentValue + '" class="gj-width-full"/>');
+             *     }
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 32 },
+             *             { field: 'Name', editor: editRenderer },
+             *             { field: 'PlaceOfBirth', editor: true },
+             *             { field: 'IsActive', title: 'Active?', type:'checkbox', editor: true, mode: 'editOnly', width: 80, align: 'center' }
+             *         ]
+             *     });
+             * </script>
+             * @example Date.And.Dropdown.Material <!-- materialicons, grid, datepicker, dropdown, checkbox -->
+             * <table id="grid"></table>
+             * <script>
+             *     var countries = [ "Bulgaria", "Brazil", "England", "Germany", "Colombia", "Poland" ];
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'Name', editor: true },
+             *             { field: 'Nationality', type: 'dropdown', editor: { dataSource: countries } },
+             *             { field: 'DateOfBirth', type: 'date', editor: true },
+             *             { field: 'IsActive', title: 'Active?', type:'checkbox', editor: true, mode: 'editOnly', width: 80, align: 'center' }
+             *         ]
+             *     });
+             * </script>
+             * @example Date.And.Dropdown.Bootstrap <!-- bootstrap, grid, datepicker, dropdown, checkbox -->
+             * <table id="grid"></table>
+             * <script>
+             *     var countries = [ "Bulgaria", "Brazil", "England", "Germany", "Colombia", "Poland" ];
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap',
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'Name', editor: true },
+             *             { field: 'Nationality', type: 'dropdown', editor: { dataSource: countries } },
+             *             { field: 'DateOfBirth', type: 'date', editor: true },
+             *             { field: 'IsActive', title: 'Active?', type:'checkbox', editor: true, mode: 'editOnly', width: 80, align: 'center' }
+             *         ]
+             *     });
+             * </script>
+             * @example Date.And.Dropdown.Bootstrap.4 <!-- bootstrap4, materialicons, grid, datepicker, dropdown, checkbox -->
+             * <table id="grid"></table>
+             * <script>
+             *     var countries = [ "Bulgaria", "Brazil", "England", "Germany", "Colombia", "Poland" ];
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap4',
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'Name', editor: true },
+             *             { field: 'Nationality', type: 'dropdown', editor: { dataSource: countries } },
+             *             { field: 'DateOfBirth', type: 'date', editor: true },
+             *             { field: 'IsActive', title: 'Active?', type:'checkbox', editor: true, mode: 'editOnly', width: 80, align: 'center' }
+             *         ]
+             *     });
+             * </script>
+             */editor:undefined,/** Provides a way to specify a display mode for the column.
+             * @alias column.mode
+             * @type readEdit|editOnly|readOnly
+             * @default readEdit
+             * @example sample <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', editor: true, mode: 'editOnly' },
+             *             { field: 'PlaceOfBirth', editor: true, mode: 'readOnly' }
+             *         ]
+             *     });
+             * </script>
+             */mode:'readEdit'},inlineEditing:{/** Inline editing mode.
+             * @alias inlineEditing.mode
+             * @type click|dblclick|command
+             * @default 'click'
+             * @example Double.Click <!-- grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid = $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         primaryKey: 'ID',
+             *         inlineEditing: { mode: 'dblclick' },
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', editor: true },
+             *             { field: 'PlaceOfBirth', editor: true }
+             *         ]
+             *     });
+             * </script>
+             * @example Command <!-- materialicons, dropdown, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid, data = [
+             *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' },
+             *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany' },
+             *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia' },
+             *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria' }
+             *     ];
+             *     grid = $('#grid').grid({
+             *         dataSource: data,
+             *         primaryKey: 'ID',
+             *         inlineEditing: { mode: 'command' },
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', editor: true },
+             *             { field: 'PlaceOfBirth', editor: true }
+             *         ],
+             *         pager: { limit: 3 }
+             *     });
+             * </script>
+             */mode:'click',/** If set to true, add column with buttons for edit, delete, update and cancel at the end of the grid.
+             * @alias inlineEditing.managementColumn
+             * @type Boolean
+             * @default true
+             * @example True <!-- materialicons, grid, checkbox, datepicker -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid, data = [
+             *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria', 'DateOfBirth': '\/Date(-122954400000)\/', IsActive: false },
+             *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil', 'DateOfBirth': '\/Date(211842000000)\/', IsActive: false },
+             *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England', 'DateOfBirth': '\/Date(-112417200000)\/', IsActive: false },
+             *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany', 'DateOfBirth': '\/Date(512258400000)\/', IsActive: true },
+             *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia', 'DateOfBirth': '\/Date(679266000000)\/', IsActive: true },
+             *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria', 'DateOfBirth': '\/Date(349653600000)\/', IsActive: false }
+             *     ];
+             *     grid = $('#grid').grid({
+             *         dataSource: data,
+             *         primaryKey: 'ID',
+             *         inlineEditing: { mode: 'command', managementColumn: true },
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', editor: true },
+             *             { field: 'PlaceOfBirth', editor: true },
+             *             { field: 'DateOfBirth', type: 'date', editor: true },
+             *             { field: 'IsActive', title: 'Active?', type: 'checkbox', editor: true, width: 100, align: 'center' }
+             *         ]
+             *     });
+             * </script>
+             * @example False <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid, editManager, data = [
+             *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' },
+             *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany' },
+             *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia' },
+             *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria' }
+             *     ];
+             *     editManager = function (value, record, $cell, $displayEl, id, $grid) {
+             *         var data = $grid.data(),
+             *             $edit = $('<button class="gj-button-md"><i class="material-icons">mode_edit</i> Edit</button>').attr('data-key', id),
+             *             $delete = $('<button class="gj-button-md"><i class="material-icons">delete</i> Delete</button>').attr('data-key', id),
+             *             $update = $('<button class="gj-button-md"><i class="material-icons">check_circle</i> Update</button>').attr('data-key', id).hide(),
+             *             $cancel = $('<button class="gj-button-md"><i class="material-icons">cancel</i> Cancel</button>').attr('data-key', id).hide();
+             *         $edit.on('click', function (e) {
+             *             $grid.edit($(this).data('key'));
+             *             $edit.hide();
+             *             $delete.hide();
+             *             $update.show();
+             *             $cancel.show();
+             *         });
+             *         $delete.on('click', function (e) {
+             *             $grid.removeRow($(this).data('key'));
+             *         });
+             *         $update.on('click', function (e) {
+             *             $grid.update($(this).data('key'));
+             *             $edit.show();
+             *             $delete.show();
+             *             $update.hide();
+             *             $cancel.hide();
+             *         });
+             *         $cancel.on('click', function (e) {
+             *             $grid.cancel($(this).data('key'));
+             *             $edit.show();
+             *             $delete.show();
+             *             $update.hide();
+             *             $cancel.hide();
+             *         });
+             *         $displayEl.empty().append($edit).append($delete).append($update).append($cancel);
+             *     }
+             *     grid = $('#grid').grid({
+             *         dataSource: data,
+             *         primaryKey: 'ID',
+             *         inlineEditing: { mode: 'command', managementColumn: false },
+             *         columns: [
+             *             { field: 'ID', width: 56 },
+             *             { field: 'Name', editor: true },
+             *             { field: 'PlaceOfBirth', editor: true },
+             *             { width: 300, align: 'center', renderer: editManager }
+             *         ]
+             *     });
+             * </script>
+             * @example Bootstrap <!-- bootstrap, grid, dropdown -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid, data = [
+             *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' },
+             *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany' },
+             *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia' },
+             *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria' }
+             *     ];
+             *     grid = $('#grid').grid({
+             *         dataSource: data,
+             *         primaryKey: 'ID',
+             *         inlineEditing: { mode: 'command' },
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', editor: true },
+             *             { field: 'PlaceOfBirth', editor: true }
+             *         ],
+             *         pager: { limit: 3, sizes: [3, 5, 10, 20] }
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- materialicons, bootstrap4, grid, dropdown -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid, data = [
+             *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' },
+             *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany' },
+             *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia' },
+             *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria' }
+             *     ];
+             *     grid = $('#grid').grid({
+             *         dataSource: data,
+             *         primaryKey: 'ID',
+             *         inlineEditing: { mode: 'command' },
+             *         uiLibrary: 'bootstrap4',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', editor: true },
+             *             { field: 'PlaceOfBirth', editor: true }
+             *         ],
+             *         pager: { limit: 3, sizes: [3, 5, 10, 20] }
+             *     });
+             * </script>
+             */managementColumn:true,managementColumnConfig:{width:300,align:'center',renderer:gj.grid.plugins.inlineEditing.renderers.editManager,cssClass:'gj-grid-management-column'}}},bootstrap:{inlineEditing:{managementColumnConfig:{width:200,align:'center',renderer:gj.grid.plugins.inlineEditing.renderers.editManager,cssClass:'gj-grid-management-column'}}},bootstrap4:{inlineEditing:{managementColumnConfig:{width:200,align:'center',renderer:gj.grid.plugins.inlineEditing.renderers.editManager,cssClass:'gj-grid-management-column'}}}};gj.grid.plugins.inlineEditing.private={localization:function localization(data){if(data.uiLibrary==='bootstrap'||data.uiLibrary==='bootstrap4'){data.inlineEditing.editButton='<button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> '+gj.grid.messages[data.locale].Edit+'</button>';data.inlineEditing.deleteButton='<button type="button" class="btn btn-default btn-sm gj-margin-left-10"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span> '+gj.grid.messages[data.locale].Delete+'</button>';data.inlineEditing.updateButton='<button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-ok" aria-hidden="true"></span> '+gj.grid.messages[data.locale].Update+'</button>';data.inlineEditing.cancelButton='<button type="button" class="btn btn-default btn-sm gj-margin-left-10"><span class="glyphicon glyphicon-ban-circle" aria-hidden="true"></span> '+gj.grid.messages[data.locale].Cancel+'</button>';}else{data.inlineEditing.editButton='<button class="gj-button-md"><i class="material-icons">mode_edit</i> '+gj.grid.messages[data.locale].Edit.toUpperCase()+'</button>';data.inlineEditing.deleteButton='<button class="gj-button-md"><i class="material-icons">delete</i> '+gj.grid.messages[data.locale].Delete.toUpperCase()+'</button>';data.inlineEditing.updateButton='<button class="gj-button-md"><i class="material-icons">check_circle</i> '+gj.grid.messages[data.locale].Update.toUpperCase()+'</button>';data.inlineEditing.cancelButton='<button class="gj-button-md"><i class="material-icons">cancel</i> '+gj.grid.messages[data.locale].Cancel.toUpperCase()+'</button>';}},editMode:function editMode($grid,$cell,column,record){var $displayContainer,$editorContainer,$editorField,value,config,data=$grid.data();if($cell.attr('data-mode')!=='edit'&&column.editor){gj.grid.plugins.inlineEditing.private.updateOtherCells($grid,column.mode);$displayContainer=$cell.find('div[data-role="display"]').hide();$editorContainer=$cell.find('div[data-role="edit"]').show();if($editorContainer.length===0){$editorContainer=$('<div data-role="edit" />');$cell.append($editorContainer);}value=column.type==='checkbox'?record[column.field]:$displayContainer.html();$editorField=$editorContainer.find('input, select, textarea').first();if($editorField.length){column.type==='checkbox'?$editorField.prop('checked',value):$editorField.val(value);}else{if(typeof column.editor==='function'){column.editor($editorContainer,value,record);}else{config=_typeof(column.editor)==="object"?column.editor:{};config.uiLibrary=data.uiLibrary;config.fontSize=$grid.css('font-size');if('checkbox'===column.type&&gj.checkbox){$editorField=$('<input type="checkbox" />').prop('checked',value);$editorContainer.append($editorField);$editorField.checkbox(config);}else if('date'===column.type&&gj.datepicker){$editorField=$('<input type="text" width="100%"/>');$editorContainer.append($editorField);$editorField=$editorField.datepicker(config);if($editorField.value){$editorField.value($displayContainer.html());}}else if('dropdown'===column.type&&gj.dropdown){$editorField=$('<select type="text" width="100%"/>');$editorContainer.append($editorField);$editorField=$editorField.dropdown(config);if($editorField.value){$editorField.value($displayContainer.html());}}else{$editorField=$('<input type="text" value="'+value+'" class="gj-width-full"/>');if(data.uiLibrary==='materialdesign'){$editorField.addClass('gj-textbox-md').css('font-size',$grid.css('font-size'));}$editorContainer.append($editorField);}}if(data.inlineEditing.mode!=='command'&&column.mode!=='editOnly'){$editorField=$editorContainer.find('input, select, textarea').first();$editorField.on('keyup',function(e){if(e.keyCode===13||e.keyCode===27){gj.grid.plugins.inlineEditing.private.displayMode($grid,$cell,column);}});}}if($editorField.prop('tagName').toUpperCase()==="INPUT"&&$editorField.prop('type').toUpperCase()==='TEXT'){gj.grid.plugins.inlineEditing.private.setCaretAtEnd($editorField[0]);}else{$editorField.focus();}$cell.attr('data-mode','edit');}},setCaretAtEnd:function setCaretAtEnd(elem){var elemLen;if(elem){elemLen=elem.value.length;if(document.selection){// For IE Only
+elem.focus();var oSel=document.selection.createRange();oSel.moveStart('character',-elemLen);oSel.moveStart('character',elemLen);oSel.moveEnd('character',0);oSel.select();}else if(elem.selectionStart||elem.selectionStart=='0'){// Firefox/Chrome                
+elem.selectionStart=elemLen;elem.selectionEnd=elemLen;elem.focus();}}},displayMode:function displayMode($grid,$cell,column,cancel){var $editorContainer,$displayContainer,$ele,newValue,oldValue,record,position,style='';if($cell.attr('data-mode')==='edit'&&column.mode!=='editOnly'){$editorContainer=$cell.find('div[data-role="edit"]');$displayContainer=$cell.find('div[data-role="display"]');$ele=$editorContainer.find('input, select, textarea').first();newValue=column.type==='checkbox'?$ele.prop('checked'):$ele.val();position=$cell.parent().data('position');record=$grid.get(position);oldValue=column.type==='checkbox'?record[column.field]:$displayContainer.html();if(cancel!==true&&newValue!==oldValue){record[column.field]=column.type==='date'?gj.core.parseDate(newValue,column.format):newValue;if(column.mode!=='editOnly'){gj.grid.methods.renderDisplayElement($grid,$displayContainer,column,record,gj.grid.methods.getId(record,$grid.data('primaryKey'),position),'update');if($cell.find('span.gj-dirty').length===0){$cell.prepend($('<span class="gj-dirty" />'));}}gj.grid.plugins.inlineEditing.events.cellDataChanged($grid,$cell,column,record,oldValue,newValue);gj.grid.plugins.inlineEditing.private.updateChanges($grid,column,record,newValue);}$editorContainer.hide();$displayContainer.show();$cell.attr('data-mode','display');}},updateOtherCells:function updateOtherCells($grid,mode){var data=$grid.data();if(data.inlineEditing.mode!=='command'&&mode!=='editOnly'){$grid.find('div[data-role="edit"]:visible').parent('td').each(function(){var $cell=$(this),column=data.columns[$cell.index()];gj.grid.plugins.inlineEditing.private.displayMode($grid,$cell,column);});}},updateChanges:function updateChanges($grid,column,sourceRecord,newValue){var targetRecords,filterResult,newRecord,data=$grid.data();if(!data.guid){data.guid=gj.grid.plugins.inlineEditing.private.generateGUID();}if(data.primaryKey){targetRecords=JSON.parse(sessionStorage.getItem('gj.grid.'+data.guid));if(targetRecords){filterResult=targetRecords.filter(function(record){return record[data.primaryKey]===sourceRecord[data.primaryKey];});}else{targetRecords=[];}if(filterResult&&filterResult.length===1){filterResult[0][column.field]=newValue;}else{newRecord={};newRecord[data.primaryKey]=sourceRecord[data.primaryKey];if(data.primaryKey!==column.field){newRecord[column.field]=newValue;}targetRecords.push(newRecord);}sessionStorage.setItem('gj.grid.'+data.guid,JSON.stringify(targetRecords));}},generateGUID:function generateGUID(){function s4(){return Math.floor((1+Math.random())*0x10000).toString(16).substring(1);}return s4()+s4()+'-'+s4()+'-'+s4()+'-'+s4()+'-'+s4()+s4()+s4();}};gj.grid.plugins.inlineEditing.public={/**
+     * Return array with all changes
+     * @method
+     * @return array
+     * @example sample <!-- grid, grid.inlineEditing -->
+     * <button id="btnGetChanges" class="gj-button-md">Get Changes</button>
+     * <br/><br/>
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID' }, { field: 'Name', editor: true }, { field: 'PlaceOfBirth', editor: true } ]
+     *     });
+     *     $('#btnGetChanges').on('click', function () {
+     *         alert(JSON.stringify(grid.getChanges()));
+     *     });
+     * </script>
+     */getChanges:function getChanges(){return JSON.parse(sessionStorage.getItem('gj.grid.'+this.data().guid));},/**
+     * Enable edit mode for all editable cells within a row.
+     * @method
+     * @param {string} id - The id of the row that needs to be edited
+     * @return grid
+     * @example Edit.Row <!-- grid -->
+     * <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+     * <table id="grid"></table>
+     * <script>
+     *     var grid, renderer;
+     *     renderer = function (value, record, $cell, $displayEl, id) {
+     *         var $editBtn = $('<i class="fa fa-pencil gj-cursor-pointer" data-key="' + id + '"></i>'),
+     *             $updateBtn = $('<i class="fa fa-save gj-cursor-pointer" data-key="' + id + '"></i>').hide();
+     *         $editBtn.on('click', function (e) {
+     *             grid.edit($(this).data('key'));
+     *             $editBtn.hide();
+     *             $updateBtn.show();
+     *         });
+     *         $updateBtn.on('click', function (e) {
+     *             grid.update($(this).data('key'));
+     *             $editBtn.show();
+     *             $updateBtn.hide();
+     *         });
+     *         $displayEl.append($editBtn).append($updateBtn);
+     *     }
+     *     grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: '/Players/Get',
+     *         inlineEditing: { mode: 'command', managementColumn: false },
+     *         columns: [ 
+     *             { field: 'ID', width: 56 },
+     *             { field: 'Name', editor: true }, 
+     *             { field: 'PlaceOfBirth', editor: true },
+     *             { width: 56, align: 'center', renderer: renderer }
+     *         ]
+     *     });
+     * </script>
+     */edit:function edit(id){var i,record=this.getById(id),$cells=gj.grid.methods.getRowById(this,id).find('td'),columns=this.data('columns');for(i=0;i<$cells.length;i++){gj.grid.plugins.inlineEditing.private.editMode(this,$($cells[i]),columns[i],record);}return this;},/**
+     * Update all editable cells within a row, when the row is in edit mode.
+     * @method
+     * @param {string} id - The id of the row that needs to be updated
+     * @return grid
+     * @fires rowDataChanged
+     * @example Update.Row <!-- grid -->
+     * <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+     * <table id="grid"></table>
+     * <script>
+     *     var grid, renderer;
+     *     renderer = function (value, record, $cell, $displayEl, id) {
+     *         var $editBtn = $('<i class="fa fa-pencil gj-cursor-pointer" data-key="' + id + '"></i>'),
+     *             $updateBtn = $('<i class="fa fa-save gj-cursor-pointer" data-key="' + id + '"></i>').hide();
+     *         $editBtn.on('click', function (e) {
+     *             grid.edit($(this).data('key'));
+     *             $editBtn.hide();
+     *             $updateBtn.show();
+     *         });
+     *         $updateBtn.on('click', function (e) {
+     *             grid.update($(this).data('key'));
+     *             $editBtn.show();
+     *             $updateBtn.hide();
+     *         });
+     *         $displayEl.append($editBtn).append($updateBtn);
+     *     }
+     *     grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: '/Players/Get',
+     *         inlineEditing: { mode: 'command', managementColumn: false },
+     *         columns: [ 
+     *             { field: 'ID', width: 56 },
+     *             { field: 'Name', editor: true }, 
+     *             { field: 'PlaceOfBirth', editor: true },
+     *             { width: 56, align: 'center', renderer: renderer }
+     *         ]
+     *     });
+     * </script>
+     */update:function update(id){var i,record=this.getById(id),$cells=gj.grid.methods.getRowById(this,id).find('td'),columns=this.data('columns');for(i=0;i<$cells.length;i++){gj.grid.plugins.inlineEditing.private.displayMode(this,$($cells[i]),columns[i],false);}gj.grid.plugins.inlineEditing.events.rowDataChanged(this,id,record);return this;},/**
+     * Cancel the edition of all editable cells, when the row is in edit mode.
+     * @method
+     * @param {string} id - The id of the row where you need to undo all changes
+     * @return grid
+     * @example Cancel.Row <!-- grid -->
+     * <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+     * <table id="grid"></table>
+     * <script>
+     *     var grid, renderer;
+     *     renderer = function (value, record, $cell, $displayEl, id) {
+     *         var $editBtn = $('<i class="fa fa-pencil gj-cursor-pointer" data-key="' + id + '"></i>'),
+     *             $cancelBtn = $('<i class="fa fa-undo gj-cursor-pointer" data-key="' + id + '"></i>').hide();
+     *         $editBtn.on('click', function (e) {
+     *             grid.edit($(this).data('key'));
+     *             $editBtn.hide();
+     *             $cancelBtn.show();
+     *         });
+     *         $cancelBtn.on('click', function (e) {
+     *             grid.cancel($(this).data('key'));
+     *             $editBtn.show();
+     *             $cancelBtn.hide();
+     *         });
+     *         $displayEl.append($editBtn).append($cancelBtn);
+     *     }
+     *     grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: '/Players/Get',
+     *         inlineEditing: { mode: 'command', managementColumn: false },
+     *         columns: [ 
+     *             { field: 'ID', width: 56 },
+     *             { field: 'Name', editor: true }, 
+     *             { field: 'PlaceOfBirth', editor: true },
+     *             { width: 56, align: 'center', renderer: renderer }
+     *         ]
+     *     });
+     * </script>
+     */cancel:function cancel(id){var i,record=this.getById(id),$cells=gj.grid.methods.getRowById(this,id).find('td'),columns=this.data('columns');for(i=0;i<$cells.length;i++){gj.grid.plugins.inlineEditing.private.displayMode(this,$($cells[i]),columns[i],true);}return this;}};gj.grid.plugins.inlineEditing.events={/**
+     * Event fires after inline edit of a cell in the grid.
+     *
+     * @event cellDataChanged
+     * @param {object} e - event data
+     * @param {object} $cell - the cell presented as jquery object 
+     * @param {object} column - the column configuration data
+     * @param {object} record - the data of the row record
+     * @param {object} oldValue - the old cell value
+     * @param {object} newValue - the new cell value
+     * @example sample <!-- grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         dataSource: '/Players/Get',
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name', editor: true }, { field: 'PlaceOfBirth', editor: true } ]
+     *     });
+     *     grid.on('cellDataChanged', function (e, $cell, column, record, oldValue, newValue) {
+     *         alert('"' + oldValue + '" is changed to "' + newValue + '"');
+     *     });
+     * </script>
+     */cellDataChanged:function cellDataChanged($grid,$cell,column,record,oldValue,newValue){$grid.triggerHandler('cellDataChanged',[$cell,column,record,oldValue,newValue]);},/**
+     * Event fires after inline edit of a row in the grid.
+     *
+     * @event rowDataChanged
+     * @param {object} e - event data
+     * @param {object} id - the id of the record
+     * @param {object} record - the data of the row record
+     * @example sample <!-- materialicons, grid -->
+     * <table id="grid"></table>
+     * <script>
+     *     var grid = $('#grid').grid({
+     *         primaryKey: 'ID',
+     *         dataSource: '/Players/Get',
+     *         inlineEditing: { mode: 'command' },
+     *         columns: [ { field: 'ID', width: 56 }, { field: 'Name', editor: true }, { field: 'PlaceOfBirth', editor: true } ]
+     *     });
+     *     grid.on('rowDataChanged', function (e, id, record) {
+     *         alert('Record with id="' + id + '" is changed to "' + JSON.stringify(record) + '"');
+     *     });
+     * </script>
+     */rowDataChanged:function rowDataChanged($grid,id,record){$grid.triggerHandler('rowDataChanged',[id,record]);}};gj.grid.plugins.inlineEditing.configure=function($grid,fullConfig,clientConfig){var data=$grid.data();$.extend(true,$grid,gj.grid.plugins.inlineEditing.public);if(clientConfig.inlineEditing){$grid.on('dataBound',function(){$grid.find('span.gj-dirty').remove();});$grid.on('rowDataBound',function(e,$row,id,record){$grid.cancel(id);});}if(data.inlineEditing.mode==='command'){gj.grid.plugins.inlineEditing.private.localization(data);if(fullConfig.inlineEditing.managementColumn){data.columns.push(fullConfig.inlineEditing.managementColumnConfig);}}else{$grid.on('cellDataBound',function(e,$displayEl,id,column,record){if(column.editor){if(column.mode==='editOnly'){gj.grid.plugins.inlineEditing.private.editMode($grid,$displayEl.parent(),column,record);}else{$displayEl.parent('td').on(data.inlineEditing.mode==='dblclick'?'dblclick':'click',function(){gj.grid.plugins.inlineEditing.private.editMode($grid,$displayEl.parent(),column,record);});}}});}};/** 
+ * @widget Grid 
+ * @plugin Optimistic Persistence
+ */gj.grid.plugins.optimisticPersistence={config:{base:{optimisticPersistence:{/** Array that contains a list with param names that needs to be saved in the localStorage. You need to specify guid on the initialization of the grid in order to enable this feature.
+                 * @additionalinfo This feature is using <a href="https://developer.mozilla.org/en/docs/Web/API/Window/localStorage" target="_blank">HTML5 localStorage</a> to store params and values.
+                 * You can clear the data saved in localStorage when you clear your browser cache.
+                 * @alias optimisticPersistence.localStorage
+                 * @type array
+                 * @default undefined
+                 * @example sample <!-- bootstrap, grid  -->
+                 * <p>Change the page and/or page size and then refresh the grid.</p>
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid = $('#grid').grid({
+                 *         guid: '58d47231-ac7b-e6d2-ddba-5e0195b31f2e',
+                 *         uiLibrary: 'bootstrap',
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         optimisticPersistence: { localStorage: ["page", "limit"] },
+                 *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+                 *     });
+                 * </script>
+                 */localStorage:undefined,/** Array that contains a list with param names that needs to be saved in the sessionStorage. You need to specify guid on the initialization of the grid in order to enable this feature.
+                 * @additionalinfo This feature is using <a href="https://developer.mozilla.org/en/docs/Web/API/Window/sessionStorage" target="_blank">HTML5 sessionStorage</a> to store params and values.
+                 * You can clear the data saved in sessionStorage when you open and close the browser.
+                 * @alias optimisticPersistence.sessionStorage
+                 * @type array
+                 * @default undefined
+                 * @example sample <!-- bootstrap, grid  -->
+                 * <p>Change the page and/or page size and then refresh the grid. </p>
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid = $('#grid').grid({
+                 *         guid: '58d47231-ac7b-e6d2-ddba-5e0195b31f2f',
+                 *         uiLibrary: 'bootstrap',
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         optimisticPersistence: { sessionStorage: ["page", "limit"] },
+                 *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+                 *     });
+                 * </script>
+                 */sessionStorage:undefined}}},private:{applyParams:function applyParams($grid){var data=$grid.data(),params={},storage;storage=JSON.parse(sessionStorage.getItem('gj.grid.'+data.guid));if(storage&&storage.optimisticPersistence){$.extend(params,storage.optimisticPersistence);}storage=JSON.parse(localStorage.getItem('gj.grid.'+data.guid));if(storage&&storage.optimisticPersistence){$.extend(params,storage.optimisticPersistence);}$.extend(data.params,params);},saveParams:function saveParams($grid){var i,param,data=$grid.data(),storage={optimisticPersistence:{}};if(data.optimisticPersistence.sessionStorage){for(i=0;i<data.optimisticPersistence.sessionStorage.length;i++){param=data.optimisticPersistence.sessionStorage[i];storage.optimisticPersistence[param]=data.params[param];}storage=$.extend(true,JSON.parse(sessionStorage.getItem('gj.grid.'+data.guid)),storage);sessionStorage.setItem('gj.grid.'+data.guid,JSON.stringify(storage));}if(data.optimisticPersistence.localStorage){storage={optimisticPersistence:{}};for(i=0;i<data.optimisticPersistence.localStorage.length;i++){param=data.optimisticPersistence.localStorage[i];storage.optimisticPersistence[param]=data.params[param];}storage=$.extend(true,JSON.parse(localStorage.getItem('gj.grid.'+data.guid)),storage);localStorage.setItem('gj.grid.'+data.guid,JSON.stringify(storage));}}},configure:function configure($grid,fullConfig,clientConfig){if(fullConfig.guid){if(fullConfig.optimisticPersistence.localStorage||fullConfig.optimisticPersistence.sessionStorage){gj.grid.plugins.optimisticPersistence.private.applyParams($grid);$grid.on('dataBound',function(e){gj.grid.plugins.optimisticPersistence.private.saveParams($grid);});}}}};/**
+ * @widget Grid
+ * @plugin Pagination
+ */gj.grid.plugins.pagination={config:{base:{style:{pager:{cell:'',stateDisabled:'',activeButton:''}},paramNames:{/** The name of the parameter that is going to send the number of the page.
+                 * The pager should be enabled in order this parameter to be in use.
+                 * @alias paramNames.page
+                 * @type string
+                 * @default "page"
+                 */page:'page',/** The name of the parameter that is going to send the maximum number of records per page.
+                 * The pager should be enabled in order this parameter to be in use.
+                 * @alias paramNames.limit
+                 * @type string
+                 * @default "limit"
+                 */limit:'limit'},pager:{/** The maximum number of records that can be show by page.
+                 * @alias pager.limit
+                 * @type number
+                 * @default 10
+                 * @example local.data <!-- materialicons, grid, dropdown -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var data, grid;
+                 *     data = [
+                 *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+                 *         { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+                 *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+                 *     ];
+                 *     grid = $('#grid').grid({
+                 *         dataSource: data,
+                 *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         pager: { limit: 2, sizes: [2, 5, 10, 100] }
+                 *     });
+                 * </script>
+                 * @example remote.data <!-- materialicons, grid, dropdown -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid = $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         pager: { limit: 2, sizes: [2, 5, 10, 100] }
+                 *     });
+                 * </script>
+                 */limit:10,/** Array that contains the possible page sizes of the grid.
+                 * When this setting is set, then a drop down with the options for each page size is visualized in the pager.
+                 * @alias pager.sizes
+                 * @type array
+                 * @default [5, 10, 20, 100]
+                 * @example Bootstrap.3 <!-- bootstrap, grid, grid.pagination, dropdown  -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid = $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         uiLibrary: 'bootstrap',
+                 *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+                 *     });
+                 * </script>
+                 * @example Bootstrap.4 <!-- bootstrap4, fontawesome, grid, grid.pagination, dropdown  -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid = $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         uiLibrary: 'bootstrap4',
+                 *         iconsLibrary: 'fontawesome',
+                 *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+                 *     });
+                 * </script>
+                 * @example Material.Design <!-- materialicons, grid, grid.pagination, dropdown  -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid = $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         uiLibrary: 'materialdesign',
+                 *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+                 *     });
+                 * </script>
+                 */sizes:[5,10,20,100],/** Array that contains a list with jquery objects that are going to be used on the left side of the pager.
+                 * @alias pager.leftControls
+                 * @type array
+                 * @default array
+                 * @example Font.Awesome <!-- fontawesome, grid  -->
+                 * <style>
+                 * .icon-disabled { color: #ccc; }
+                 * </style>
+                 * <table id="grid"></table>
+                 * <script>
+                 *     var grid = $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+                 *         style: {
+                 *             pager: {
+                 *                 stateDisabled: 'icon-disabled'
+                 *             }
+                 *         },
+                 *         pager: { 
+                 *             limit: 2, 
+                 *             sizes: [2, 5, 10, 20],
+                 *             leftControls: [
+                 *                 $('<div title="First" data-role="page-first" class="gj-grid-icon fa fa-fast-backward" aria-hidden="true"></div>'),
+                 *                 $('<div title="Previous" data-role="page-previous" class="gj-grid-icon fa fa-backward" aria-hidden="true"></div>'),
+                 *                 $('<div> Page </div>'),
+                 *                 $('<div></div>').append($('<input type="text" data-role="page-number" style="margin: 0 5px; width: 34px;" value="0">')),
+                 *                 $('<div>of&nbsp;</div>'),
+                 *                 $('<div data-role="page-label-last" style="margin-right: 5px;">0</div>'),
+                 *                 $('<div title="Next" data-role="page-next" class="gj-grid-icon fa fa-forward" aria-hidden="true"></div>'),
+                 *                 $('<div title="Last" data-role="page-last" class="gj-grid-icon fa fa-fast-forward" aria-hidden="true"></div>'),
+                 *                 $('<div title="Reload" data-role="page-refresh" class="gj-grid-icon fa fa-refresh" aria-hidden="true"></div>'),
+                 *                 $('<div></div>').append($('<select data-role="page-size" style="margin: 0 5px; width: 50px;"></select>'))
+                 *             ],
+                 *             rightControls: [
+                 *                 $('<div>Displaying records&nbsp;</div>'),
+                 *                 $('<div data-role="record-first">0</div>'),
+                 *                 $('<div>&nbsp;-&nbsp;</div>'),
+                 *                 $('<div data-role="record-last">0</div>'),
+                 *                 $('<div>&nbsp;of&nbsp;</div>'),
+                 *                 $('<div data-role="record-total">0</div>').css({ "margin-right": "5px" })
+                 *             ]
+                 *         }
+                 *     });
+                 * </script>
+                 */leftControls:undefined,/** Array that contains a list with jquery objects that are going to be used on the right side of the pager.
+                 * @alias pager.rightControls
+                 * @type array
+                 * @default array
+                 */rightControls:undefined}},bootstrap:{style:{pager:{cell:'gj-grid-bootstrap-tfoot-cell',stateDisabled:''}}},bootstrap4:{style:{pager:{cell:'gj-grid-bootstrap-tfoot-cell',stateDisabled:''}}},glyphicons:{icons:{first:'<span class="glyphicon glyphicon-step-backward"></span>',previous:'<span class="glyphicon glyphicon-backward"></span>',next:'<span class="glyphicon glyphicon-forward"></span>',last:'<span class="glyphicon glyphicon-step-forward"></span>',refresh:'<span class="glyphicon glyphicon-refresh"></span>'}},materialicons:{icons:{first:'<i class="material-icons">first_page</i>',previous:'<i class="material-icons">chevron_left</i>',next:'<i class="material-icons">chevron_right</i>',last:'<i class="material-icons">last_page</i>',refresh:'<i class="material-icons">refresh</i>'}},fontawesome:{icons:{first:'<i class="fa fa-fast-backward" aria-hidden="true"></i>',previous:'<i class="fa fa-backward" aria-hidden="true"></i>',next:'<i class="fa fa-forward" aria-hidden="true"></i>',last:'<i class="fa fa-fast-forward" aria-hidden="true"></i>',refresh:'<i class="fa fa-refresh" aria-hidden="true"></i>'}}},private:{init:function init($grid){var $row,$cell,data,controls,$leftPanel,$rightPanel,$tfoot,leftControls,rightControls,i;data=$grid.data();if(data.pager){if(!data.params[data.paramNames.page]){data.params[data.paramNames.page]=1;}if(!data.params[data.paramNames.limit]){data.params[data.paramNames.limit]=data.pager.limit;}gj.grid.plugins.pagination.private.localization(data);$row=$('<tr data-role="pager"/>');$cell=$('<th/>').addClass(data.style.pager.cell);$row.append($cell);$leftPanel=$('<div data-role="display" />').css({'float':'left'});$rightPanel=$('<div data-role="display" />').css({'float':'right'});$cell.append($leftPanel).append($rightPanel);$tfoot=$('<tfoot />').append($row);$grid.append($tfoot);gj.grid.plugins.pagination.private.updatePagerColSpan($grid);leftControls=gj.grid.methods.clone(data.pager.leftControls);//clone array
+$.each(leftControls,function(){$leftPanel.append(this);});rightControls=gj.grid.methods.clone(data.pager.rightControls);//clone array
+$.each(rightControls,function(){$rightPanel.append(this);});controls=$grid.find('tfoot [data-role]');for(i=0;i<controls.length;i++){gj.grid.plugins.pagination.private.initPagerControl($(controls[i]),$grid);}}},localization:function localization(data){if(data.uiLibrary==='bootstrap'){gj.grid.plugins.pagination.private.localizationBootstrap(data);}else if(data.uiLibrary==='bootstrap4'){gj.grid.plugins.pagination.private.localizationBootstrap4(data);}else{gj.grid.plugins.pagination.private.localizationMaterialDesign(data);}},localizationBootstrap:function localizationBootstrap(data){var msg=gj.grid.messages[data.locale];if(typeof data.pager.leftControls==='undefined'){data.pager.leftControls=[$('<button type="button" class="btn btn-default btn-sm">'+(data.icons.first||msg.First)+'</button>').attr('title',msg.FirstPageTooltip).attr('data-role','page-first'),$('<button type="button" class="btn btn-default btn-sm">'+(data.icons.previous||msg.Previous)+'</button>').attr('title',msg.PreviousPageTooltip).attr('data-role','page-previous'),$('<div>'+msg.Page+'</div>'),$('<input data-role="page-number" class="form-control input-sm" type="text" value="0">'),$('<div>'+msg.Of+'</div>'),$('<div data-role="page-label-last">0</div>'),$('<button type="button" class="btn btn-default btn-sm">'+(data.icons.next||msg.Next)+'</button>').attr('title',msg.NextPageTooltip).attr('data-role','page-next'),$('<button type="button" class="btn btn-default btn-sm">'+(data.icons.last||msg.Last)+'</button>').attr('title',msg.LastPageTooltip).attr('data-role','page-last'),$('<button type="button" class="btn btn-default btn-sm">'+(data.icons.refresh||msg.Refresh)+'</button>').attr('title',msg.Refresh).attr('data-role','page-refresh'),$('<select data-role="page-size" class="form-control input-sm" width="60"></select>')];}if(typeof data.pager.rightControls==='undefined'){data.pager.rightControls=[$('<div>'+msg.DisplayingRecords+'</div>'),$('<div data-role="record-first">0</div>'),$('<div>-</div>'),$('<div data-role="record-last">0</div>'),$('<div>'+msg.Of+'</div>'),$('<div data-role="record-total">0</div>')];}},localizationBootstrap4:function localizationBootstrap4(data){var msg=gj.grid.messages[data.locale];if(typeof data.pager.leftControls==='undefined'){data.pager.leftControls=[$('<button class="btn btn-default btn-sm gj-cursor-pointer">'+(data.icons.first||msg.First)+'</button>').attr('title',msg.FirstPageTooltip).attr('data-role','page-first'),$('<button class="btn btn-default btn-sm gj-cursor-pointer">'+(data.icons.previous||msg.Previous)+'</button>').attr('title',msg.PreviousPageTooltip).attr('data-role','page-previous'),$('<div>'+msg.Page+'</div>'),$('<input data-role="page-number" class="form-control form-control-sm" type="text" value="0">'),$('<div>'+msg.Of+'</div>'),$('<div data-role="page-label-last">0</div>'),$('<button class="btn btn-default btn-sm gj-cursor-pointer">'+(data.icons.next||msg.Next)+'</button>').attr('title',msg.NextPageTooltip).attr('data-role','page-next'),$('<button class="btn btn-default btn-sm gj-cursor-pointer">'+(data.icons.last||msg.Last)+'</button>').attr('title',msg.LastPageTooltip).attr('data-role','page-last'),$('<button class="btn btn-default btn-sm gj-cursor-pointer">'+(data.icons.refresh||msg.Refresh)+'</button>').attr('title',msg.Refresh).attr('data-role','page-refresh'),$('<select data-role="page-size" class="form-control input-sm" width="60"></select>')];}if(typeof data.pager.rightControls==='undefined'){data.pager.rightControls=[$('<div>'+msg.DisplayingRecords+'&nbsp;</div>'),$('<div data-role="record-first">0</div>'),$('<div>-</div>'),$('<div data-role="record-last">0</div>'),$('<div>'+msg.Of+'</div>'),$('<div data-role="record-total">0</div>')];}},localizationMaterialDesign:function localizationMaterialDesign(data){var msg=gj.grid.messages[data.locale];if(typeof data.pager.leftControls==='undefined'){data.pager.leftControls=[];}if(typeof data.pager.rightControls==='undefined'){data.pager.rightControls=[$('<span class="">'+msg.RowsPerPage+'</span>'),$('<select data-role="page-size" class="gj-grid-md-limit-select" width="52"></select></div>'),$('<span class="gj-md-spacer-32">&nbsp;</span>'),$('<span data-role="record-first" class="">0</span>'),$('<span class="">-</span>'),$('<span data-role="record-last" class="">0</span>'),$('<span class="gj-grid-mdl-pager-label">'+msg.Of+'</span>'),$('<span data-role="record-total" class="">0</span>'),$('<span class="gj-md-spacer-32">&nbsp;</span>'),$('<button class="gj-button-md">'+(data.icons.previous||msg.Previous)+'</button>').attr('title',msg.PreviousPageTooltip).attr('data-role','page-previous').addClass(data.icons.first?'gj-button-md-icon':''),$('<span class="gj-md-spacer-24">&nbsp;</span>'),$('<button class="gj-button-md">'+(data.icons.next||msg.Next)+'</button>').attr('title',msg.NextPageTooltip).attr('data-role','page-next').addClass(data.icons.first?'gj-button-md-icon':'')];}},initPagerControl:function initPagerControl($control,$grid){var data=$grid.data();switch($control.data('role')){case'page-size':if(data.pager.sizes&&0<data.pager.sizes.length){$control.show();$.each(data.pager.sizes,function(){$control.append($('<option/>').attr('value',this.toString()).text(this.toString()));});$control.change(function(){var newSize=parseInt(this.value,10);data.params[data.paramNames.limit]=newSize;gj.grid.plugins.pagination.private.changePage($grid,1);gj.grid.plugins.pagination.events.pageSizeChange($grid,newSize);});$control.val(data.params[data.paramNames.limit]);if(gj.dropdown){$control.dropdown({uiLibrary:data.uiLibrary,iconsLibrary:data.iconsLibrary,fontSize:$control.css('font-size'),style:{presenter:'btn btn-default btn-sm'}});}}else{$control.hide();}break;case'page-refresh':$control.on('click',function(){$grid.reload();});break;}},reloadPager:function reloadPager($grid,totalRecords){var page,limit,lastPage,firstRecord,lastRecord,data,controls,i;data=$grid.data();if(data.pager){page=0===totalRecords?0:parseInt(data.params[data.paramNames.page],10);limit=parseInt(data.params[data.paramNames.limit],10);lastPage=Math.ceil(totalRecords/limit);firstRecord=0===page?0:limit*(page-1)+1;lastRecord=firstRecord+limit>totalRecords?totalRecords:firstRecord+limit-1;controls=$grid.find('TFOOT [data-role]');for(i=0;i<controls.length;i++){gj.grid.plugins.pagination.private.reloadPagerControl($(controls[i]),$grid,page,lastPage,firstRecord,lastRecord,totalRecords);}gj.grid.plugins.pagination.private.updatePagerColSpan($grid);}},reloadPagerControl:function reloadPagerControl($control,$grid,page,lastPage,firstRecord,lastRecord,totalRecords){var newPage;switch($control.data('role')){case'page-first':gj.grid.plugins.pagination.private.assignPageHandler($grid,$control,1,page<2);break;case'page-previous':gj.grid.plugins.pagination.private.assignPageHandler($grid,$control,page-1,page<2);break;case'page-number':$control.val(page).off('change').on('change',gj.grid.plugins.pagination.private.createChangePageHandler($grid,page));break;case'page-label-last':$control.text(lastPage);break;case'page-next':gj.grid.plugins.pagination.private.assignPageHandler($grid,$control,page+1,lastPage===page);break;case'page-last':gj.grid.plugins.pagination.private.assignPageHandler($grid,$control,lastPage,lastPage===page);break;case'page-button-one':newPage=page===1?1:page==lastPage?page-2:page-1;gj.grid.plugins.pagination.private.assignButtonHandler($grid,$control,page,newPage,lastPage);break;case'page-button-two':newPage=page===1?2:page==lastPage?lastPage-1:page;gj.grid.plugins.pagination.private.assignButtonHandler($grid,$control,page,newPage,lastPage);break;case'page-button-three':newPage=page===1?page+2:page==lastPage?page:page+1;gj.grid.plugins.pagination.private.assignButtonHandler($grid,$control,page,newPage,lastPage);break;case'record-first':$control.text(firstRecord);break;case'record-last':$control.text(lastRecord);break;case'record-total':$control.text(totalRecords);break;}},assignPageHandler:function assignPageHandler($grid,$control,newPage,disabled){var style=$grid.data().style.pager;if(disabled){$control.addClass(style.stateDisabled).prop('disabled',true).off('click');}else{$control.removeClass(style.stateDisabled).prop('disabled',false).off('click').on('click',function(){gj.grid.plugins.pagination.private.changePage($grid,newPage);});}},assignButtonHandler:function assignButtonHandler($grid,$control,page,newPage,lastPage){var style=$grid.data().style.pager;if(newPage<1||newPage>lastPage){$control.hide();}else{$control.show().off('click').text(newPage);if(newPage===page){$control.addClass(style.activeButton);}else{$control.removeClass(style.activeButton).on('click',function(){gj.grid.plugins.pagination.private.changePage($grid,newPage);});}}},createChangePageHandler:function createChangePageHandler($grid,currentPage){return function(){var data=$grid.data(),newPage=parseInt(this.value,10);gj.grid.plugins.pagination.private.changePage($grid,newPage);};},changePage:function changePage($grid,newPage){var data=$grid.data();if(gj.grid.plugins.pagination.events.pageChanging($grid,newPage)!==false&&!isNaN(newPage)){$grid.find('TFOOT [data-role="page-number"]').val(newPage);data.params[data.paramNames.page]=newPage;}$grid.reload();},updatePagerColSpan:function updatePagerColSpan($grid){var $cell=$grid.find('tfoot > tr[data-role="pager"] > th');if($cell&&$cell.length){$cell.attr('colspan',gj.grid.methods.countVisibleColumns($grid));}},isLastRecordVisible:function isLastRecordVisible($grid){var result=true,data=$grid.data(),limit=parseInt(data.params[data.paramNames.limit],10),page=parseInt(data.params[data.paramNames.page],10),count=$grid.count();if(limit&&page){result=(page-1)*limit+count===data.totalRecords;}return result;}},public:{getAll:function getAll(includeAllRecords){var limit,page,start,data=this.data();if($.isArray(data.dataSource)){if(includeAllRecords){return data.dataSource;}else if(data.params[data.paramNames.limit]&&data.params[data.paramNames.page]){limit=parseInt(data.params[data.paramNames.limit],10);page=parseInt(data.params[data.paramNames.page],10);start=(page-1)*limit;return data.records.slice(start,start+limit);}else{return data.records;}}else{return data.records;}}},events:{/**
+         * Triggered when the page size is changed.
+         *
+         * @event pageSizeChange
+         * @param {object} e - event data
+         * @param {number} newSize - The new page size
+         * @example sample <!-- bootstrap, grid, grid.pagination -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         uiLibrary: 'bootstrap',
+         *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+         *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+         *     });
+         *     grid.on('pageSizeChange', function (e, newSize) {
+         *         alert('The new page size is ' + newSize + '.');
+         *     });
+         * </script>
+         */pageSizeChange:function pageSizeChange($grid,newSize){$grid.triggerHandler('pageSizeChange',[newSize]);},/**
+         * Triggered before the change of the page.
+         *
+         * @event pageChanging
+         * @param {object} e - event data
+         * @param {number} newPage - The new page
+         * @example sample <!-- bootstrap4, fontawesome, dropdown, grid, grid.pagination -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         uiLibrary: 'bootstrap4',
+         *         iconsLibrary: 'fontawesome',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+         *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+         *     });
+         *     grid.on('pageChanging', function (e, newPage) {
+         *         if (isNaN(newPage)) {
+         *             alert('Invalid page number');
+         *             return false;
+         *         } else {
+         *             alert(newPage + ' is valid page number.');
+         *         }
+         *     });
+         * </script>
+         */pageChanging:function pageChanging($grid,newSize){$grid.triggerHandler('pageChanging',[newSize]);}},configure:function configure($grid,fullConfig,clientConfig){$.extend(true,$grid,gj.grid.plugins.pagination.public);var data=$grid.data();if(clientConfig.pager){gj.grid.methods.isLastRecordVisible=gj.grid.plugins.pagination.private.isLastRecordVisible;$grid.on('initialized',function(){gj.grid.plugins.pagination.private.init($grid);});$grid.on('dataBound',function(e,records,totalRecords){gj.grid.plugins.pagination.private.reloadPager($grid,totalRecords);});$grid.on('columnShow',function(){gj.grid.plugins.pagination.private.updatePagerColSpan($grid);});$grid.on('columnHide',function(){gj.grid.plugins.pagination.private.updatePagerColSpan($grid);});}}};/** 
+ * @widget Grid 
+ * @plugin Responsive Design
+ */gj.grid.plugins.responsiveDesign={config:{base:{/** The interval in milliseconds for checking if the grid is resizing.
+             * This setting is in use only if the resizeMonitoring setting is set to true.
+             * @type number
+             * @default 500
+             * @example sample <!-- materialicons, grid, grid.responsiveDesign -->
+             * <p>Change browser window size in order to fire resize event.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     var grid = $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         responsive: true,
+             *         resizeCheckInterval: 2000, //check if the grid is resized on each 2 second
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             *     grid.on('resize', function () {
+             *         alert('resize is fired.');
+             *     });
+             * </script>
+             */resizeCheckInterval:500,/** This setting enables responsive behaviour of the grid where some column are invisible when there is not enough space on the screen for them.
+             * The visibility of the columns in this mode is driven by the column minWidth and priority settings.
+             * The columns without priority setting are always visible and can't hide in small screen resolutions.
+             * @type boolean
+             * @default false
+             * @example sample <!-- grid, grid.responsiveDesign -->
+             * <p>Resize browser window in order to see his responsive behaviour.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         responsive: true,
+             *         columns: [
+             *             { field: 'Name' },
+             *             { field: 'PlaceOfBirth', minWidth: 340, priority: 1 },
+             *             { field: 'DateOfBirth', minWidth: 360, priority: 2, type: 'date' }
+             *         ]
+             *     });
+             * </script>
+             */responsive:false,/** Automatically adds hidden columns to the details section of the row.
+             * This setting works only if the responsive setting is set to true and the detailTemplate is set.
+             * You need to set priority and minWidth on the colums, that needs to be hidden in smaller screens.
+             * @type boolean
+             * @default false
+             * @example Remote.Data.Source <!-- bootstrap, grid, grid.expandCollapseRows, grid.responsiveDesign -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         detailTemplate: '<div class="row"></div>',
+             *         responsive: true,
+             *         showHiddenColumnsAsDetails: true,
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', minWidth: 320, priority: 1 },
+             *             { field: 'PlaceOfBirth', minWidth: 320, priority: 2 }
+             *         ]
+             *     });
+             * </script>
+             * @example Local.Data.Source <!-- bootstrap, grid, grid.expandCollapseRows, grid.responsiveDesign -->
+             * <table id="grid"></table>
+             * <script>             
+             *     var data = [
+             *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+             *     ];
+             *     $('#grid').grid({
+             *         dataSource: data,
+             *         detailTemplate: '<div class="row"></div>',
+             *         responsive: true,
+             *         showHiddenColumnsAsDetails: true,
+             *         uiLibrary: 'bootstrap',
+             *         columns: [
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name', minWidth: 320, priority: 1 },
+             *             { field: 'PlaceOfBirth', minWidth: 320, priority: 2 }
+             *         ],
+             *         pager: { limit: 2, sizes: [2, 5, 10, 20] }
+             *     });
+             * </script>
+             */showHiddenColumnsAsDetails:false,defaultColumn:{/** The priority of the column compared to other columns in the grid.
+                 * The columns are hiding based on the priorities.
+                 * This setting is working only when the responsive setting is set to true.
+                 * @alias column.priority
+                 * @type number
+                 * @default undefined
+                 * @example sample <!-- grid, grid.responsiveDesign -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         responsive: true,
+                 *         columns: [
+                 *             { field: 'Name' },
+                 *             { field: 'PlaceOfBirth', priority: 1 },
+                 *             { field: 'DateOfBirth', priority: 2, type: 'date' }
+                 *         ]
+                 *     });
+                 * </script>
+                 */priority:undefined,/** The minimum width of the column.
+                 * The column is getting invisible when there is not enough space in the grid for this minimum width.
+                 * This setting is working only when the responsive setting is set to true and the column priority setting is set.
+                 * @alias column.minWidth
+                 * @type number
+                 * @default 250
+                 * @example sample <!-- grid, grid.responsiveDesign -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         responsive: true,
+                 *         columns: [
+                 *             { field: 'Name' },
+                 *             { field: 'PlaceOfBirth', minWidth: 240, priority: 1 },
+                 *             { field: 'DateOfBirth', minWidth: 260, priority: 2, type: 'date' }
+                 *         ]
+                 *     });
+                 * </script>
+                 */minWidth:250},style:{rowDetailItem:''}},bootstrap:{style:{rowDetailItem:'col-lg-4'}}},'private':{orderColumns:function orderColumns(config){var result=[];if(config.columns&&config.columns.length){for(i=0;i<config.columns.length;i++){result.push({position:i,field:config.columns[i].field,minWidth:config.columns[i].width||config.columns[i].minWidth||config.defaultColumn.minWidth,priority:config.columns[i].priority||0});}result.sort(function(a,b){var result=0;if(a.priority<b.priority){result=-1;}else if(a.priority>b.priority){result=1;}return result;});}return result;},updateDetails:function updateDetails($grid){var rows,data,i,j,$row,details,$placeholder,column,tmp;rows=$grid.find('tbody > tr[data-role="row"]');data=$grid.data();for(i=0;i<rows.length;i++){$row=$(rows[i]);details=$row.data('details');for(j=0;j<data.columns.length;j++){column=data.columns[j];$placeholder=details&&details.find('div[data-id="'+column.field+'"]');if(data.columns[j].hidden){tmp='<b>'+(column.title||column.field)+'</b>: {'+column.field+'}';if(!$placeholder||!$placeholder.length){$placeholder=$('<div data-id="'+column.field+'"/>').html(tmp);$placeholder.addClass(data.style.rowDetailItem);if(!details||!details.length){details=$('<div class="row"/>');}details.append($placeholder);}else{$placeholder.empty().html(tmp);}}else if($placeholder&&$placeholder.length){$placeholder.remove();}}$grid.updateDetails($row);}}},'public':{oldWidth:undefined,resizeCheckIntervalId:undefined,/**
+         * Make the grid responsive based on the available space.
+         * Show column if the space for the grid is expanding and hide columns when the space for the grid is decreasing.
+         * @method
+         * @return void
+         * @example sample <!-- grid, grid.responsiveDesign -->
+         * <button onclick="grid.makeResponsive()" class="gj-button-md">Make Responsive</button>
+         * <br/><br/>
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         responsive: false,
+         *         columns: [
+         *             { field: 'ID', width: 56 },
+         *             { field: 'Name', minWidth: 320, priority: 1 },
+         *             { field: 'PlaceOfBirth', minWidth: 320, priority: 2 }
+         *         ]
+         *     });
+         * </script>
+         */makeResponsive:function makeResponsive(){var i,$column,extraWidth=0,config=this.data(),columns=gj.grid.plugins.responsiveDesign.private.orderColumns(config);//calculate extra width
+for(i=0;i<columns.length;i++){$column=this.find('thead>tr>th:eq('+columns[i].position+')');if($column.is(':visible')&&columns[i].minWidth<$column.width()){extraWidth+=$column.width()-columns[i].minWidth;}}//show columns
+if(extraWidth){for(i=0;i<columns.length;i++){$column=this.find('thead>tr>th:eq('+columns[i].position+')');if(!$column.is(':visible')&&columns[i].minWidth<=extraWidth){this.showColumn(columns[i].field);extraWidth-=$column.width();}}}//hide columns
+for(i=columns.length-1;i>=0;i--){$column=this.find('thead>tr>th:eq('+columns[i].position+')');if($column.is(':visible')&&columns[i].priority&&columns[i].minWidth>$column.outerWidth()){this.hideColumn(columns[i].field);}}}},'events':{/**
+         * Event fires when the grid width is changed. The "responsive" configuration setting should be set to true in order this event to fire.
+         *
+         * @event resize
+         * @param {object} e - event data
+         * @param {number} newWidth - The new width
+         * @param {number} oldWidth - The old width
+         * @example sample <!-- grid, grid.responsiveDesign -->
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         responsive: true,
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         *     grid.on('resize', function (e, newWidth, oldWidth) {
+         *         alert('resize is fired.');
+         *     });
+         * </script>
+         */resize:function resize($grid,newWidth,oldWidth){$grid.triggerHandler('resize',[newWidth,oldWidth]);}},'configure':function configure($grid,fullConfig,clientConfig){$.extend(true,$grid,gj.grid.plugins.responsiveDesign.public);if(fullConfig.responsive){$grid.on('initialized',function(){$grid.makeResponsive();$grid.oldWidth=$grid.width();$grid.resizeCheckIntervalId=setInterval(function(){var newWidth=$grid.width();if(newWidth!==$grid.oldWidth){gj.grid.plugins.responsiveDesign.events.resize($grid,newWidth,$grid.oldWidth);}$grid.oldWidth=newWidth;},fullConfig.resizeCheckInterval);});$grid.on('destroy',function(){if($grid.resizeCheckIntervalId){clearInterval($grid.resizeCheckIntervalId);}});$grid.on('resize',function(){$grid.makeResponsive();});}if(fullConfig.showHiddenColumnsAsDetails&&gj.grid.plugins.expandCollapseRows){$grid.on('dataBound',function(){gj.grid.plugins.responsiveDesign.private.updateDetails($grid);});$grid.on('columnHide',function(){gj.grid.plugins.responsiveDesign.private.updateDetails($grid);});$grid.on('columnShow',function(){gj.grid.plugins.responsiveDesign.private.updateDetails($grid);});$grid.on('rowDataBound',function(){gj.grid.plugins.responsiveDesign.private.updateDetails($grid);});}}};/** 
+ * @widget Grid 
+ * @plugin Toolbar
+ */gj.grid.plugins.toolbar={config:{base:{/** Template for the content in the toolbar. Appears in a separate row on top of the grid.
+              * @type string
+              * @default undefined
+              * @example sample <!-- bootstrap, grid, grid.toolbar, grid.pagination -->
+              * <table id="grid"></table>
+              * <script>
+              *     var grid = $('#grid').grid({
+              *         dataSource: '/Players/Get',
+              *         uiLibrary: 'bootstrap',
+              *         toolbarTemplate: '<div class="row"><div class="col-md-8" style="line-height:34px"><span data-role="title">Grid Title</span></div><div class="col-md-4 text-right"><button onclick="grid.reload()" class="btn btn-default">click here to refresh</button></div></div>',
+              *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+              *         pager: { limit: 5 }
+              *     });
+              * </script>
+              */toolbarTemplate:undefined,/** The title of the grid. Appears in a separate row on top of the grid.
+              * @type string
+              * @default undefined
+              * @example Material.Design <!-- materialicons, grid, grid.toolbar -->
+              * <table id="grid"></table>
+              * <script>
+              *     $('#grid').grid({
+              *         dataSource: '/Players/Get',
+              *         title: 'Players',
+              *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+              *     });
+              * </script>
+              * @example Bootstrap.3 <!-- bootstrap, grid, grid.toolbar -->
+              * <table id="grid"></table>
+              * <script>
+              *     $('#grid').grid({
+              *         dataSource: '/Players/Get',
+              *         uiLibrary: 'bootstrap',
+              *         title: 'Players',
+              *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+              *     });
+              * </script>
+              * @example Bootstrap.4 <!-- bootstrap4, grid, grid.toolbar -->
+              * <table id="grid"></table>
+              * <script>
+              *     $('#grid').grid({
+              *         dataSource: '/Players/Get',
+              *         uiLibrary: 'bootstrap4',
+              *         title: 'Players',
+              *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+              *     });
+              * </script>
+              */title:undefined,style:{toolbar:'gj-grid-md-toolbar'}},bootstrap:{style:{toolbar:'gj-grid-bootstrap-toolbar'}},bootstrap4:{style:{toolbar:'gj-grid-bootstrap-4-toolbar'}}},private:{init:function init($grid){var data,$toolbar,$title;data=$grid.data();$toolbar=$grid.prev('div[data-role="toolbar"]');if(typeof data.toolbarTemplate!=='undefined'||typeof data.title!=='undefined'||$toolbar.length>0){if($toolbar.length===0){$toolbar=$('<div data-role="toolbar"></div>');$grid.before($toolbar);}$toolbar.addClass(data.style.toolbar);if($toolbar.children().length===0&&data.toolbarTemplate){$toolbar.append(data.toolbarTemplate);}$title=$toolbar.find('[data-role="title"]');if($title.length===0){$title=$('<div data-role="title"/>');$toolbar.prepend($title);}if(data.title){$title.text(data.title);}if(data.minWidth){$toolbar.css('min-width',data.minWidth);}}}},public:{/**
+         * Get or set grid title.
+         * @additionalinfo When you pass value in the text parameter this value with be in use for the new title of the grid and the method will return grid object.<br/>
+         * When you don't pass value in the text parameter, then the method will return the text of the current grid title.<br/>
+         * You can use this method in a combination with toolbarTemplate only if the title is wrapped in element with data-role attribute that equals to "title".<br/>
+         * @method
+         * @param {object} text - The text of the new grid title.
+         * @return string or grid object
+         * @example text <!-- materialicons, grid, grid.toolbar -->
+         * <button onclick="grid.title('New Title')" class="gj-button-md">Set New Title</button>
+         * <button onclick="alert(grid.title())" class="gj-button-md">Get Title</button>
+         * <br/><br/>
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         title: 'Initial Grid Title',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         * @example html.template <!-- materialicons, grid, grid.toolbar -->
+         * <button onclick="grid.title('New Title')" class="gj-button-md">Set New Title</button>
+         * <button onclick="alert(grid.title())" class="gj-button-md">Get Title</button>
+         * <br/><br/>
+         * <table id="grid"></table>
+         * <script>
+         *     var grid = $('#grid').grid({
+         *         dataSource: '/Players/Get',
+         *         toolbarTemplate: '<div data-role="title">Initial Grid Title</div>',
+         *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+         *     });
+         * </script>
+         */title:function title(text){var $titleEl=this.parent().find('div[data-role="toolbar"] [data-role="title"]');if(typeof text!=='undefined'){$titleEl.text(text);return this;}else{return $titleEl.text();}}},configure:function configure($grid){$.extend(true,$grid,gj.grid.plugins.toolbar.public);$grid.on('initialized',function(){gj.grid.plugins.toolbar.private.init($grid);});$grid.on('destroying',function(){$grid.prev('[data-role="toolbar"]').remove();});}};/** 
+ * @widget Grid 
+ * @plugin Resizable Columns
+ */gj.grid.plugins.resizableColumns={config:{base:{/** If set to true, users can resize columns by dragging the edges (resize handles) of their header cells.
+             * @type boolean
+             * @default false
+             * @example Material.Design <!-- materialicons, grid, draggable.base -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid = $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         resizableColumns: true,
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap <!-- bootstrap, grid, draggable.base -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid = $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         resizableColumns: true,
+             *         uiLibrary: 'bootstrap',
+             *         columns: [ { field: 'ID', width: 34 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- bootstrap4, grid, draggable.base -->
+             * <table id="grid"></table>
+             * <script>
+             *     var grid = $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         resizableColumns: true,
+             *         uiLibrary: 'bootstrap4',
+             *         columns: [ { field: 'ID', width: 42 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             */resizableColumns:false}},private:{init:function init($grid,config){var $columns,$column,i,$wrapper,$resizer,marginRight;$columns=$grid.find('thead tr[data-role="caption"] th');if($columns.length){for(i=0;i<$columns.length-1;i++){$column=$($columns[i]);$wrapper=$('<div class="gj-grid-column-resizer-wrapper" />');marginRight=parseInt($column.css('padding-right'),10)+3;$resizer=$('<span class="gj-grid-column-resizer" />').css('margin-right','-'+marginRight+'px');$resizer.draggable({start:function start(){$grid.addClass('gj-unselectable');$grid.addClass('gj-grid-resize-cursor');},stop:function stop(){$grid.removeClass('gj-unselectable');$grid.removeClass('gj-grid-resize-cursor');this.style.removeProperty('top');this.style.removeProperty('left');this.style.removeProperty('position');},drag:gj.grid.plugins.resizableColumns.private.createResizeHandle($grid,$column,config.columns[i])});$column.append($wrapper.append($resizer));}}},createResizeHandle:function createResizeHandle($grid,$column,column){return function(e,offset){var newWidth,currentWidth=parseInt($column.attr('width'),10);if(!currentWidth){currentWidth=$column.outerWidth();}if(offset&&offset.left){newWidth=currentWidth+offset.left;column.width=newWidth;$column.attr('width',newWidth);}};}},public:{},configure:function configure($grid,fullConfig,clientConfig){$.extend(true,$grid,gj.grid.plugins.resizableColumns.public);if(fullConfig.resizableColumns&&gj.draggable){$grid.on('initialized',function(){gj.grid.plugins.resizableColumns.private.init($grid,fullConfig);});}}};/** 
+ * @widget Grid 
+ * @plugin Row Reorder
+ */gj.grid.plugins.rowReorder={config:{base:{/** If set to true, enable row reordering with drag and drop.
+             * @type boolean
+             * @default false
+             * @example Material.Design <!-- materialicons, grid, grid.rowReorder, draggable.base, droppable.base -->
+             * <p>Drag and Drop rows in order to reorder them.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         rowReorder: true,
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.3 <!-- bootstrap, grid, grid.rowReorder, draggable.base, droppable.base -->
+             * <p>Drag and Drop rows in order to reorder them.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         rowReorder: true,
+             *         uiLibrary: 'bootstrap',
+             *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- bootstrap4, grid, grid.rowReorder, draggable.base, droppable.base -->
+             * <p>Drag and Drop rows in order to reorder them.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         rowReorder: true,
+             *         uiLibrary: 'bootstrap4',
+             *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             */rowReorder:false,/** If set, enable row reordering only when you try to drag cell from the configured column.
+             * Accept only field names of columns.
+             * @type string
+             * @default undefined
+             * @example sample <!-- materialicons, grid, grid.rowReorder, draggable.base, droppable.base -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         rowReorder: true,
+             *         rowReorderColumn: 'ID',
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             */rowReorderColumn:undefined,/** If set, update the value in the field for all records. Accept only field names of columns.
+             * @type string
+             * @default undefined
+             * @example Visible.OrderNumber <!-- grid, grid.rowReorder, draggable.base, droppable.base -->
+             * <table id="grid"></table>
+             * <script>
+             *     var data = [
+             *         { 'ID': 1, 'OrderNumber': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'OrderNumber': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'OrderNumber': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+             *     ];
+             *     $('#grid').grid({
+             *         dataSource: data,
+             *         rowReorder: true,
+             *         orderNumberField: 'OrderNumber',
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'OrderNumber', width:120 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Hidden.OrderNumber <!-- grid, grid.rowReorder, draggable.base, droppable.base -->
+             * <button onclick="alert(JSON.stringify(grid.getAll()))">Show Data</button>
+             * <table id="grid"></table>
+             * <script>
+             *     var data = [
+             *         { 'ID': 1, 'OrderNumber': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'OrderNumber': 2, 'Name': 'Ronaldo Luis Nazario de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'OrderNumber': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' }
+             *     ],
+             *     grid = $('#grid').grid({
+             *         dataSource: data,
+             *         rowReorder: true,
+             *         orderNumberField: 'OrderNumber',
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             */orderNumberField:undefined,style:{targetRowIndicatorTop:'gj-grid-row-reorder-indicator-top',targetRowIndicatorBottom:'gj-grid-row-reorder-indicator-bottom'}}},private:{init:function init($grid){var i,columnPosition,$row,$rows=$grid.find('tbody tr[data-role="row"]');if($grid.data('rowReorderColumn')){columnPosition=gj.grid.methods.getColumnPosition($grid.data('columns'),$grid.data('rowReorderColumn'));}for(i=0;i<$rows.length;i++){$row=$($rows[i]);if(typeof columnPosition!=='undefined'){$row.find('td:eq('+columnPosition+')').on('mousedown',gj.grid.plugins.rowReorder.private.createRowMouseDownHandler($grid,$row));}else{$row.on('mousedown',gj.grid.plugins.rowReorder.private.createRowMouseDownHandler($grid,$row));}}},createRowMouseDownHandler:function createRowMouseDownHandler($grid,$trSource){return function(e){var $dragEl=$grid.clone(),columns=$grid.data('columns'),i,$cells;$grid.addClass('gj-unselectable');$('body').append($dragEl);$dragEl.attr('data-role','draggable-clone').css('cursor','move');$dragEl.children('thead').remove().children('tfoot').remove();$dragEl.find('tbody tr:not([data-position="'+$trSource.data('position')+'"])').remove();$cells=$dragEl.find('tbody tr td');for(i=0;i<$cells.length;i++){if(columns[i].width){$cells[i].setAttribute('width',columns[i].width);}}$dragEl.draggable({stop:gj.grid.plugins.rowReorder.private.createDragStopHandler($grid,$trSource)});$dragEl.css({position:'absolute',top:$trSource.offset().top,left:$trSource.offset().left,width:$trSource.width(),zIndex:1});if($trSource.attr('data-droppable')==='true'){$trSource.droppable('destroy');}$trSource.siblings('tr[data-role="row"]').each(function(){var $dropEl=$(this);if($dropEl.attr('data-droppable')==='true'){$dropEl.droppable('destroy');}$dropEl.droppable({over:gj.grid.plugins.rowReorder.private.createDroppableOverHandler($trSource),out:gj.grid.plugins.rowReorder.private.droppableOut});});$dragEl.trigger('mousedown');};},createDragStopHandler:function createDragStopHandler($grid,$trSource){return function(e,mousePosition){$('table[data-role="draggable-clone"]').draggable('destroy').remove();$grid.removeClass('gj-unselectable');$trSource.siblings('tr[data-role="row"]').each(function(){var $trTarget=$(this),targetPosition=$trTarget.data('position'),sourcePosition=$trSource.data('position'),data=$grid.data(),$rows,$row,i,record,id;if($trTarget.droppable('isOver',mousePosition)){if(targetPosition<sourcePosition){$trTarget.before($trSource);}else{$trTarget.after($trSource);}data.records.splice(targetPosition-1,0,data.records.splice(sourcePosition-1,1)[0]);$rows=$trTarget.parent().find('tr[data-role="row"]');for(i=0;i<$rows.length;i++){$($rows[i]).attr('data-position',i+1);}if(data.orderNumberField){for(i=0;i<data.records.length;i++){data.records[i][data.orderNumberField]=i+1;}for(i=0;i<$rows.length;i++){$row=$($rows[i]);id=gj.grid.methods.getId($row,data.primaryKey,$row.attr('data-position'));record=gj.grid.methods.getByPosition($grid,$row.attr('data-position'));$grid.setCellContent(id,data.orderNumberField,record[data.orderNumberField]);}}}$trTarget.removeClass('gj-grid-top-border');$trTarget.removeClass('gj-grid-bottom-border');$trTarget.droppable('destroy');});};},createDroppableOverHandler:function createDroppableOverHandler($trSource){return function(e){var $trTarget=$(this),targetPosition=$trTarget.data('position'),sourcePosition=$trSource.data('position');if(targetPosition<sourcePosition){$trTarget.addClass('gj-grid-top-border');}else{$trTarget.addClass('gj-grid-bottom-border');}};},droppableOut:function droppableOut(){$(this).removeClass('gj-grid-top-border');$(this).removeClass('gj-grid-bottom-border');}},public:{},configure:function configure($grid,fullConfig,clientConfig){$.extend(true,$grid,gj.grid.plugins.rowReorder.public);if(fullConfig.rowReorder&&gj.draggable&&gj.droppable){$grid.on('dataBound',function(){gj.grid.plugins.rowReorder.private.init($grid);});}}};/** 
+ * @widget Grid 
+ * @plugin Column Reorder
+ */gj.grid.plugins.columnReorder={config:{base:{/** If set to true, enable column reordering with drag and drop.
+             * @type boolean
+             * @default false
+             * @example Material.Design <!-- materialicons, grid, draggable.base, droppable.base -->
+             * <p>Drag and Drop column headers in order to reorder the columns.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         columnReorder: true,
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap <!-- bootstrap, grid, draggable.base, droppable.base -->
+             * <p>Drag and Drop column headers in order to reorder the columns.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap',
+             *         columnReorder: true,
+             *         columns: [ { field: 'ID', width: 36 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- bootstrap4, grid, draggable.base, droppable.base -->
+             * <p>Drag and Drop column headers in order to reorder the columns.</p>
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         uiLibrary: 'bootstrap4',
+             *         columnReorder: true,
+             *         columns: [ { field: 'ID', width: 48 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             */columnReorder:false,style:{targetRowIndicatorTop:'gj-grid-row-reorder-indicator-top',targetRowIndicatorBottom:'gj-grid-row-reorder-indicator-bottom'}}},private:{init:function init($grid){var i,$cell,$cells=$grid.find('thead tr th');for(i=0;i<$cells.length;i++){$cell=$($cells[i]);$cell.on('mousedown',gj.grid.plugins.columnReorder.private.createMouseDownHandler($grid,$cell));}},createMouseDownHandler:function createMouseDownHandler($grid,$thSource){return function(e){var $dragEl=$grid.clone(),srcIndex=$thSource.index();$grid.addClass('gj-unselectable');$('body').append($dragEl);$dragEl.attr('data-role','draggable-clone').css('cursor','move');$dragEl.find('thead tr th:eq('+srcIndex+')').siblings().remove();$dragEl.find('tbody tr[data-role != "row"]').remove();$dragEl.find('tbody tr td:nth-child('+(srcIndex+1)+')').siblings().remove();$dragEl.find('tfoot').remove();$dragEl.draggable({stop:gj.grid.plugins.columnReorder.private.createDragStopHandler($grid,$thSource)});$dragEl.css({position:'absolute',top:$thSource.offset().top,left:$thSource.offset().left,width:$thSource.width(),zIndex:1});if($thSource.attr('data-droppable')==='true'){$thSource.droppable('destroy');}$thSource.siblings('th').each(function(){var $dropEl=$(this);if($dropEl.attr('data-droppable')==='true'){$dropEl.droppable('destroy');}$dropEl.droppable({over:gj.grid.plugins.columnReorder.private.createDroppableOverHandler($grid,$thSource),out:gj.grid.plugins.columnReorder.private.droppableOut});});$dragEl.trigger('mousedown');};},createDragStopHandler:function createDragStopHandler($grid,$thSource){return function(e,mousePosition){$('table[data-role="draggable-clone"]').draggable('destroy').remove();$grid.removeClass('gj-unselectable');$thSource.siblings('th').each(function(){var $thTarget=$(this),data=$grid.data(),targetPosition=gj.grid.methods.getColumnPosition(data.columns,$thTarget.data('field')),sourcePosition=gj.grid.methods.getColumnPosition(data.columns,$thSource.data('field'));$thTarget.removeClass('gj-grid-left-border').removeClass('gj-grid-right-border');$thTarget.closest('table').find('tbody tr[data-role="row"] td:nth-child('+($thTarget.index()+1)+')').removeClass('gj-grid-left-border').removeClass('gj-grid-right-border');if($thTarget.droppable('isOver',mousePosition)){if(targetPosition<sourcePosition){$thTarget.before($thSource);}else{$thTarget.after($thSource);}gj.grid.plugins.columnReorder.private.moveRowCells($grid,sourcePosition,targetPosition);data.columns.splice(targetPosition,0,data.columns.splice(sourcePosition,1)[0]);}$thTarget.droppable('destroy');});};},moveRowCells:function moveRowCells($grid,sourcePosition,targetPosition){var i,$row,$rows=$grid.find('tbody tr[data-role="row"]');for(i=0;i<$rows.length;i++){$row=$($rows[i]);if(targetPosition<sourcePosition){$row.find('td:eq('+targetPosition+')').before($row.find('td:eq('+sourcePosition+')'));}else{$row.find('td:eq('+targetPosition+')').after($row.find('td:eq('+sourcePosition+')'));}}},createDroppableOverHandler:function createDroppableOverHandler($grid,$thSource){return function(e){var $thTarget=$(this),data=$grid.data(),targetPosition=gj.grid.methods.getColumnPosition(data.columns,$thTarget.data('field')),sourcePosition=gj.grid.methods.getColumnPosition(data.columns,$thSource.data('field'));if(targetPosition<sourcePosition){$thTarget.addClass('gj-grid-left-border');$grid.find('tbody tr[data-role="row"] td:nth-child('+($thTarget.index()+1)+')').addClass('gj-grid-left-border');}else{$thTarget.addClass('gj-grid-right-border');$grid.find('tbody tr[data-role="row"] td:nth-child('+($thTarget.index()+1)+')').addClass('gj-grid-right-border');}};},droppableOut:function droppableOut(){var $thTarget=$(this);$thTarget.removeClass('gj-grid-left-border').removeClass('gj-grid-right-border');$thTarget.closest('table').find('tbody tr[data-role="row"] td:nth-child('+($thTarget.index()+1)+')').removeClass('gj-grid-left-border').removeClass('gj-grid-right-border');}},public:{},configure:function configure($grid,fullConfig,clientConfig){$.extend(true,$grid,gj.grid.plugins.columnReorder.public);if(fullConfig.columnReorder){$grid.on('initialized',function(){gj.grid.plugins.columnReorder.private.init($grid);});}}};/**
+ * @widget Grid
+ * @plugin Header Filter
+ */gj.grid.plugins.headerFilter={config:{base:{defaultColumnSettings:{/** Indicates if the column is sortable. If set to false the header filter is hidden.
+                 * @alias column.filterable
+                 * @type boolean
+                 * @default true
+                 * @example Material.Design <!-- materialicons, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         headerFilter: true,
+                 *         columns: [
+                 *             { field: 'ID', width: 56, filterable: false },
+                 *             { field: 'Name', filterable: true },
+                 *             { field: 'PlaceOfBirth' }
+                 *         ]
+                 *     });
+                 * </script>
+                 * @example Bootstrap.3 <!-- bootstrap, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         headerFilter: true,
+                 *         uiLibrary: 'bootstrap',
+                 *         columns: [
+                 *             { field: 'ID', width: 56, filterable: false },
+                 *             { field: 'Name', filterable: true },
+                 *             { field: 'PlaceOfBirth' }
+                 *         ]
+                 *     });
+                 * </script>
+                 */filterable:true},/** If set to true, add filters for each column
+             * @type boolean
+             * @default object
+             * @example Remote.DataSource <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         headerFilter: true,
+             *         columns: [ { field: 'ID', width: 56, filterable: false }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Local.DataSource <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     var data = [
+             *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria' },
+             *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil' },
+             *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England' },
+             *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany' },
+             *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia' },
+             *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria' }
+             *     ];
+             *     $('#grid').grid({
+             *         dataSource: data,
+             *         headerFilter: true,
+             *         columns: [ 
+             *             { field: 'ID', width: 56, filterable: false }, 
+             *             { field: 'Name' }, 
+             *             { field: 'PlaceOfBirth' } 
+             *         ],
+             *         pager: { limit: 5 }
+             *     });
+             * </script>
+             */headerFilter:{/** Type of the header filter
+                 * @alias headerFilter.type
+                 * @type (onenterkeypress|onchange)
+                 * @default 'onenterkeypress'
+                 * @example OnEnterKeyPress <!-- materialicons, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         headerFilter: {
+                 *             type: 'onenterkeypress'
+                 *         },
+                 *         columns: [ { field: 'ID', width: 56, filterable: false }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+                 *     });
+                 * </script>
+                 * @example OnChange <!-- materialicons, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         dataSource: '/Players/Get',
+                 *         headerFilter: {
+                 *             type: 'onchange'
+                 *         },
+                 *         columns: [ { field: 'ID', width: 56, filterable: false }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+                 *     });
+                 * </script>
+                 */type:'onenterkeypress'}}},private:{init:function init($grid){var i,$th,$ctrl,data=$grid.data(),$filterTr=$('<tr data-role="filter"/>');for(i=0;i<data.columns.length;i++){$th=$('<th/>');if(data.columns[i].filterable){$ctrl=$('<input data-field="'+data.columns[i].field+'" class="gj-width-full" />');if('onchange'===data.headerFilter.type){$ctrl.on('input propertychange',function(e){gj.grid.plugins.headerFilter.private.reload($grid,$(this));});}else{$ctrl.on('keypress',function(e){if(e.which==13){gj.grid.plugins.headerFilter.private.reload($grid,$(this));}});$ctrl.on('blur',function(e){gj.grid.plugins.headerFilter.private.reload($grid,$(this));});}$th.append($ctrl);}if(data.columns[i].hidden){$th.hide();}$filterTr.append($th);}$grid.children('thead').append($filterTr);},reload:function reload($grid,$ctrl){var params={};params[$ctrl.data('field')]=$ctrl.val();$grid.reload(params);}},public:{},events:{},configure:function configure($grid,fullConfig,clientConfig){$.extend(true,$grid,gj.grid.plugins.headerFilter.public);var data=$grid.data();if(clientConfig.headerFilter){$grid.on('initialized',function(){gj.grid.plugins.headerFilter.private.init($grid);});}}};/** 
+ * @widget Grid 
+ * @plugin Grouping
+ */gj.grid.plugins.grouping={config:{base:{paramNames:{/** The name of the parameter that is going to send the name of the column for grouping.
+                 * The grouping should be enabled in order this parameter to be in use.
+                 * @alias paramNames.groupBy
+                 * @type string
+                 * @default "groupBy"
+                 */groupBy:'groupBy',/** The name of the parameter that is going to send the direction for grouping.
+                 * The grouping should be enabled in order this parameter to be in use.
+                 * @alias paramNames.groupByDirection
+                 * @type string
+                 * @default "groupByDirection"
+                 */groupByDirection:'groupByDirection'},grouping:{/** The name of the field that needs to be in use for grouping.
+                  * @type string
+                  * @alias grouping.groupBy
+                  * @default undefined
+                  * @example Local.Data <!-- materialicons, grid -->
+                  * <table id="grid"></table>
+                  * <script>
+                  *     var grid, data = [
+                  *         { 'ID': 1, 'Name': 'Hristo Stoichkov', 'PlaceOfBirth': 'Plovdiv, Bulgaria', Nationality: 'Bulgaria' },
+                  *         { 'ID': 2, 'Name': 'Ronaldo LuÃ­s NazÃ¡rio de Lima', 'PlaceOfBirth': 'Rio de Janeiro, Brazil', Nationality: 'Brazil' },
+                  *         { 'ID': 3, 'Name': 'David Platt', 'PlaceOfBirth': 'Chadderton, Lancashire, England', Nationality: 'England' },
+                  *         { 'ID': 4, 'Name': 'Manuel Neuer', 'PlaceOfBirth': 'Gelsenkirchen, West Germany', Nationality: 'Germany' },
+                  *         { 'ID': 5, 'Name': 'James RodrÃ­guez', 'PlaceOfBirth': 'CÃºcuta, Colombia', Nationality: 'Colombia' },
+                  *         { 'ID': 6, 'Name': 'Dimitar Berbatov', 'PlaceOfBirth': 'Blagoevgrad, Bulgaria', Nationality: 'Bulgaria' }
+                  *     ];
+                  *     $('#grid').grid({
+                  *         dataSource: data,
+                  *         grouping: { groupBy: 'Nationality' },
+                  *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+                  *         pager: { limit: 5 }
+                  *     });
+                  * </script>
+                  * @example Remote.Data <!-- materialicons, grid -->
+                  * <table id="grid"></table>
+                  * <script>
+                  *     $('#grid').grid({
+                  *         dataSource: '/Players/Get',
+                  *         grouping: { groupBy: 'Nationality' },
+                  *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+                  *         pager: { limit: 5 }
+                  *     });
+                  * </script>
+                  * @example Bootstrap.3 <!-- bootstrap, grid -->
+                  * <table id="grid"></table>
+                  * <script>
+                  *     $('#grid').grid({
+                  *         dataSource: '/Players/Get',
+                  *         uiLibrary: 'bootstrap',
+                  *         grouping: { groupBy: 'Nationality' },
+                  *         columns: [ { field: 'Name', sortable: true }, { field: 'DateOfBirth', type: 'date' } ],
+                  *         pager: { limit: 5 },
+                  *         detailTemplate: '<div><b>Place Of Birth:</b> {PlaceOfBirth}</div>'
+                  *     });
+                  * </script>
+                  * @example Bootstrap.4 <!-- bootstrap4, fontawesome, grid -->
+                  * <table id="grid"></table>
+                  * <script>
+                  *     $('#grid').grid({
+                  *         dataSource: '/Players/Get',
+                  *         uiLibrary: 'bootstrap4',
+                  *         iconsLibrary: 'fontawesome',
+                  *         grouping: { groupBy: 'Nationality' },
+                  *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+                  *         pager: { limit: 5 }
+                  *     });
+                  * </script>
+                  */groupBy:undefined,direction:'asc'},icons:{/** Expand row icon definition.
+                 * @alias icons.expandGroup
+                 * @type String
+                 * @default '<i class="material-icons">add</i>'
+                 * @example Right.Down.Icons <!-- materialicons, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         primaryKey: 'ID',
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+                 *         grouping: { groupBy: 'Nationality' },
+                 *         icons: {
+                 *             expandGroup: '<i class="material-icons">keyboard_arrow_right</i>',
+                 *             collapseGroup: '<i class="material-icons">keyboard_arrow_down</i>'
+                 *         }
+                 *     });
+                 * </script>
+                 */expandGroup:'<i class="material-icons">add</i>',/** Collapse row icon definition.
+                 * @alias icons.collapseGroup
+                 * @type String
+                 * @default '<i class="material-icons">remove</i>'
+                 * @example Right.Down.Icons <!-- materialicons, grid -->
+                 * <table id="grid"></table>
+                 * <script>
+                 *     $('#grid').grid({
+                 *         primaryKey: 'ID',
+                 *         dataSource: '/Players/Get',
+                 *         columns: [ { field: 'Name', sortable: true }, { field: 'PlaceOfBirth' } ],
+                 *         grouping: { groupBy: 'Nationality' },
+                 *         icons: {
+                 *             expandGroup: '<i class="material-icons">keyboard_arrow_right</i>',
+                 *             collapseGroup: '<i class="material-icons">keyboard_arrow_down</i>'
+                 *         }
+                 *     });
+                 * </script>
+                 */collapseGroup:'<i class="material-icons">remove</i>'}},fontawesome:{icons:{expandGroup:'<i class="fa fa-plus" aria-hidden="true"></i>',collapseGroup:'<i class="fa fa-minus" aria-hidden="true"></i>'}},glyphicons:{icons:{expandGroup:'<span class="glyphicon glyphicon-plus" />',collapseGroup:'<span class="glyphicon glyphicon-minus" />'}}},private:{init:function init($grid){var previousValue,data=$grid.data();previousValue=undefined;$grid.on('rowDataBound',function(e,$row,id,record){if(previousValue!==record[data.grouping.groupBy]){var colspan=gj.grid.methods.countVisibleColumns($grid)-1,$groupRow=$('<tr data-role="group" />'),$expandCollapseCell=$('<td class="gj-text-align-center gj-unselectable gj-cursor-pointer" />');$expandCollapseCell.append('<div data-role="display">'+data.icons.collapseGroup+'</div>');$expandCollapseCell.on('click',gj.grid.plugins.grouping.private.createExpandCollapseHandler(data));$groupRow.append($expandCollapseCell);$groupRow.append('<td colspan="'+colspan+'"><div data-role="display">'+data.grouping.groupBy+': '+record[data.grouping.groupBy]+'</div></td>');$groupRow.insertBefore($row);previousValue=record[data.grouping.groupBy];}$row.show();});data.params[data.paramNames.groupBy]=data.grouping.groupBy;data.params[data.paramNames.groupByDirection]=data.grouping.direction;},grouping:function grouping($grid,records){var data=$grid.data();records.sort(gj.grid.methods.createDefaultSorter(data.grouping.direction,data.grouping.groupBy));},createExpandCollapseHandler:function createExpandCollapseHandler(data){return function(e){var $cell=$(this),$display=$cell.children('div[data-role="display"]'),$groupRow=$cell.closest('tr');if($groupRow.next(':visible').data('role')==='row'){$groupRow.nextUntil('[data-role="group"]').hide();$display.empty().append(data.icons.expandGroup);}else{$groupRow.nextUntil('[data-role="group"]').show();$display.empty().append(data.icons.collapseGroup);}};}},public:{},configure:function configure($grid){var column,data=$grid.data();$.extend(true,$grid,gj.grid.plugins.grouping.public);if(data.grouping&&data.grouping.groupBy){column={title:'',width:data.defaultIconColumnWidth,align:'center',stopPropagation:true,cssClass:'gj-cursor-pointer gj-unselectable'};data.columns=[column].concat(data.columns);$grid.on('initialized',function(){gj.grid.plugins.grouping.private.init($grid);});$grid.on('dataFiltered',function(e,records){gj.grid.plugins.grouping.private.grouping($grid,records);});}}};/**
+ * @widget Grid
+ * @plugin Fixed Header
+ */gj.grid.plugins.fixedHeader={config:{base:{/** If set to true, add scroll to the table body
+             * @type boolean
+             * @default object
+             * @example Material.Design.Without.Pager <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         fixedHeader: true,
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ]
+             *     });
+             * </script>
+             * @example Material.Design.With.Pager <!-- materialicons, grid -->
+             * <table id="grid"></table>
+             * <script>
+             *     $('#grid').grid({
+             *         dataSource: '/Players/Get',
+             *         fixedHeader: true,
+             *         columns: [ { field: 'ID', width: 56 }, { field: 'Name' }, { field: 'PlaceOfBirth' } ],
+             *         pager: { limit: 5 }
+             *     });
+             * </script>
+             * @example Bootstrap.3.Without.Pager <!-- bootstrap, grid -->
+             * <div class="container"><table id="grid"></table></div>
+             * <script>
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap',
+             *         dataSource: '/Players/Get',
+             *         fixedHeader: true,
+             *         height: 200,
+             *         columns: [ 
+             *             { field: 'ID', width: 34 },
+             *             { field: 'Name' },
+             *             { field: 'PlaceOfBirth' }
+             *         ]
+             *     });
+             * </script>
+             * @example Bootstrap.3.With.Pager <!-- bootstrap, grid -->
+             * <div class="container"><table id="grid"></table></div>
+             * <script>
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap',
+             *         dataSource: '/Players/Get',
+             *         fixedHeader: true,
+             *         height: 200,
+             *         columns: [ 
+             *             { field: 'ID', width: 34 }, 
+             *             { field: 'Name' }, 
+             *             { field: 'PlaceOfBirth' } 
+             *         ],
+             *         pager: { limit: 5 }
+             *     });
+             * </script>
+             * @example Bootstrap.4 <!-- materialicons, bootstrap4, grid -->
+             * <div class="container"><table id="grid"></table></div>
+             * <script>
+             *     $('#grid').grid({
+             *         uiLibrary: 'bootstrap4',
+             *         dataSource: '/Players/Get',
+             *         fixedHeader: true,
+             *         columns: [ 
+             *             { field: 'ID', width: 34 }, 
+             *             { field: 'Name' }, 
+             *             { field: 'PlaceOfBirth' } 
+             *         ],
+             *         pager: { limit: 5 }
+             *     });
+             * </script>
+             */fixedHeader:false,height:300}},private:{init:function init($grid){var data=$grid.data(),$tbody=$grid.children('tbody'),$thead=$grid.children('thead'),bodyHeight=data.height-$thead.outerHeight()-($grid.children('tfoot').outerHeight()||0);$grid.addClass('gj-grid-scrollable');$tbody.css('width',$thead.outerWidth());$tbody.height(bodyHeight);},refresh:function refresh($grid){var i,width,data=$grid.data(),$tbody=$grid.children('tbody'),$thead=$grid.children('thead'),$tbodyCells=$grid.find('tbody tr[data-role="row"] td'),$theadCells=$grid.find('thead tr[data-role="caption"] th');if($grid.children('tbody').height()<gj.grid.plugins.fixedHeader.private.getRowsHeight($grid)){$tbody.css('width',$thead.outerWidth()+gj.grid.plugins.fixedHeader.private.getScrollBarWidth()+(navigator.userAgent.toLowerCase().indexOf('firefox')>-1?1:0));}else{$tbody.css('width',$thead.outerWidth());}for(i=0;i<$theadCells.length;i++){width=$($theadCells[i]).outerWidth();if(i===0&&gj.core.isIE()){width=width-1;}$($tbodyCells[i]).attr('width',width);}},getRowsHeight:function getRowsHeight($grid){var total=0;$grid.find('tbody tr').each(function(){total+=$(this).height();});return total;},getScrollBarWidth:function getScrollBarWidth(){var inner=document.createElement('p');inner.style.width="100%";inner.style.height="200px";var outer=document.createElement('div');outer.style.position="absolute";outer.style.top="0px";outer.style.left="0px";outer.style.visibility="hidden";outer.style.width="200px";outer.style.height="150px";outer.style.overflow="hidden";outer.appendChild(inner);document.body.appendChild(outer);var w1=inner.offsetWidth;outer.style.overflow='scroll';var w2=inner.offsetWidth;if(w1==w2)w2=outer.clientWidth;document.body.removeChild(outer);return w1-w2;}},public:{},events:{},configure:function configure($grid,fullConfig,clientConfig){$.extend(true,$grid,gj.grid.plugins.fixedHeader.public);var data=$grid.data();if(clientConfig.fixedHeader){$grid.on('initialized',function(){gj.grid.plugins.fixedHeader.private.init($grid);});$grid.on('dataBound',function(){gj.grid.plugins.fixedHeader.private.refresh($grid);});$grid.on('resize',function(){gj.grid.plugins.fixedHeader.private.refresh($grid);});}}};/* global window alert jQuery gj *//**
+  * @widget Tree
+  * @plugin Base
+  */if(typeof gj.tree==='undefined'){gj.tree={plugins:{}};}gj.tree.config={base:{params:{},/** When this setting is enabled the content of the tree will be loaded automatically after the creation of the tree.
+         * @type boolean
+         * @default true
+         * @example disabled <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         autoLoad: false
+         *     });
+         *     tree.reload(); //call .reload() explicitly in order to load the data in the tree
+         * </script>
+         * @example enabled <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         autoLoad: true
+         *     });
+         * </script>
+         */autoLoad:true,/** The type of the node selection.<br/>
+         * If the type is set to multiple the user will be able to select more then one node in the tree.
+         * @type (single|multiple)
+         * @default single
+         * @example Single.Selection <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         selectionType: 'single'
+         *     });
+         * </script>
+         * @example Multiple.Selection <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         selectionType: 'multiple'
+         *     });
+         * </script>
+         */selectionType:'single',/** This setting enable cascade selection and unselection of children
+         * @type boolean
+         * @default false
+         * @example Sample <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         cascadeSelection: true
+         *     });
+         * </script>
+         */cascadeSelection:false,/** The data source of tree.
+         * @additionalinfo If set to string, then the tree is going to use this string as a url for ajax requests to the server.<br />
+         * If set to object, then the tree is going to use this object as settings for the <a href="http://api.jquery.com/jquery.ajax/" target="_new">jquery ajax</a> function.<br />
+         * If set to array, then the tree is going to use the array as data for tree nodes.
+         * @type (string|object|array)
+         * @default undefined
+         * @example Local.DataSource <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: [ { text: 'foo', children: [ { text: 'bar' } ] } ]
+         *     });
+         * </script>
+         * @example Remote.DataSource <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get'
+         *     });
+         * </script>
+         */dataSource:undefined,/** Primary key field name.
+         * @type string
+         * @default undefined
+         * @example sample <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         primaryKey: 'id',
+         *         dataSource: [ { id: 101, text: 'foo', children: [ { id: 202, text: 'bar' } ] } ]
+         *     });
+         *     alert(tree.getDataById(101).text);
+         * </script>
+         */primaryKey:undefined,/** Text field name.
+         * @type string
+         * @default 'text'
+         * @example sample <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         textField: 'newTextName',
+         *         dataSource: [ { newTextName: 'foo', children: [ { newTextName: 'bar' } ] } ]
+         *     });
+         * </script>
+         */textField:'text',/** Children field name.
+         * @type string
+         * @default 'children'
+         * @example Custom.FieldName <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         childrenField: 'myChildrenNode',
+         *         dataSource: [ { text: 'foo', myChildrenNode: [ { text: 'bar' } ] } ]
+         *     });
+         * </script>
+         */childrenField:'children',/** Image css class field name.
+         * @type string
+         * @default 'imageCssClass'
+         * @example Default.Name <!-- bootstrap, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         uiLibrary: 'bootstrap',
+         *         dataSource: [ { text: 'folder', imageCssClass: 'glyphicon glyphicon-folder-close', children: [ { text: 'file', imageCssClass: 'glyphicon glyphicon-file' } ] } ]
+         *     });
+         * </script>
+         * @example Custom.Name <!-- materialicons, tree.base  -->
+         * <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         imageCssClassField: 'faCssClass',
+         *         dataSource: [ { text: 'folder', faCssClass: 'fa fa-folder', children: [ { text: 'file', faCssClass: 'fa fa-file' } ] } ]
+         *     });
+         * </script>
+         */imageCssClassField:'imageCssClass',/** Image url field name.
+         * @type string
+         * @default 'imageUrl'
+         * @example Default.HTML.Field.Name <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: [ { text: 'World', imageUrl: 'http://gijgo.com/content/icons/world-icon.png', children: [ { text: 'USA', imageUrl: 'http://gijgo.com/content/icons/usa-oval-icon.png' } ] } ]
+         *     });
+         * </script>
+         * @example Custom.HTML.Field.Name <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         imageUrlField: 'icon',
+         *         dataSource: [ { text: 'World', icon: 'http://gijgo.com/content/icons/world-icon.png', children: [ { text: 'USA', icon: 'http://gijgo.com/content/icons/usa-oval-icon.png' } ] } ]
+         *     });
+         * </script>
+         */imageUrlField:'imageUrl',/** Image html field name.
+         * @type string
+         * @default 'imageHtml'
+         * @example Default.HTML.Field.Name <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: [ { text: 'folder', imageHtml: '<i class="material-icons">folder</i>', children: [ { text: 'file', imageHtml: '<i class="material-icons">insert_drive_file</i>' } ] } ]
+         *     });
+         * </script>
+         * @example Custom.HTML.Field.Name <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         imageHtmlField: 'icon',
+         *         dataSource: [ { text: 'folder', icon: '<i class="material-icons">folder</i>', children: [ { text: 'file', icon: '<i class="material-icons">insert_drive_file</i>' } ] } ]
+         *     });
+         * </script>
+         */imageHtmlField:'imageHtml',/** Disabled field name. Assume that the item is not disabled if not set.
+         * @type string
+         * @default 'disabled'
+         * @example Default.Value <!-- materialicons, checkbox, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         checkboxes: true,
+         *         dataSource: [ { text: 'foo', children: [
+         *                 { text: 'bar', disabled: true, children: [ { text: 'sub-bar' } ] },
+         *                 { text: 'bar2', disabled: false }
+         *             ] }
+         *         ]
+         *     });
+         * </script>
+         * @example Custom.Value <!-- materialicons, checkbox, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         checkboxes: true,
+         *         disabledField: 'disabledState',
+         *         dataSource: [ { text: 'foo', children: [
+         *                 { text: 'bar', disabledState: true, children: [ { text: 'sub-bar' } ] },
+         *                 { text: 'bar2', disabledState: false }
+         *             ] }
+         *         ]
+         *     });
+         * </script>
+         * @example Bootstrap <!-- bootstrap, checkbox, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         uiLibrary: 'bootstrap',
+         *         checkboxes: true,
+         *         dataSource: [ { text: 'foo', children: [
+         *                 { text: 'bar', disabled: true, children: [ { text: 'sub-bar' } ] },
+         *                 { text: 'bar2', disabled: false }
+         *             ] }
+         *         ]
+         *     });
+         * </script>
+         * @example Bootstrap.4 <!-- bootstrap4, materialicons, checkbox, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         uiLibrary: 'bootstrap4',
+         *         checkboxes: true,
+         *         dataSource: [ { text: 'foo', children: [
+         *                 { text: 'bar', disabled: true, children: [ { text: 'sub-bar' } ] },
+         *                 { text: 'bar2', disabled: false }
+         *             ] }
+         *         ]
+         *     });
+         * </script>
+         */disabledField:'disabled',/** Width of the tree.
+         * @type number
+         * @default undefined
+         * @example JS.Config <!-- bootstrap, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'bootstrap'
+         *     });
+         * </script>
+         * @example HTML.Config <!-- bootstrap, tree.base -->
+         * <div id="tree" width="500" data-source="/Locations/Get" data-ui-library="bootstrap"></div>
+         * <script>
+         *     $('#tree').tree();
+         * </script>
+         */width:undefined,/** When this setting is enabled the content of the tree will be wrapped by borders.
+         * @type boolean
+         * @default false
+         * @example Material.Design.True <!-- materialicons, checkbox, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         border: true,
+         *         checkboxes: true
+         *     });
+         * </script>
+         * @example Material.Design.False <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         border: false
+         *     });
+         * </script>
+         * @example Bootstrap.3.True <!-- bootstrap, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'bootstrap',
+         *         border: true
+         *     });
+         * </script>
+         * @example Bootstrap.3.False <!-- bootstrap, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'bootstrap',
+         *         border: false
+         *     });
+         * </script>
+         * @example Bootstrap.4.True <!-- bootstrap4, fontawesome, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'bootstrap4',
+         *         iconsLibrary: 'fontawesome',
+         *         border: true
+         *     });
+         * </script>
+         */border:false,/** The name of the UI library that is going to be in use.
+         * @additionalinfo The css file for bootstrap should be manually included if you use bootstrap.
+         * @type (materialdesign|bootstrap|bootstrap4)
+         * @default materialdesign
+         * @example MaterialDesign <!-- materialicons, tree.base, checkbox -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'materialdesign',
+         *         checkboxes: true
+         *     });
+         * </script>
+         * @example Bootstrap.3 <!-- bootstrap, tree.base, checkbox -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'bootstrap',
+         *         checkboxes: true
+         *     });
+         * </script>
+         * @example Bootstrap.4 <!-- materialicons, bootstrap4, tree.base, checkbox -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'bootstrap4',
+         *         checkboxes: true
+         *     });
+         * </script>
+         */uiLibrary:'materialdesign',/** The name of the icons library that is going to be in use. Currently we support Material Icons, Font Awesome and Glyphicons.
+         * @additionalinfo If you use Bootstrap 3 as uiLibrary, then the iconsLibrary is set to Glyphicons by default.<br/>
+         * If you use Material Design as uiLibrary, then the iconsLibrary is set to Material Icons by default.<br/>
+         * The css files for Material Icons, Font Awesome or Glyphicons should be manually included to the page where the grid is in use.
+         * @type (materialicons|fontawesome|glyphicons)
+         * @default 'materialicons'
+         * @example Base.Theme.Material.Icons <!-- materialicons, tree.base -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         iconsLibrary: 'materialicons'
+         *     });
+         * </script>
+         * @example Bootstrap.4.Font.Awesome <!-- bootstrap4, fontawesome, tree.base, checkbox -->
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         width: 500,
+         *         uiLibrary: 'bootstrap4',
+         *         iconsLibrary: 'fontawesome',
+         *         checkboxes: true
+         *     });
+         * </script>
+         */iconsLibrary:'materialicons',autoGenId:1,indentation:24,style:{wrapper:'gj-unselectable',list:'gj-list gj-list-md',item:undefined,active:'gj-list-md-active',leafIcon:undefined,border:'gj-tree-md-border'},icons:{/** Expand icon definition.
+             * @alias icons.expand
+             * @type String
+             * @default '<i class="material-icons">keyboard_arrow_right</i>'
+             * @example Plus.Minus.Icons <!-- materialicons, tree.base -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         icons: { 
+             *             expand: '<i class="material-icons">add</i>',
+             *             collapse: '<i class="material-icons">remove</i>'
+             *         }
+             *     });
+             * </script>
+             */expand:'<i class="material-icons">keyboard_arrow_right</i>',/** Collapse icon definition.
+             * @alias icons.collapse
+             * @type String
+             * @default '<i class="material-icons">keyboard_arrow_right</i>'
+             * @example Plus.Minus.Icons <!-- materialicons, tree.base -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         dataSource: '/Locations/Get',
+             *         icons: { 
+             *             expand: '<i class="material-icons">add</i>',
+             *             collapse: '<i class="material-icons">remove</i>'
+             *         }
+             *     });
+             * </script>
+             */collapse:'<i class="material-icons">keyboard_arrow_down</i>'}},bootstrap:{style:{wrapper:'gj-unselectable gj-tree-bootstrap-3',list:'gj-list gj-list-bootstrap list-group',item:'list-group-item',active:'active',border:'gj-tree-bootstrap-border'},iconsLibrary:'glyphicons'},bootstrap4:{style:{wrapper:'gj-unselectable gj-tree-bootstrap-4',list:'gj-list gj-list-bootstrap',item:'list-group-item',active:'active',border:'gj-tree-bootstrap-border'}},materialicons:{style:{expander:'gj-tree-material-icons-expander'}},fontawesome:{style:{expander:'gj-tree-font-awesome-expander'},icons:{expand:'<i class="fa fa-plus" aria-hidden="true"></i>',collapse:'<i class="fa fa-minus" aria-hidden="true"></i>'}},glyphicons:{style:{expander:'gj-tree-glyphicons-expander'},icons:{expand:'<span class="glyphicon glyphicon-plus" />',collapse:'<span class="glyphicon glyphicon-minus" />'}}};/**
+  * @widget Tree
+  * @plugin Base
+  */gj.tree.events={/**
+     * Event fires when the tree is initialized
+     * @event initialized
+     * @param {object} e - event data
+     * @example sample <!-- materialicons, tree.base -->
+     * <button id="reload">Reload</button>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get',
+     *         initialized: function (e) {
+     *             alert('initialized is fired.');
+     *         }
+     *     });
+     *     $('#reload').on('click', function() { 
+     *         tree.reload(); 
+     *     });
+     * </script>
+     */initialized:function initialized($tree){$tree.triggerHandler('initialized');},/**
+     * Event fired before data binding takes place.
+     * @event dataBinding
+     * @param {object} e - event data
+     * @example sample <!-- materialicons, tree.base -->
+     * <div id="tree"></div>
+     * <script>
+     *     $('#tree').tree({
+     *         dataSource: '/Locations/Get',
+     *         dataBinding: function (e) {
+     *             alert('dataBinding is fired.');
+     *         }
+     *     });
+     * </script>
+     */dataBinding:function dataBinding($tree){$tree.triggerHandler('dataBinding');},/**
+     * Event fires after the loading of the data in the tree.
+     * @event dataBound
+     * @param {object} e - event data
+     * @example sample <!-- materialicons, tree.base -->
+     * <div id="tree"></div>
+     * <script>
+     *     $('#tree').tree({
+     *         dataSource: '/Locations/Get',
+     *         dataBound: function (e) {
+     *             alert('dataBound is fired.');
+     *         }
+     *     });
+     * </script>
+     */dataBound:function dataBound($tree){$tree.triggerHandler('dataBound');},/**
+     * Event fires after selection of tree node.
+     * @event select
+     * @param {object} e - event data
+     * @param {object} node - the node as jquery object
+     * @param {string} id - the id of the record
+     * @example sample <!-- materialicons, tree.base -->
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     *     tree.on('select', function (e, node, id) {
+     *         alert('select is fired.');
+     *     });
+     * </script>
+     */select:function select($tree,$node,id){return $tree.triggerHandler('select',[$node,id]);},/**
+     * Event fires on un selection of tree node
+     * @event unselect
+     * @param {object} e - event data
+     * @param {object} node - the node as jquery object
+     * @param {string} id - the id of the record
+     * @example sample <!-- materialicons, tree.base -->
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     *     tree.on('unselect', function (e, node, id) {
+     *         alert('unselect is fired.');
+     *     });
+     * </script>
+     */unselect:function unselect($tree,$node,id){return $tree.triggerHandler('unselect',[$node,id]);},/**
+     * Event fires before node expand.
+     * @event expand
+     * @param {object} e - event data
+     * @param {object} node - the node as jquery object
+     * @param {string} id - the id of the record
+     * @example Event.Sample <!-- materialicons, tree.base -->
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     *     tree.on('expand', function (e, node, id) {
+     *         alert('expand is fired.');
+     *     });
+     * </script>
+     */expand:function expand($tree,$node,id){return $tree.triggerHandler('expand',[$node,id]);},/**
+     * Event fires before node collapse.
+     * @event collapse
+     * @param {object} e - event data
+     * @param {object} node - the node as jquery object
+     * @param {string} id - the id of the record
+     * @example Event.Sample <!-- materialicons, tree.base -->
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     *     tree.on('collapse', function (e, node, id) {
+     *         alert('collapse is fired.');
+     *     });
+     * </script>
+     */collapse:function collapse($tree,$node,id){return $tree.triggerHandler('collapse',[$node,id]);},/**
+     * Event fires on enable of tree node.
+     * @event enable
+     * @param {object} e - event data
+     * @param {object} node - the node as jquery object
+     * @example Event.Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.enable(northAmerica, false)">Enable North America</button>
+     * <button onclick="tree.disable(northAmerica, false)">Disable North America</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         primaryKey: 'ID',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     *     tree.on('enable', function (e, node) {
+     *         alert(node.text() + ' is enabled.');
+     *     });
+     * </script>
+     */enable:function enable($tree,$node){return $tree.triggerHandler('enable',[$node]);},/**
+     * Event fires on disable of tree node.
+     * @event disable
+     * @param {object} e - event data
+     * @param {object} node - the node as jquery object
+     * @example Event.Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.enable(northAmerica, false)">Enable North America</button>
+     * <button onclick="tree.disable(northAmerica, false)">Disable North America</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         primaryKey: 'ID',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     *     tree.on('disable', function (e, node) {
+     *         alert(node.text() + ' is disabled.');
+     *     });
+     * </script>
+     */disable:function disable($tree,$node){return $tree.triggerHandler('disable',[$node]);},/**
+     * Event fires before tree destroy
+     * @event destroying
+     * @param {object} e - event data
+     * @example Event.Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.destroy()">Destroy</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     *     tree.on('destroying', function (e) {
+     *         alert('destroying is fired.');
+     *     });
+     * </script>
+     */destroying:function destroying($tree){return $tree.triggerHandler('destroying');},/**
+     * Event fires when the data is bound to node.
+     * @event nodeDataBound
+     * @param {object} e - event data
+     * @param {object} node - the node as jquery object
+     * @param {string} id - the id of the record
+     * @param {object} record - the data of the node record
+     * @example Event.Sample <!-- materialicons, tree.base -->
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     *     tree.on('nodeDataBound', function (e, node, id, record) {
+     *         if ((parseInt(id, 10) % 2) === 0) {
+     *             node.css('background-color', 'red');
+     *         }
+     *     });
+     * </script>
+     */nodeDataBound:function nodeDataBound($tree,$node,id,record){return $tree.triggerHandler('nodeDataBound',[$node,id,record]);}/*global gj $*/};gj.tree.methods={init:function init(jsConfig){gj.widget.prototype.init.call(this,jsConfig,'tree');gj.tree.methods.initialize.call(this);if(this.data('autoLoad')){this.reload();}return this;},initialize:function initialize(){var data=this.data(),$root=$('<ul class="'+data.style.list+'"/>');this.empty().addClass(data.style.wrapper).append($root);if(data.width){this.width(data.width);}if(data.border){this.addClass(data.style.border);}gj.tree.events.initialized(this);},useHtmlDataSource:function useHtmlDataSource($tree,data){data.dataSource=[];},render:function render($tree,response){if(response){if(typeof response==='string'&&JSON){response=JSON.parse(response);}$tree.data('records',gj.tree.methods.getRecords($tree,response));gj.tree.methods.loadData($tree);}return $tree;},filter:function filter($grid){return $grid.data().dataSource;},getRecords:function getRecords($tree,response){var i,id,nodeData,result=[],data=$tree.data();for(i=0;i<response.length;i++){id=data.primaryKey?response[i][data.primaryKey]:data.autoGenId++;nodeData={id:id,data:response[i]};if(response[i][data.childrenField]&&response[i][data.childrenField].length){nodeData.children=gj.tree.methods.getRecords($tree,response[i][data.childrenField]);delete response[i][data.childrenField];}result.push(nodeData);}return result;},loadData:function loadData($tree){var i,records=$tree.data('records'),$root=$tree.children('ul');gj.tree.events.dataBinding($tree);$root.off().empty();for(i=0;i<records.length;i++){gj.tree.methods.appendNode($tree,$root,records[i],1);}gj.tree.events.dataBound($tree);},appendNode:function appendNode($tree,$parent,nodeData,level,position){var i,$node,$newParent,$span,$img,data=$tree.data(),$node=$('<li data-id="'+nodeData.id+'" data-role="node" />').addClass(data.style.item),$wrapper=$('<div data-role="wrapper" />'),$expander=$('<span data-role="expander" data-mode="close"></span>').addClass(data.style.expander),$display=$('<span data-role="display">'+nodeData.data[data.textField]+'</span>'),disabled=typeof nodeData.data[data.disabledField]!=='undefined'&&nodeData.data[data.disabledField].toString().toLowerCase()==='true';if(data.indentation){$wrapper.append('<span data-role="spacer" style="width: '+data.indentation*(level-1)+'px;"></span>');}if(disabled){gj.tree.methods.disableNode($tree,$node);}else{$expander.on('click',gj.tree.methods.expanderClickHandler($tree));$display.on('click',gj.tree.methods.displayClickHandler($tree));}$wrapper.append($expander);$wrapper.append($display);$node.append($wrapper);if(position){$parent.find('li:eq('+(position-1)+')').before($node);}else{$parent.append($node);}if(nodeData.children&&nodeData.children.length){$expander.empty().append(data.icons.expand);$newParent=$('<ul />').addClass(data.style.list).addClass('gj-hidden');$node.append($newParent);for(i=0;i<nodeData.children.length;i++){gj.tree.methods.appendNode($tree,$newParent,nodeData.children[i],level+1);}}else{data.style.leafIcon?$expander.addClass(data.style.leafIcon):$expander.html('&nbsp;');}if(data.imageCssClassField&&nodeData.data[data.imageCssClassField]){$('<span data-role="image"><span class="'+nodeData.data[data.imageCssClassField]+'"></span></span>').insertBefore($display);}else if(data.imageUrlField&&nodeData.data[data.imageUrlField]){$span=$('<span data-role="image"></span>');$span.insertBefore($display);$img=$('<img src="'+nodeData.data[data.imageUrlField]+'"></img>');$img.attr('width',$span.width()).attr('height',$span.height());$span.append($img);}else if(data.imageHtmlField&&nodeData.data[data.imageHtmlField]){$span=$('<span data-role="image">'+nodeData.data[data.imageHtmlField]+'</span>');$span.insertBefore($display);}gj.tree.events.nodeDataBound($tree,$node,nodeData.id,nodeData.data);},expanderClickHandler:function expanderClickHandler($tree){return function(e){var $expander=$(this),$node=$expander.closest('li');if($expander.attr('data-mode')==='close'){$tree.expand($node);}else{$tree.collapse($node);}};},expand:function expand($tree,$node,cascade){var $children,i,$expander=$node.find('>[data-role="wrapper"]>[data-role="expander"]'),data=$tree.data(),id=$node.attr('data-id'),$list=$node.children('ul');if($list&&$list.length&&gj.tree.events.expand($tree,$node,id)!==false){$list.show();$expander.attr('data-mode','open');$expander.empty().append(data.icons.collapse);if(cascade){$children=$node.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.expand($tree,$($children[i]),cascade);}}}return $tree;},collapse:function collapse($tree,$node,cascade){var $children,i,$expander=$node.find('>[data-role="wrapper"]>[data-role="expander"]'),data=$tree.data(),id=$node.attr('data-id'),$list=$node.children('ul');if($list&&$list.length&&gj.tree.events.collapse($tree,$node,id)!==false){$list.hide();$expander.attr('data-mode','close');$expander.empty().append(data.icons.expand);if(cascade){$children=$node.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.collapse($tree,$($children[i]),cascade);}}}return $tree;},expandAll:function expandAll($tree){var i,$nodes=$tree.find('ul>li');for(i=0;i<$nodes.length;i++){gj.tree.methods.expand($tree,$($nodes[i]),true);}return $tree;},collapseAll:function collapseAll($tree){var i,$nodes=$tree.find('ul>li');for(i=0;i<$nodes.length;i++){gj.tree.methods.collapse($tree,$($nodes[i]),true);}return $tree;},displayClickHandler:function displayClickHandler($tree){return function(e){var $display=$(this),$node=$display.closest('li'),cascade=$tree.data().cascadeSelection;if($node.attr('data-selected')==='true'){gj.tree.methods.unselect($tree,$node,cascade);}else{if($tree.data('selectionType')==='single'){gj.tree.methods.unselectAll($tree);}gj.tree.methods.select($tree,$node,cascade);}};},selectAll:function selectAll($tree){var i,$nodes=$tree.find('ul>li');for(i=0;i<$nodes.length;i++){gj.tree.methods.select($tree,$($nodes[i]),true);}return $tree;},select:function select($tree,$node,cascade){var i,$children,data=$tree.data();if($node.attr('data-selected')!=='true'&&gj.tree.events.select($tree,$node,$node.attr('data-id'))!==false){$node.addClass(data.style.active).attr('data-selected','true');if(cascade){$children=$node.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.select($tree,$($children[i]),cascade);}}}},unselectAll:function unselectAll($tree){var i,$nodes=$tree.find('ul>li');for(i=0;i<$nodes.length;i++){gj.tree.methods.unselect($tree,$($nodes[i]),true);}return $tree;},unselect:function unselect($tree,$node,cascade){var i,$children,data=$tree.data();if($node.attr('data-selected')==='true'&&gj.tree.events.unselect($tree,$node,$node.attr('data-id'))!==false){$node.removeClass($tree.data().style.active).removeAttr('data-selected');if(cascade){$children=$node.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.unselect($tree,$($children[i]),cascade);}}}},getSelections:function getSelections($list){var i,$node,children,result=[],$nodes=$list.children('li');if($nodes&&$nodes.length){for(i=0;i<$nodes.length;i++){$node=$($nodes[i]);if($node.attr('data-selected')==='true'){result.push($node.attr('data-id'));}else if($node.has('ul')){children=gj.tree.methods.getSelections($node.children('ul'));if(children.length){result=result.concat(children);}}}}return result;},getById:function getById($tree,id,records){var i,result=undefined;for(i=0;i<records.length;i++){if(id==records[i].id){result=records[i];break;}else if(records[i].children&&records[i].children.length){result=gj.tree.methods.getById($tree,id,records[i].children);if(result){break;}}}return result;},getDataById:function getDataById($tree,id,records){var result=gj.tree.methods.getById($tree,id,records);return result?result.data:result;},getDataByText:function getDataByText($tree,text,records){var i,id,result=undefined,data=$tree.data();for(i=0;i<records.length;i++){if(text===records[i].data[data.textField]){result=records[i].data;break;}else if(records[i].children&&records[i].children.length){result=gj.tree.methods.getDataByText($tree,text,records[i].children);if(result){break;}}}return result;},getNodeById:function getNodeById($list,id){var i,$node,$result=undefined,$nodes=$list.children('li');if($nodes&&$nodes.length){for(i=0;i<$nodes.length;i++){$node=$($nodes[i]);if(id==$node.attr('data-id')){$result=$node;break;}else if($node.has('ul')){$result=gj.tree.methods.getNodeById($node.children('ul'),id);if($result){break;}}}}return $result;},getNodeByText:function getNodeByText($list,text){var i,$node,$result=undefined,$nodes=$list.children('li');if($nodes&&$nodes.length){for(i=0;i<$nodes.length;i++){$node=$($nodes[i]);if(text===$node.find('>[data-role="wrapper"]>[data-role="display"]').text()){$result=$node;break;}else if($node.has('ul')){$result=gj.tree.methods.getNodeByText($node.children('ul'),text);if($result){break;}}}}return $result;},addNode:function addNode($tree,data,$parent,position){var level,nodeData=gj.tree.methods.getRecords($tree,[data]);if(!$parent||!$parent.length){$parent=$tree.children('ul');}level=$parent.parentsUntil('[data-type="tree"]','ul').length+1;gj.tree.methods.appendNode($tree,$parent,nodeData[0],level,position);return $tree;},remove:function remove($tree,$node){gj.tree.methods.removeDataById($tree,$node.attr('data-id'),$tree.data('records'));$node.remove();return $tree;},removeDataById:function removeDataById($tree,id,records){var i;for(i=0;i<records.length;i++){if(id==records[i].id){records.splice(i,1);break;}else if(records[i].children&&records[i].children.length){gj.tree.methods.removeDataById($tree,id,records[i].children);}}},enableAll:function enableAll($tree){var i,$children=$tree.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.enableNode($tree,$($children[i]),true);}return $tree;},enableNode:function enableNode($tree,$node,cascade){var i,$children,$expander=$node.find('>[data-role="wrapper"]>[data-role="expander"]'),$display=$node.find('>[data-role="wrapper"]>[data-role="display"]'),cascade=typeof cascade==='undefined'?true:cascade;$node.removeClass('disabled');$expander.on('click',gj.tree.methods.expanderClickHandler($tree));$display.on('click',gj.tree.methods.displayClickHandler($tree));gj.tree.events.enable($tree,$node);if(cascade){$children=$node.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.enableNode($tree,$($children[i]),cascade);}}},disableAll:function disableAll($tree){var i,$children=$tree.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.disableNode($tree,$($children[i]),true);}return $tree;},disableNode:function disableNode($tree,$node,cascade){var i,$children,$expander=$node.find('>[data-role="wrapper"]>[data-role="expander"]'),$display=$node.find('>[data-role="wrapper"]>[data-role="display"]'),cascade=typeof cascade==='undefined'?true:cascade;$node.addClass('disabled');$expander.off('click');$display.off('click');gj.tree.events.disable($tree,$node);if(cascade){$children=$node.find('ul>li');for(i=0;i<$children.length;i++){gj.tree.methods.disableNode($tree,$($children[i]),cascade);}}},destroy:function destroy($tree){var data=$tree.data();if(data){gj.tree.events.destroying($tree);$tree.xhr&&$tree.xhr.abort();$tree.off();$tree.removeData();$tree.removeAttr('data-type');$tree.removeClass().empty();}return $tree;}/**
+  * @widget Tree
+  * @plugin Base
+  */};gj.tree.widget=function($element,jsConfig){var self=this,methods=gj.tree.methods;/**
+     * Reload the tree.
+     * @method
+     * @param {object} params - Params that needs to be send to the server. Only in use for remote data sources.
+     * @return jQuery object
+     * @example Method.Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.reload()">Click to load</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get',
+     *         autoLoad: false
+     *     });
+     * </script>
+     * @example Search <!-- materialicons, tree.base -->
+     * <input type="text" id="query" /> <button onclick="Search()">Search</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     *     function Search() {
+     *         tree.reload({ query: $('#query').val() });
+     *     }
+     * </script>
+     */self.reload=function(params){return gj.widget.prototype.reload.call(this,params);};/**
+     * Render data in the tree
+     * @method
+     * @param {object} response - An object that contains the data that needs to be loaded in the tree.
+     * @fires dataBinding, dataBound
+     * @return tree
+     * @example sample <!-- materialicons, tree.base -->
+     * <div id="tree"></div>
+     * <script>
+     *     var tree, onSuccessFunc;
+     *     onSuccessFunc = function (response) {
+     *         //you can modify the response here if needed
+     *         tree.render(response);
+     *     };
+     *     tree = $('#tree').tree({
+     *         dataSource: { url: '/Locations/Get', success: onSuccessFunc }
+     *     });
+     * </script>
+     */self.render=function(response){return methods.render(this,response);};/**
+     * Add node to the tree.
+     * @method
+     * @param {object} data - The node data.
+     * @param {object} parentNode - Parent node as jquery object.
+     * @param {Number} position - Position where the new node need to be added. 
+     * @return jQuery object
+     * @example Append.ToRoot <!-- materialicons, tree.base -->
+     * <button onclick="append()">Append Node</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     *     function append() {
+     *         tree.addNode({ text: 'New Node' });
+     *     }
+     * </script>
+     * @example Append.Parent <!-- materialicons, tree.base -->
+     * <button onclick="append()">Append Node</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var parent, tree = $('#tree').tree();
+     *     tree.on('dataBound', function () {
+     *         parent = tree.getNodeByText('Asia').children('ul');
+     *         tree.off('dataBound');
+     *     });
+     *     function append() {
+     *         tree.addNode({ text: 'New Node' }, parent);
+     *     }
+     * </script>
+     * @example Bootstrap <!-- bootstrap, tree.base -->
+     * <button onclick="append()">Append Node</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get" data-ui-library="bootstrap"></div>
+     * <script>
+     *     var parent, tree = $('#tree').tree();
+     *     tree.on('dataBound', function () {
+     *         parent = tree.getNodeByText('Asia').children('ul');
+     *         tree.off('dataBound');
+     *     });
+     *     function append() {
+     *         tree.addNode({ text: 'New Node' }, parent);
+     *     }
+     * </script>
+     * @example Prepend <!-- materialicons, tree.base -->
+     * <button onclick="append()">Append Node</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var parent, tree = $('#tree').tree();
+     *     tree.on('dataBound', function () {
+     *         parent = tree.getNodeByText('Asia').children('ul');
+     *         tree.off('dataBound');
+     *     });
+     *     function append() {
+     *         tree.addNode({ text: 'New Node' }, parent, 1);
+     *     }
+     * </script>
+     * @example Position <!-- materialicons, tree.base -->
+     * <button onclick="append()">Append Node</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var parent, tree = $('#tree').tree();
+     *     tree.on('dataBound', function () {
+     *         parent = tree.getNodeByText('Asia').children('ul');
+     *         tree.off('dataBound');
+     *     });
+     *     function append() {
+     *         tree.addNode({ text: 'New Node' }, parent, 2);
+     *     }
+     * </script>
+     */self.addNode=function(data,$parentNode,position){return methods.addNode(this,data,$parentNode,position);};/**
+     * Remove node from the tree.
+     * @method
+     * @param {object} node - The node as jQuery object
+     * @return jQuery object
+     * @example Method.Sample <!-- materialicons, tree.base -->
+     * <button onclick="remove()">Remove USA</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     *     function remove() {
+     *         var node = tree.getNodeByText('USA');
+     *         tree.removeNode(node);
+     *     }
+     * </script>
+     */self.removeNode=function($node){return methods.remove(this,$node);};/**
+     * Destroy the tree.
+     * @method
+     * @return jQuery object
+     * @example Method.Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.destroy()">Destroy</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     * </script>
+     */self.destroy=function(){return methods.destroy(this);};/**
+     * Expand node from the tree.
+     * @method
+     * @param {object} node - The node as jQuery object
+     * @param {boolean} cascade - Expand all children
+     * @return jQuery object
+     * @example Method.Sample <!-- materialicons, tree.base -->
+     * <button onclick="expand()">Expand Asia</button><button onclick="collapse()">Collapse Asia</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     *     function expand() {
+     *         var node = tree.getNodeByText('Asia');
+     *         tree.expand(node);
+     *     }
+     *     function collapse() {
+     *         var node = tree.getNodeByText('Asia');
+     *         tree.collapse(node);
+     *     }
+     * </script>
+     * @example Cascade <!-- materialicons, tree.base -->
+     * <button onclick="expand()">Expand North America</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     *     function expand() {
+     *         var node = tree.getNodeByText('North America');
+     *         tree.expand(node, true);
+     *     }
+     * </script>
+     */self.expand=function($node,cascade){return methods.expand(this,$node,cascade);};/**
+     * Collapse node from the tree.
+     * @method
+     * @param {object} node - The node as jQuery object
+     * @param {boolean} cascade - Collapse all children
+     * @return jQuery object
+     * @example Method.Sample <!-- materialicons, tree.base -->
+     * <button onclick="expand()">Expand Asia</button><button onclick="collapse()">Collapse Asia</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     *     function expand() {
+     *         var node = tree.getNodeByText('Asia');
+     *         tree.expand(node);
+     *     }
+     *     function collapse() {
+     *         var node = tree.getNodeByText('Asia');
+     *         tree.collapse(node);
+     *     }
+     * </script>
+     * @example Cascade <!-- materialicons, tree.base -->
+     * <button onclick="collapse()">Collapse North America</button>
+     * <br/><br>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     *     function collapse() {
+     *         var node = tree.getNodeByText('North America');
+     *         tree.collapse(node, true);
+     *     }
+     * </script>
+     */self.collapse=function($node,cascade){return methods.collapse(this,$node,cascade);};/**
+     * Expand all tree nodes
+     * @method
+     * @return jQuery object
+     * @example Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.expandAll()">Expand All</button><button onclick="tree.collapseAll()">Collapse All</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     * </script>
+     */self.expandAll=function(){return methods.expandAll(this);};/**
+     * Collapse all tree nodes
+     * @method
+     * @return jQuery object
+     * @example Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.expandAll()">Expand All</button><button onclick="tree.collapseAll()">Collapse All</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree();
+     * </script>
+     */self.collapseAll=function(){return methods.collapseAll(this);};/**
+     * Return node data by id of the record.
+     * @method
+     * @param {string|number} id - The id of the record that needs to be returned
+     * @return object
+     * @example sample <!-- materialicons, tree.base -->
+     * <button id="btnGetData">Get Data</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get',
+     *         primaryKey: 'id' //define the name of the column that you want to use as ID here.
+     *     });
+     *     $('#btnGetData').on('click', function () {
+     *         var data = tree.getDataById(9);
+     *         alert('The population of ' + data.text + ' is ' + data.population);
+     *     });
+     * </script>
+     */self.getDataById=function(id){return methods.getDataById(this,id,this.data('records'));};/**
+     * Return node data by text.
+     * @method
+     * @param {string} text - The text of the record that needs to be returned
+     * @return object
+     * @example sample <!-- materialicons, tree.base -->
+     * <button id="btnGetData">Get Data</button>
+     * <br/><br/>
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get',
+     *     });
+     *     $('#btnGetData').on('click', function () {
+     *         var data = tree.getDataByText('California');
+     *         alert('The population of California is ' + data.population);
+     *     });
+     * </script>
+     */self.getDataByText=function(text){return methods.getDataByText(this,text,this.data('records'));};/**
+     * Return node by id of the record.
+     * @method
+     * @param {string} id - The id of the node that needs to be returned
+     * @return jQuery object
+     * @example sample <!-- materialicons, tree.base -->
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get',
+     *         primaryKey: 'id' //define the name of the column that you want to use as ID here.
+     *     });
+     *     tree.on('dataBound', function() {
+     *         var node = tree.getNodeById('1');
+     *         node.css('background-color', 'red');
+     *     });
+     * </script>
+     */self.getNodeById=function(id){return methods.getNodeById(this.children('ul'),id);};/**
+     * Return node by text.
+     * @method
+     * @param {string} text - The text in the node that needs to be returned
+     * @return jQuery object
+     * @example sample <!-- materialicons, tree.base -->
+     * <div id="tree"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         dataSource: '/Locations/Get'
+     *     });
+     *     tree.on('dataBound', function() {
+     *         var node = tree.getNodeByText('Asia');
+     *         node.css('background-color', 'red');
+     *     });
+     * </script>
+     */self.getNodeByText=function(text){return methods.getNodeByText(this.children('ul'),text);};/**
+     * Select node from the tree.
+     * @method
+     * @param {Object} node - The node as jquery object.
+     * @return jQuery Object
+     * @example Sample <!-- materialicons, checkbox, tree.base -->
+     * <button onclick="tree.select(northAmerica)">Select North America</button>
+     * <button onclick="tree.unselect(northAmerica)">Unselect North America</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         checkboxes: true,
+     *         primaryKey: 'ID',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     * </script>
+     */self.select=function($node){return methods.select(this,$node);};/**
+     * Unselect node from the tree.
+     * @method
+     * @param {Object} node - The node as jquery object.
+     * @return jQuery Object
+     * @example Sample <!-- materialicons, checkbox, tree.base -->
+     * <button onclick="tree.select(northAmerica)">Select North America</button>
+     * <button onclick="tree.unselect(northAmerica)">Unselect North America</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         checkboxes: true,
+     *         primaryKey: 'ID',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     * </script>
+     */self.unselect=function($node){return methods.unselect(this,$node);};/**
+     * Select all tree nodes
+     * @method
+     * @return jQuery object
+     * @example Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.selectAll()">Select All</button><button onclick="tree.unselectAll()">Unselect All</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         selectionType: 'multiple'
+     *     });
+     *     tree.on('dataBound', function() {
+     *         tree.expandAll();
+     *     });
+     * </script>
+     */self.selectAll=function(){return methods.selectAll(this);};/**
+     * Unselect all tree nodes
+     * @method
+     * @return jQuery object
+     * @example Sample <!-- materialicons, tree.base -->
+     * <button onclick="tree.selectAll()">Select All</button><button onclick="tree.unselectAll()">Unselect All</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         selectionType: 'multiple'
+     *     });
+     *     tree.on('dataBound', function() {
+     *         tree.expandAll();
+     *     });
+     * </script>
+     */self.unselectAll=function(){return methods.unselectAll(this);};/**
+     * Return an array with the ids of the selected nodes.
+     * @method
+     * @return array
+     * @example Sample <!-- materialicons, tree.base -->
+     * <button id="btnShowSelection">Show Selections</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         selectionType: 'multiple'
+     *     });
+     *     $('#btnShowSelection').on('click', function () {
+     *         var selections = tree.getSelections();
+     *         selections && selections.length && alert(selections.join());
+     *     });
+     * </script>
+     */self.getSelections=function(){return methods.getSelections(this.children('ul'));};/**
+     * Enable node from the tree.
+     * @method
+     * @param {Object} node - The node as jquery object.
+     * @param {Boolean} cascade - Enable all children. Set to true by default.
+     * @return jQuery Object
+     * @example Material.Design <!-- materialicons, checkbox, tree.base -->
+     * <button onclick="tree.enable(northAmerica)">Enable North America (Cascade)</button>
+     * <button onclick="tree.disable(northAmerica)">Disable North America (Cascade)</button>
+     * <button onclick="tree.enable(northAmerica, false)">Enable North America (Non-Cascade)</button>
+     * <button onclick="tree.disable(northAmerica, false)">Disable North America (Non-Cascade)</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         checkboxes: true,
+     *         primaryKey: 'ID',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     * </script>
+     * @example Bootstrap <!-- bootstrap, checkbox, tree.base -->
+     * <button onclick="tree.enable(northAmerica)">Enable North America (Cascade)</button>
+     * <button onclick="tree.disable(northAmerica)">Disable North America (Cascade)</button>
+     * <button onclick="tree.enable(northAmerica, false)">Enable North America (Non-Cascade)</button>
+     * <button onclick="tree.disable(northAmerica, false)">Disable North America (Non-Cascade)</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         checkboxes: true,
+     *         primaryKey: 'ID',
+     *         uiLibrary: 'bootstrap',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     * </script>
+     * @example Bootstrap.4 <!-- bootstrap4, fontawesome, checkbox, tree.base -->
+     * <button onclick="tree.enable(northAmerica)">Enable North America (Cascade)</button>
+     * <button onclick="tree.disable(northAmerica)">Disable North America (Cascade)</button>
+     * <button onclick="tree.enable(northAmerica, false)">Enable North America (Non-Cascade)</button>
+     * <button onclick="tree.disable(northAmerica, false)">Disable North America (Non-Cascade)</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         checkboxes: true,
+     *         primaryKey: 'ID',
+     *         uiLibrary: 'bootstrap4',
+     *         iconsLibrary: 'fontawesome',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     * </script>
+     */self.enable=function($node,cascade){return methods.enableNode(this,$node,cascade);};/**
+     * Enable all nodes from the tree.
+     * @method
+     * @return jQuery Object
+     * @example Sample <!-- materialicons, checkbox, tree.base -->
+     * <button onclick="tree.enableAll()">Enable All</button>
+     * <button onclick="tree.disableAll()">Disable All</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         checkboxes: true
+     *     });
+     * </script>
+     */self.enableAll=function(){return methods.enableAll(this);};/**
+     * Disable node from the tree.
+     * @method
+     * @param {Object} node - The node as jquery object.
+     * @param {Boolean} cascade - Disable all children. Set to true by default.
+     * @return jQuery Object
+     * @example Sample <!-- materialicons, checkbox, tree.base -->
+     * <button onclick="tree.enable(northAmerica)">Enable North America (Cascade)</button>
+     * <button onclick="tree.disable(northAmerica)">Disable North America (Cascade)</button>
+     * <button onclick="tree.enable(northAmerica, false)">Enable North America (Non-Cascade)</button>
+     * <button onclick="tree.disable(northAmerica, false)">Disable North America (Non-Cascade)</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree, northAmerica;
+     *     tree = $('#tree').tree({
+     *         checkboxes: true,
+     *         primaryKey: 'ID',
+     *         dataBound: function () {
+     *             northAmerica = tree.getNodeByText('North America');
+     *         }
+     *     });
+     * </script>
+     */self.disable=function($node,cascade){return methods.disableNode(this,$node,cascade);};/**
+     * Disable all nodes from the tree.
+     * @method
+     * @return jQuery Object
+     * @example Sample <!-- materialicons, checkbox, tree.base -->
+     * <button onclick="tree.enableAll()">Enable All</button>
+     * <button onclick="tree.disableAll()">Disable All</button>
+     * <br/><br/>
+     * <div id="tree" data-source="/Locations/Get"></div>
+     * <script>
+     *     var tree = $('#tree').tree({
+     *         checkboxes: true
+     *     });
+     * </script>
+     */self.disableAll=function(){return methods.disableAll(this);};$.extend($element,self);if('tree'!==$element.attr('data-type')){methods.init.call($element,jsConfig);}return $element;};gj.tree.widget.prototype=new gj.widget();gj.tree.widget.constructor=gj.tree.widget;(function($){$.fn.tree=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.tree.widget(this,method);}else{$widget=new gj.tree.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);/** 
+ * @widget Tree 
+ * @plugin Checkboxes
+ */gj.tree.plugins.checkboxes={config:{base:{/** Add checkbox for each node, if set to true.
+              * @type Boolean
+              * @default undefined
+              * @example Bootstrap <!-- bootstrap, checkbox, tree.base -->
+              * <div class="container-fluid">
+              *     <h3>Bootstrap Treeview With Checkboxes</h3>
+              *     <div id="tree"></div>
+              * </div>
+              * <script>
+              *     var tree = $('#tree').tree({
+              *         dataSource: '/Locations/Get',
+              *         checkboxes: true,
+              *         uiLibrary: 'bootstrap'
+              *     });
+              * </script>
+              * @example Material.Design <!-- materialicons, checkbox, tree.base -->
+              * <div class="container-fluid">
+              *     <h3>Material Design Treeview With Checkboxes</h3>
+              *     <div id="tree"></div>
+              * </div>
+              * <script>
+              *     var tree = $('#tree').tree({
+              *         dataSource: '/Locations/Get',
+              *         checkboxes: true,
+              *         uiLibrary: 'materialdesign'
+              *     });
+              * </script>
+              */checkboxes:undefined,/** Name of the source field, that indicates if the checkbox is checked.
+             * @type string
+             * @default 'checked'
+             * @example Custom.Name <!-- materialicons, checkbox, tree.base -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         checkboxes: true,
+             *         checkedField: 'checkedFieldName',
+             *         dataSource: [ { text: 'foo', checkedFieldName: false, children: [ { text: 'bar', checkedFieldName: true }, { text: 'bar2', checkedFieldName: false } ] }, { text: 'foo2', children: [ { text: 'bar2' } ] } ]
+             *     });
+             * </script>
+             */checkedField:'checked',/** This setting enable cascade check and uncheck of children
+             * @type boolean
+             * @default true
+             * @example False <!-- materialicons, checkbox, tree.base -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         checkboxes: true,
+             *         dataSource: '/Locations/Get',
+             *         cascadeCheck: false
+             *     });
+             *     tree.on('dataBound', function() {
+             *         tree.expandAll();
+             *     });
+             * </script>
+             * @example True <!-- materialicons, checkbox, tree.base -->
+             * <div id="tree"></div>
+             * <script>
+             *     var tree = $('#tree').tree({
+             *         checkboxes: true,
+             *         dataSource: '/Locations/Get',
+             *         cascadeCheck: true
+             *     });
+             *     tree.on('dataBound', function() {
+             *         tree.expandAll();
+             *     });
+             * </script>
+             */cascadeCheck:true}},private:{dataBound:function dataBound($tree){var $nodes=$tree.find('li[data-role="node"]');$.each($nodes,function(){var $node=$(this),state=$node.find('[data-role="checkbox"] input[type="checkbox"]').checkbox('state');if(state==='checked'){gj.tree.plugins.checkboxes.private.updateChildrenState($node,state);gj.tree.plugins.checkboxes.private.updateParentState($node,state);}});},nodeDataBound:function nodeDataBound($tree,$node,id,record){var data=$tree.data(),$expander=$node.find('> [data-role="wrapper"] > [data-role="expander"]'),$checkbox=$('<input type="checkbox"/>'),$wrapper=$('<span data-role="checkbox"></span>').append($checkbox),disabled=typeof record[data.disabledField]!=='undefined'&&record[data.disabledField].toString().toLowerCase()==='true';$checkbox=$checkbox.checkbox({uiLibrary:data.uiLibrary,iconsLibrary:data.iconsLibrary,change:function change(e,state){gj.tree.plugins.checkboxes.events.checkboxChange($tree,$node,record,$checkbox.state());}});disabled&&$checkbox.prop('disabled',true);record[data.checkedField]&&$checkbox.state('checked');$checkbox.on('click',function(e){var $node=$checkbox.closest('li'),state=$checkbox.state();if(data.cascadeCheck){gj.tree.plugins.checkboxes.private.updateChildrenState($node,state);gj.tree.plugins.checkboxes.private.updateParentState($node,state);}});$expander.after($wrapper);},updateParentState:function updateParentState($node,state){var $parentNode,$parentCheckbox,$siblingCheckboxes,allChecked,allUnchecked,parentState;$parentNode=$node.parent('ul').parent('li');if($parentNode.length===1){$parentCheckbox=$node.parent('ul').parent('li').find('> [data-role="wrapper"] > [data-role="checkbox"] input[type="checkbox"]');$siblingCheckboxes=$node.siblings().find('> [data-role="wrapper"] > span[data-role="checkbox"] input[type="checkbox"]');allChecked=state==='checked';allUnchecked=state==='unchecked';parentState='indeterminate';$.each($siblingCheckboxes,function(){var state=$(this).checkbox('state');if(allChecked&&state!=='checked'){allChecked=false;}if(allUnchecked&&state!=='unchecked'){allUnchecked=false;}});if(allChecked&&!allUnchecked){parentState='checked';}if(!allChecked&&allUnchecked){parentState='unchecked';}$parentCheckbox.checkbox('state',parentState);gj.tree.plugins.checkboxes.private.updateParentState($parentNode,$parentCheckbox.checkbox('state'));}},updateChildrenState:function updateChildrenState($node,state){var $childrenCheckboxes=$node.find('ul li [data-role="wrapper"] [data-role="checkbox"] input[type="checkbox"]');if($childrenCheckboxes.length>0){$.each($childrenCheckboxes,function(){$(this).checkbox('state',state);});}},update:function update($tree,$node,state){var checkbox=$node.find('[data-role="checkbox"] input[type="checkbox"]').first();$(checkbox).checkbox('state',state);if($tree.data().cascadeCheck){gj.tree.plugins.checkboxes.private.updateChildrenState($node,state);gj.tree.plugins.checkboxes.private.updateParentState($node,state);}}},public:{/** Get ids of all checked nodes
+         * @method
+         * @return Array
+         * @example Base.Theme <!-- materialicons, checkbox, tree.base -->
+         * <button id="btnGet">Get Checked Nodes</button>
+         * <div id="tree"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         dataSource: '/Locations/Get',
+         *         checkboxes: true
+         *     });
+         *     $('#btnGet').on('click', function() {
+         *         var result = tree.getCheckedNodes();
+         *         alert(result.join());
+         *     });
+         * </script>
+         */getCheckedNodes:function getCheckedNodes(){var result=[],checkboxes=this.find('li [data-role="checkbox"] input[type="checkbox"]');$.each(checkboxes,function(){var checkbox=$(this);if(checkbox.checkbox('state')==='checked'){result.push(checkbox.closest('li').data('id'));}});return result;},/**
+         * Check all tree nodes
+         * @method
+         * @return tree as jQuery object
+         * @example Sample <!-- materialicons, checkbox, tree.base -->
+         * <button onclick="tree.checkAll()">Check All</button><button onclick="tree.uncheckAll()">Uncheck All</button>
+         * <br/><br/>
+         * <div id="tree" data-source="/Locations/Get"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         checkboxes: true
+         *     });
+         *     tree.on('dataBound', function() {
+         *         tree.expandAll();
+         *     });
+         * </script>
+         */checkAll:function checkAll(){var $checkboxes=this.find('li [data-role="checkbox"] input[type="checkbox"]');$.each($checkboxes,function(){$(this).checkbox('state','checked');});return this;},/**
+         * Uncheck all tree nodes
+         * @method
+         * @return tree as jQuery object
+         * @example Sample <!-- materialicons, checkbox, tree.base -->
+         * <button onclick="tree.checkAll()">Check All</button><button onclick="tree.uncheckAll()">Uncheck All</button>
+         * <br/><br/>
+         * <div id="tree" data-source="/Locations/Get"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         checkboxes: true
+         *     });
+         *     tree.on('dataBound', function() {
+         *         tree.expandAll();
+         *     });
+         * </script>
+         */uncheckAll:function uncheckAll(){var $checkboxes=this.find('li [data-role="checkbox"] input[type="checkbox"]');$.each($checkboxes,function(){$(this).checkbox('state','unchecked');});return this;},/**
+         * Check tree node.
+         * @method
+         * @param {object} node - The node as jQuery object
+         * @return tree as jQuery object
+         * @example Sample <!-- materialicons, checkbox, tree.base -->
+         * <button onclick="tree.check(tree.getNodeByText('China'))">Check China</button>
+         * <br/><br/>
+         * <div id="tree" data-source="/Locations/Get"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         checkboxes: true
+         *     });
+         *     tree.on('dataBound', function() {
+         *         tree.expandAll();
+         *     });
+         * </script>
+         */check:function check($node){gj.tree.plugins.checkboxes.private.update(this,$node,'checked');return this;},/**
+         * Uncheck tree node.
+         * @method
+         * @param {object} node - The node as jQuery object
+         * @return tree as jQuery object
+         * @example Sample <!-- materialicons, checkbox, tree.base -->
+         * <button onclick="tree.uncheck(tree.getNodeByText('China'))">UnCheck China</button>
+         * <br/><br/>
+         * <div id="tree" data-source="/Locations/Get"></div>
+         * <script>
+         *     var tree = $('#tree').tree({
+         *         checkboxes: true
+         *     });
+         *     tree.on('dataBound', function() {
+         *         tree.expandAll();
+         *         tree.check(tree.getNodeByText('China'));
+         *     });
+         * </script>
+         */uncheck:function uncheck($node){gj.tree.plugins.checkboxes.private.update(this,$node,'unchecked');return this;}},events:{/**
+         * Event fires when the checkbox state is changed.
+         * @event checkboxChange
+         * @param {object} e - event data
+         * @param {object} $node - the node object as jQuery element
+         * @param {object} record - the record data
+         * @param {string} state - the new state of the checkbox
+         * @example Event.Sample <!-- materialicons, checkbox, tree.base -->
+         * <div id="tree" data-source="/Locations/Get" data-checkboxes="true"></div>
+         * <script>
+         *     var tree = $('#tree').tree();
+         *     tree.on('checkboxChange', function (e, $node, record, state) {
+         *         alert('The new state of record ' + record.text + ' is ' + state);
+         *     });
+         * </script>
+         */checkboxChange:function checkboxChange($tree,$node,record,state){return $tree.triggerHandler('checkboxChange',[$node,record,state]);}},configure:function configure($tree){if($tree.data('checkboxes')&&gj.checkbox){$.extend(true,$tree,gj.tree.plugins.checkboxes.public);$tree.on('nodeDataBound',function(e,$node,id,record){gj.tree.plugins.checkboxes.private.nodeDataBound($tree,$node,id,record);});$tree.on('dataBound',function(){gj.tree.plugins.checkboxes.private.dataBound($tree);});$tree.on('enable',function(e,$node){$node.find('>[data-role="wrapper"]>[data-role="checkbox"] input[type="checkbox"]').prop('disabled',false);});$tree.on('disable',function(e,$node){$node.find('>[data-role="wrapper"]>[data-role="checkbox"] input[type="checkbox"]').prop('disabled',true);});}}};/**
+ * @widget Tree
+ * @plugin DragAndDrop
+ */gj.tree.plugins.dragAndDrop={config:{base:{/** Enables drag and drop functionality for each node.
+              * @type Boolean
+              * @default undefined
+              * @example Bootstrap <!-- bootstrap, draggable.base, droppable.base, tree.base -->
+              * <div class="container">
+              *     <h3>Drag and Drop Tree Nodes</h3>
+              *     <div id="tree"></div>
+              * </div>
+              * <script>
+              *     $('#tree').tree({
+              *         dataSource: '/Locations/Get',
+              *         dragAndDrop: true,
+              *         uiLibrary: 'bootstrap'
+              *     });
+              * </script>
+              * @example Material.Design <!-- materialicons, draggable.base, droppable.base, tree.base -->
+              * <h3>Drag and Drop Tree Nodes</h3>
+              * <div id="tree"></div>
+              * <script>
+              *     $('#tree').tree({
+              *         dataSource: '/Locations/Get',
+              *         dragAndDrop: true,
+              *         uiLibrary: 'materialdesign'
+              *     });
+              * </script>
+              */dragAndDrop:undefined,style:{dragEl:'gj-tree-drag-el gj-tree-mdl-drag-el',dropAsChildIcon:'material-icons gj-cursor-pointer gj-mdl-icon-plus',dropAbove:'gj-tree-drop-above',dropBelow:'gj-tree-drop-below'}},bootstrap:{style:{dragEl:'gj-tree-drag-el gj-tree-bootstrap-drag-el',dropAsChildIcon:'glyphicon glyphicon-plus',dropAbove:'gj-tree-drop-above',dropBelow:'gj-tree-drop-below'}}},private:{nodeDataBound:function nodeDataBound($tree,$node){var $wrapper=$node.children('[data-role="wrapper"]'),$display=$node.find('>[data-role="wrapper"]>[data-role="display"]');if($wrapper.length&&$display.length){$display.on('mousedown',gj.tree.plugins.dragAndDrop.private.createNodeMouseDownHandler($tree,$node,$display));}},createNodeMouseDownHandler:function createNodeMouseDownHandler($tree,$node,$display){return function(e){var data=$tree.data(),$dragEl,$wrapper,offsetTop,offsetLeft;$dragEl=$display.clone().wrap('<div data-role="wrapper"/>').closest('div').wrap('<li class="'+data.style.item+'" />').closest('li').wrap('<ul class="'+data.style.list+'" />').closest('ul');$('body').append($dragEl);$dragEl.attr('data-role','draggable-clone').addClass('gj-unselectable').addClass(data.style.dragEl);$dragEl.find('[data-role="wrapper"]').prepend('<span data-role="indicator" />');$dragEl.draggable({drag:gj.tree.plugins.dragAndDrop.private.createDragHandler($tree,$node,$display),stop:gj.tree.plugins.dragAndDrop.private.createDragStopHandler($tree,$node,$display)});$wrapper=$display.parent();offsetTop=$display.offset().top;offsetTop-=parseInt($wrapper.css("border-top-width"))+parseInt($wrapper.css("margin-top"))+parseInt($wrapper.css("padding-top"));offsetLeft=$display.offset().left;offsetLeft-=parseInt($wrapper.css("border-left-width"))+parseInt($wrapper.css("margin-left"))+parseInt($wrapper.css("padding-left"));offsetLeft-=$dragEl.find('[data-role="indicator"]').outerWidth(true);$dragEl.css({position:'absolute',top:offsetTop,left:offsetLeft,width:$display.outerWidth(true)});if($display.attr('data-droppable')==='true'){$display.droppable('destroy');}gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree,$node,$display).each(function(){var $dropEl=$(this);if($dropEl.attr('data-droppable')==='true'){$dropEl.droppable('destroy');}$dropEl.droppable();});gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree,$node).each(function(){var $dropEl=$(this);if($dropEl.attr('data-droppable')==='true'){$dropEl.droppable('destroy');}$dropEl.droppable();});$dragEl.trigger('mousedown');};},getTargetDisplays:function getTargetDisplays($tree,$node,$display){return $tree.find('[data-role="display"]').not($display).not($node.find('[data-role="display"]'));},getTargetWrappers:function getTargetWrappers($tree,$node){return $tree.find('[data-role="wrapper"]').not($node.find('[data-role="wrapper"]'));},createDragHandler:function createDragHandler($tree,$node,$display){var $displays=gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree,$node,$display),$wrappers=gj.tree.plugins.dragAndDrop.private.getTargetWrappers($tree,$node),data=$tree.data();return function(e,offset,mousePosition){var $dragEl=$(this),success=false;$displays.each(function(){var $targetDisplay=$(this),$indicator;if($targetDisplay.droppable('isOver',mousePosition)){$indicator=$dragEl.find('[data-role="indicator"]');data.style.dropAsChildIcon?$indicator.addClass(data.style.dropAsChildIcon):$indicator.text('+');success=true;return false;}else{$dragEl.find('[data-role="indicator"]').removeClass(data.style.dropAsChildIcon).empty();}});$wrappers.each(function(){var $wrapper=$(this),$indicator,middle;if(!success&&$wrapper.droppable('isOver',mousePosition)){middle=$wrapper.position().top+$wrapper.outerHeight()/2;if(mousePosition.top<middle){$wrapper.addClass(data.style.dropAbove).removeClass(data.style.dropBelow);}else{$wrapper.addClass(data.style.dropBelow).removeClass(data.style.dropAbove);}}else{$wrapper.removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);}});};},createDragStopHandler:function createDragStopHandler($tree,$sourceNode,$sourceDisplay){var $displays=gj.tree.plugins.dragAndDrop.private.getTargetDisplays($tree,$sourceNode,$sourceDisplay),$wrappers=gj.tree.plugins.dragAndDrop.private.getTargetWrappers($tree,$sourceNode),data=$tree.data();return function(e,mousePosition){var success=false;$(this).draggable('destroy').remove();$displays.each(function(){var $targetDisplay=$(this),$targetNode,$sourceParentNode,$ul;if($targetDisplay.droppable('isOver',mousePosition)){$targetNode=$targetDisplay.closest('li');$sourceParentNode=$sourceNode.parent('ul').parent('li');$ul=$targetNode.children('ul');if($ul.length===0){$ul=$('<ul />').addClass(data.style.list);$targetNode.append($ul);}if(gj.tree.plugins.dragAndDrop.events.nodeDrop($tree,$sourceNode.data('id'),$targetNode.data('id'),$ul.children('li').length+1)!==false){$ul.append($sourceNode);gj.tree.plugins.dragAndDrop.private.refresh($tree,$sourceNode,$targetNode,$sourceParentNode);}success=true;return false;}$targetDisplay.droppable('destroy');});if(!success){$wrappers.each(function(){var $targetWrapper=$(this),$targetNode,$sourceParentNode,prepend,orderNumber;if($targetWrapper.droppable('isOver',mousePosition)){$targetNode=$targetWrapper.closest('li');$sourceParentNode=$sourceNode.parent('ul').parent('li');prepend=mousePosition.top<$targetWrapper.position().top+$targetWrapper.outerHeight()/2;orderNumber=$targetNode.prev('li').length+(prepend?1:2);if(gj.tree.plugins.dragAndDrop.events.nodeDrop($tree,$sourceNode.data('id'),$targetNode.parent('ul').parent('li').data('id'),orderNumber)!==false){if(prepend){$sourceNode.insertBefore($targetNode);}else{$sourceNode.insertAfter($targetNode);}gj.tree.plugins.dragAndDrop.private.refresh($tree,$sourceNode,$targetNode,$sourceParentNode);}return false;}$targetWrapper.droppable('destroy');});}};},refresh:function refresh($tree,$sourceNode,$targetNode,$sourceParentNode){var data=$tree.data();gj.tree.plugins.dragAndDrop.private.refreshNode($tree,$targetNode);gj.tree.plugins.dragAndDrop.private.refreshNode($tree,$sourceParentNode);gj.tree.plugins.dragAndDrop.private.refreshNode($tree,$sourceNode);$sourceNode.find('li[data-role="node"]').each(function(){gj.tree.plugins.dragAndDrop.private.refreshNode($tree,$(this));});$targetNode.children('[data-role="wrapper"]').removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);},refreshNode:function refreshNode($tree,$node){var $wrapper=$node.children('[data-role="wrapper"]'),$expander=$wrapper.children('[data-role="expander"]'),$spacer=$wrapper.children('[data-role="spacer"]'),$list=$node.children('ul'),data=$tree.data(),level=$node.parentsUntil('[data-type="tree"]','ul').length;if($list.length&&$list.children().length){if($list.is(':visible')){$expander.empty().append(data.icons.collapse);}else{$expander.empty().append(data.icons.expand);}}else{$expander.empty();}$wrapper.removeClass(data.style.dropAbove).removeClass(data.style.dropBelow);$spacer.css('width',data.indentation*(level-1));}},public:{},events:{/**
+         * Event fires when the node is dropped.
+         * @event nodeDrop
+         * @param {object} e - event data
+         * @param {string} id - the id of the record
+         * @param {object} parentId - the id of the new parend node
+         * @param {object} orderNumber - the new order number
+         * @example Event.Sample <!-- materialicons, draggable.base, droppable.base, tree.base -->
+         * <div id="tree" data-source="/Locations/Get" data-drag-and-drop="true"></div>
+         * <script>
+         *     var tree = $('#tree').tree();
+         *     tree.on('nodeDrop', function (e, id, parentId, orderNumber) {
+         *         var node = tree.getDataById(id),
+         *             parent = parentId ? tree.getDataById(parentId) : {};
+         *         if (parent.text === 'North America') {
+         *             alert('Can\'t add children to North America.');
+         *             return false;
+         *         } else {
+         *             alert(node.text + ' is added to ' + parent.text + ' as ' + orderNumber);
+         *             return true;
+         *         }
+         *     });
+         * </script>
+         */nodeDrop:function nodeDrop($tree,id,parentId,orderNumber){return $tree.triggerHandler('nodeDrop',[id,parentId,orderNumber]);}},configure:function configure($tree){$.extend(true,$tree,gj.tree.plugins.dragAndDrop.public);if($tree.data('dragAndDrop')&&gj.draggable&&gj.droppable){$tree.on('nodeDataBound',function(e,$node){gj.tree.plugins.dragAndDrop.private.nodeDataBound($tree,$node);});}}};/* global window alert jQuery *//** 
+ * @widget Checkbox 
+ * @plugin Base
+ */if(typeof gj.checkbox==='undefined'){gj.checkbox={plugins:{}};}gj.checkbox.config={base:{/** The name of the UI library that is going to be in use. Currently we support only Material Design and Bootstrap. 
+         * @additionalinfo The css files for Bootstrap should be manually included to the page if you use bootstrap as uiLibrary.
+         * @type string (materialdesign|bootstrap|bootstrap4)
+         * @default 'materialdesign'
+         * @example Bootstrap.3 <!-- bootstrap, checkbox -->
+         * <div class="container-fluid" style="margin-top:10px">
+         *     <input type="checkbox" id="checkbox"/><br/><br/>
+         *     <button onclick="$chkb.state('checked')" class="btn btn-default">Checked</button>
+         *     <button onclick="$chkb.state('unchecked')" class="btn btn-default">Unchecked</button>
+         *     <button onclick="$chkb.state('indeterminate')" class="btn btn-default">Indeterminate</button>
+         *     <button onclick="$chkb.prop('disabled', false)" class="btn btn-default">Enable</button>
+         *     <button onclick="$chkb.prop('disabled', true)" class="btn btn-default">Disable</button>
+         * </div>
+         * <script>
+         *     var $chkb = $('#checkbox').checkbox({
+         *         uiLibrary: 'bootstrap'
+         *     });
+         * </script>
+         * @example Bootstrap.4 <!-- materialicons, bootstrap4, checkbox -->
+         * <div class="container-fluid" style="margin-top:10px">
+         *     <input type="checkbox" id="checkbox"/><br/><br/>
+         *     <button onclick="$chkb.state('checked')" class="btn btn-default">Checked</button>
+         *     <button onclick="$chkb.state('unchecked')" class="btn btn-default">Unchecked</button>
+         *     <button onclick="$chkb.state('indeterminate')" class="btn btn-default">Indeterminate</button>
+         *     <button onclick="$chkb.prop('disabled', false)" class="btn btn-default">Enable</button>
+         *     <button onclick="$chkb.prop('disabled', true)" class="btn btn-default">Disable</button>
+         * </div>
+         * <script>
+         *     var $chkb = $('#checkbox').checkbox({
+         *         uiLibrary: 'bootstrap4'
+         *     });
+         * </script>
+         * @example Material.Design <!-- materialicons, checkbox  -->
+         * <input type="checkbox" id="checkbox"/><br/><br/>
+         * <button onclick="$chkb.state('checked')" class="gj-button-md">Checked</button>
+         * <button onclick="$chkb.state('unchecked')" class="gj-button-md">Unchecked</button>
+         * <button onclick="$chkb.state('indeterminate')" class="gj-button-md">Indeterminate</button>
+         * <button onclick="$chkb.prop('disabled', false)" class="gj-button-md">Enable</button>
+         * <button onclick="$chkb.prop('disabled', true)" class="gj-button-md">Disable</button>
+         * <script>
+         *     var $chkb = $('#checkbox').checkbox({
+         *         uiLibrary: 'materialdesign'
+         *     });
+         * </script>
+         */uiLibrary:'materialdesign',/** The name of the icons library that is going to be in use. Currently we support Material Icons, Font Awesome and Glyphicons.
+         * @additionalinfo If you use Bootstrap 3 as uiLibrary, then the iconsLibrary is set to Glyphicons by default.<br/>
+         * If you use Material Design as uiLibrary, then the iconsLibrary is set to Material Icons by default.<br/>
+         * The css files for Material Icons, Font Awesome or Glyphicons should be manually included to the page where the grid is in use.
+         * @type (materialicons|fontawesome|glyphicons)
+         * @default 'materialicons'
+         * @example Bootstrap.4.FontAwesome <!-- bootstrap4, checkbox, fontawesome -->
+         * <div class="container-fluid" style="margin-top:10px">
+         *     <input type="checkbox" id="checkbox"/><br/><br/>
+         *     <button onclick="$chkb.state('checked')" class="btn btn-default">Checked</button>
+         *     <button onclick="$chkb.state('unchecked')" class="btn btn-default">Unchecked</button>
+         *     <button onclick="$chkb.state('indeterminate')" class="btn btn-default">Indeterminate</button>
+         *     <button onclick="$chkb.prop('disabled', false)" class="btn btn-default">Enable</button>
+         *     <button onclick="$chkb.prop('disabled', true)" class="btn btn-default">Disable</button>
+         * </div>
+         * <script>
+         *     var $chkb = $('#checkbox').checkbox({
+         *         uiLibrary: 'bootstrap4',
+         *         iconsLibrary: 'fontawesome'
+         *     });
+         * </script>
+         */iconsLibrary:'materialicons',style:{wrapperCssClass:'gj-checkbox-md',spanCssClass:undefined}},bootstrap:{style:{wrapperCssClass:'gj-checkbox-bootstrap'},iconsLibrary:'glyphicons'},bootstrap4:{style:{wrapperCssClass:'gj-checkbox-bootstrap'},iconsLibrary:'materialicons'},materialicons:{style:{iconsCssClass:'gj-checkbox-material-icons',spanCssClass:'material-icons'}},glyphicons:{style:{iconsCssClass:'gj-checkbox-glyphicons',spanCssClass:''}},fontawesome:{style:{iconsCssClass:'gj-checkbox-fontawesome',spanCssClass:'fa'}}};gj.checkbox.methods={init:function init(jsConfig){var $chkb=this;gj.widget.prototype.init.call(this,jsConfig,'checkbox');$chkb.attr('data-checkbox','true');gj.checkbox.methods.initialize($chkb);return $chkb;},initialize:function initialize($chkb){var data=$chkb.data(),$wrapper,$span;if(data.style.wrapperCssClass){$wrapper=$('<label class="'+data.style.wrapperCssClass+' '+data.style.iconsCssClass+'"></label>');if($chkb.attr('id')){$wrapper.attr('for',$chkb.attr('id'));}$chkb.wrap($wrapper);$span=$('<span />');if(data.style.spanCssClass){$span.addClass(data.style.spanCssClass);}$chkb.parent().append($span);}},state:function state($chkb,value){if(value){if('checked'===value){$chkb.prop('indeterminate',false);$chkb.prop('checked',true);}else if('unchecked'===value){$chkb.prop('indeterminate',false);$chkb.prop('checked',false);}else if('indeterminate'===value){$chkb.prop('checked',true);$chkb.prop('indeterminate',true);}gj.checkbox.events.change($chkb,value);return $chkb;}else{if($chkb.prop('indeterminate')){value='indeterminate';}else if($chkb.prop('checked')){value='checked';}else{value='unchecked';}return value;}},toggle:function toggle($chkb){if($chkb.state()=='checked'){$chkb.state('unchecked');}else{$chkb.state('checked');}return $chkb;},destroy:function destroy($chkb){if($chkb.attr('data-checkbox')==='true'){$chkb.removeData();$chkb.removeAttr('data-guid');$chkb.removeAttr('data-checkbox');$chkb.off();$chkb.next('span').remove();$chkb.unwrap();}return $chkb;}};gj.checkbox.events={/**
+     * Triggered when the state of the checkbox is changed
+     *
+     * @event change
+     * @param {object} e - event data
+     * @example sample <!-- materialicons, checkbox -->
+     * <input type="checkbox" id="checkbox"/>
+     * <script>
+     *     var chkb = $('#checkbox').checkbox({
+     *         change: function (e) {
+     *             alert('State: ' + chkb.state());
+     *         }
+     *     });
+     * </script>
+     */change:function change($chkb,state){return $chkb.triggerHandler('change',[state]);}};gj.checkbox.widget=function($element,jsConfig){var self=this,methods=gj.checkbox.methods;/** Toogle the state of the checkbox.
+     * @method
+     * @fires change
+     * @return checked|unchecked|indeterminate|jquery
+     * @example sample <!-- materialicons, checkbox -->
+     * <button onclick="$chkb.toggle()">toggle</button>
+     * <hr/>
+     * <input type="checkbox" id="checkbox"/>
+     * <script>
+     *     var $chkb = $('#checkbox').checkbox();
+     * </script>
+     */self.toggle=function(){return methods.toggle(this);};/** Return state or set state if you pass parameter.
+     * @method
+     * @fires change
+     * @param {string} value - State of the checkbox. Accept only checked, unchecked or indeterminate as values.
+     * @return checked|unchecked|indeterminate|jquery
+     * @example sample <!-- materialicons, checkbox -->
+     * <button onclick="$chkb.state('checked')">Set to checked</button>
+     * <button onclick="$chkb.state('unchecked')">Set to unchecked</button>
+     * <button onclick="$chkb.state('indeterminate')">Set to indeterminate</button>
+     * <button onclick="alert($chkb.state())">Get state</button>
+     * <hr/>
+     * <input type="checkbox" id="checkbox"/>
+     * <script>
+     *     var $chkb = $('#checkbox').checkbox();
+     * </script>
+     */self.state=function(value){return methods.state(this,value);};/** Remove checkbox functionality from the element.
+     * @method
+     * @return jquery element
+     * @example sample <!-- materialicons, checkbox -->
+     * <button onclick="$chkb.destroy()">Destroy</button>
+     * <input type="checkbox" id="checkbox"/>
+     * <script>
+     *     var $chkb = $('#checkbox').checkbox();
+     * </script>
+     */self.destroy=function(){return methods.destroy(this);};$.extend($element,self);if('true'!==$element.attr('data-checkbox')){methods.init.call($element,jsConfig);}return $element;};gj.checkbox.widget.prototype=new gj.widget();gj.checkbox.widget.constructor=gj.checkbox.widget;(function($){$.fn.checkbox=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.checkbox.widget(this,method);}else{$widget=new gj.checkbox.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);if(typeof gj.editor==='undefined'){gj.editor={plugins:{},messages:[]};}gj.editor.messages['en-us']={bold:'Bold',italic:'Italic',strikethrough:'Strikethrough',underline:'Underline',listBulleted:'List Bulleted',listNumbered:'List Numbered',indentDecrease:'Indent Decrease',indentIncrease:'Indent Increase',alignLeft:'Align Left',alignCenter:'Align Center',alignRight:'Align Right',alignJustify:'Align Justify',undo:'Undo',redo:'Redo'};/* global window alert jQuery *//** 
+ * @widget Editor 
+ * @plugin Base
+ */if(typeof gj.editor==='undefined'){gj.editor={plugins:{}};}gj.editor.config={base:{/** The height of the editor. Numeric values are treated as pixels.
+         * @type number|string
+         * @default 300
+         * @example sample <!-- editor, materialicons -->
+         * <div id="editor"></div>
+         * <script>
+         *     $('#editor').editor({
+         *         height: 500
+         *     });
+         * </script>
+         */height:300,/** The width of the editor. Numeric values are treated as pixels.
+         * @type number|string
+         * @default undefined
+         * @example sample <!-- editor, materialicons -->
+         * <div id="editor"></div>
+         * <script>
+         *     $('#editor').editor({
+         *         width: 900
+         *     });
+         * </script>
+         */width:undefined,/** The name of the UI library that is going to be in use. Currently we support only Material Design and Bootstrap. 
+         * @additionalinfo The css files for Bootstrap should be manually included to the page if you use bootstrap as uiLibrary.
+         * @type string (materialdesign|bootstrap|bootstrap4)
+         * @default 'materialdesign'
+         * @example Material.Design <!-- editor, materialicons  -->
+         * <div id="editor"></div>
+         * <script>
+         *     $('#editor').editor({ uiLibrary: 'materialdesign' });
+         * </script>
+         * @example Bootstrap.3 <!-- fontawesome, bootstrap, editor -->
+         * <div class="container"><div id="editor"></div></div>
+         * <script>
+         *     $('#editor').editor({
+         *         uiLibrary: 'bootstrap'
+         *     });
+         * </script>
+         * @example Bootstrap.4 <!-- fontawesome, bootstrap4, editor -->
+         * <div class="container"><div id="editor"></div></div>
+         * <script>
+         *     $('#editor').editor({
+         *         uiLibrary: 'bootstrap4'
+         *     });
+         * </script>
+         */uiLibrary:'materialdesign',/** The name of the icons library that is going to be in use. Currently we support Material Icons and Font Awesome.
+         * @additionalinfo If you use Bootstrap as uiLibrary, then the iconsLibrary is set to font awesome by default.<br/>
+         * If you use Material Design as uiLibrary, then the iconsLibrary is set to Material Icons by default.<br/>
+         * The css files for Material Icons or Font Awesome should be manually included to the page where the grid is in use.
+         * @type (materialicons|fontawesome)
+         * @default 'materialicons'
+         * @example Base.Theme.Material.Icons <!-- materialicons, bootstrap, editor -->
+         * <div id="editor"></div>
+         * <script>
+         *     $('#editor').editor({
+         *         uiLibrary: 'bootstrap',
+         *         iconsLibrary: 'materialicons'
+         *     });
+         * </script>
+         */iconsLibrary:'materialicons',/** The language that needs to be in use.
+         * @type string
+         * @default 'en-us'
+         * @example French <!-- materialicons, editor -->
+         * <script src="../../dist/modular/editor/js/messages/messages.fr-fr.js"></script>
+         * <div id="editor">Hover buttons in the toolbar in order to see localized tooltips</div>
+         * <script>
+         *     $("#editor").editor({
+         *         locale: 'fr-fr'
+         *     });
+         * </script>
+         * @example German <!-- materialicons, editor -->
+         * <script src="../../dist/modular/editor/js/messages/messages.de-de.js"></script>
+         * <div id="editor">Hover <b><u>buttons</u></b> in the toolbar in order to see localized tooltips</div>
+         * <script>
+         *     $("#editor").editor({
+         *         locale: 'de-de'
+         *     });
+         * </script>
+         */locale:'en-us',buttons:undefined,style:{wrapper:'gj-editor-md',buttonsGroup:'gj-button-md-group',button:'gj-button-md',buttonActive:'active'}},bootstrap:{style:{wrapper:'gj-editor-bootstrap',buttonsGroup:'btn-group',button:'btn btn-default gj-cursor-pointer',buttonActive:'active'},iconsLibrary:'fontawesome'},bootstrap4:{style:{wrapper:'gj-editor-bootstrap',buttonsGroup:'btn-group',button:'btn btn-outline-secondary gj-cursor-pointer',buttonActive:'active'},iconsLibrary:'fontawesome'},materialicons:{icons:{bold:'<i class="material-icons">format_bold</i>',italic:'<i class="material-icons">format_italic</i>',strikethrough:'<i class="material-icons">strikethrough_s</i>',underline:'<i class="material-icons">format_underlined</i>',listBulleted:'<i class="material-icons">format_list_bulleted</i>',listNumbered:'<i class="material-icons">format_list_numbered</i>',indentDecrease:'<i class="material-icons">format_indent_decrease</i>',indentIncrease:'<i class="material-icons">format_indent_increase</i>',alignLeft:'<i class="material-icons">format_align_left</i>',alignCenter:'<i class="material-icons">format_align_center</i>',alignRight:'<i class="material-icons">format_align_right</i>',alignJustify:'<i class="material-icons">format_align_justify</i>',undo:'<i class="material-icons">undo</i>',redo:'<i class="material-icons">redo</i>'}},fontawesome:{icons:{bold:'<i class="fa fa-bold" aria-hidden="true"></i>',italic:'<i class="fa fa-italic" aria-hidden="true"></i>',strikethrough:'<i class="fa fa-strikethrough" aria-hidden="true"></i>',underline:'<i class="fa fa-underline" aria-hidden="true"></i>',listBulleted:'<i class="fa fa-list-ul" aria-hidden="true"></i>',listNumbered:'<i class="fa fa-list-ol" aria-hidden="true"></i>',indentDecrease:'<i class="fa fa-indent" aria-hidden="true"></i>',indentIncrease:'<i class="fa fa-outdent" aria-hidden="true"></i>',alignLeft:'<i class="fa fa-align-left" aria-hidden="true"></i>',alignCenter:'<i class="fa fa-align-center" aria-hidden="true"></i>',alignRight:'<i class="fa fa-align-right" aria-hidden="true"></i>',alignJustify:'<i class="fa fa-align-justify" aria-hidden="true"></i>',undo:'<i class="fa fa-undo" aria-hidden="true"></i>',redo:'<i class="fa fa-repeat" aria-hidden="true"></i>'}}};gj.editor.methods={init:function init(jsConfig){gj.widget.prototype.init.call(this,jsConfig,'editor');this.attr('data-editor','true');gj.editor.methods.initialize(this);return this;},initialize:function initialize($editor){var self=this,data=$editor.data(),$group,$btn,$body=$editor.children('div[data-role="body"]'),$toolbar=$editor.children('div[data-role="toolbar"]');gj.editor.methods.localization(data);$editor.addClass(data.style.wrapper);if(data.width){$editor.width(data.width);}if($body.length===0){$editor.wrapInner('<div data-role="body"></div>');$body=$editor.children('div[data-role="body"]');}$body.attr('contenteditable',true);$body.on('mouseup keyup mouseout',function(){self.updateToolbar($editor,$toolbar);});if($toolbar.length===0){$toolbar=$('<div data-role="toolbar"></div>');$body.before($toolbar);for(var group in data.buttons){$group=$('<div />').addClass(data.style.buttonsGroup);for(var btn in data.buttons[group]){$btn=$(data.buttons[group][btn]);$btn.on('click',function(){gj.editor.methods.executeCmd($editor,$body,$toolbar,$(this));});$group.append($btn);}$toolbar.append($group);}}$body.height(data.height-$toolbar.outerHeight());},localization:function localization(data){var msg=gj.editor.messages[data.locale];if(typeof data.buttons==='undefined'){data.buttons=[['<button type="button" class="'+data.style.button+'" title="'+msg.bold+'" data-role="bold">'+data.icons.bold+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.italic+'" data-role="italic">'+data.icons.italic+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.strikethrough+'" data-role="strikethrough">'+data.icons.strikethrough+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.underline+'" data-role="underline">'+data.icons.underline+'</button>'],['<button type="button" class="'+data.style.button+'" title="'+msg.listBulleted+'" data-role="insertunorderedlist">'+data.icons.listBulleted+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.listNumbered+'" data-role="insertorderedlist">'+data.icons.listNumbered+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.indentDecrease+'" data-role="outdent">'+data.icons.indentDecrease+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.indentIncrease+'" data-role="indent">'+data.icons.indentIncrease+'</button>'],['<button type="button" class="'+data.style.button+'" title="'+msg.alignLeft+'" data-role="justifyleft">'+data.icons.alignLeft+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.alignCenter+'" data-role="justifycenter">'+data.icons.alignCenter+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.alignRight+'" data-role="justifyright">'+data.icons.alignRight+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.alignJustify+'" data-role="justifyfull">'+data.icons.alignJustify+'</button>'],['<button type="button" class="'+data.style.button+'" title="'+msg.undo+'" data-role="undo">'+data.icons.undo+'</button>','<button type="button" class="'+data.style.button+'" title="'+msg.redo+'" data-role="redo">'+data.icons.redo+'</button>']];}},updateToolbar:function updateToolbar($editor,$toolbar){var data=$editor.data();$buttons=$toolbar.find('[data-role]').each(function(){var $btn=$(this),cmd=$btn.attr('data-role');if(cmd&&document.queryCommandEnabled(cmd)&&document.queryCommandValue(cmd)==="true"){$btn.addClass(data.style.buttonActive);}else{$btn.removeClass(data.style.buttonActive);}});gj.editor.events.change($editor);},executeCmd:function executeCmd($editor,$body,$toolbar,$btn){$body.focus();document.execCommand($btn.attr('data-role'),false);gj.editor.methods.updateToolbar($editor,$toolbar);},content:function content($editor,html){var $body=$editor.children('div[data-role="body"]');if(typeof html==="undefined"){return $body.html();}else{return $body.html(html);}},destroy:function destroy($editor){if($editor.attr('data-editor')==='true'){$editor.removeClass($editor.data().style.wrapper);$editor.removeData();$editor.removeAttr('data-guid');$editor.removeAttr('data-editor');$editor.off();$editor.empty();}return $editor;}};gj.editor.events={/**
+     * Triggered when the editor text is changed.
+     *
+     * @event change
+     * @param {object} e - event data
+     * @example sample <!-- editor, materialicons -->
+     * <div id="editor"></div>
+     * <script>
+     *     $('#editor').editor({
+     *         change: function (e) {
+     *             alert('Change is fired');
+     *         }
+     *     });
+     * </script>
+     */change:function change($editor){return $editor.triggerHandler('change');}};gj.editor.widget=function($element,jsConfig){var self=this,methods=gj.editor.methods;/** Get or set html content in the body.
+     * @method
+     * @param {string} html - The html content that needs to be set.
+     * @return string
+     * @example Get <!-- editor, materialicons -->
+     * <button class="gj-button-md" onclick="alert($editor.content())">Get Content</button>
+     * <hr/>
+     * <div id="editor">My <b>content</b>.</div>
+     * <script>
+     *     var $editor = $('#editor').editor();
+     * </script>
+     * @example Set <!-- editor, materialicons -->
+     * <button class="gj-button-md" onclick="$editor.content('<h1>new value</h1>')">Set Content</button>
+     * <hr/>
+     * <div id="editor"></div>
+     * <script>
+     *     var $editor = $('#editor').editor();
+     * </script>
+     */self.content=function(html){return methods.content(this,html);};/** Remove editor functionality from the element.
+     * @method
+     * @return jquery element
+     * @example sample <!-- editor, materialicons -->
+     * <button class="gj-button-md" onclick="editor.destroy()">Destroy</button>
+     * <div id="editor"></div>
+     * <script>
+     *     var editor = $('#editor').editor();
+     * </script>
+     */self.destroy=function(){return methods.destroy(this);};$.extend($element,self);if('true'!==$element.attr('data-editor')){methods.init.call($element,jsConfig);}return $element;};gj.editor.widget.prototype=new gj.widget();gj.editor.widget.constructor=gj.editor.widget;(function($){$.fn.editor=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.editor.widget(this,method);}else{$widget=new gj.editor.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);/* global window alert jQuery gj *//**
+  * @widget DropDown
+  * @plugin Base
+  */if(typeof gj.dropdown==='undefined'){gj.dropdown={plugins:{}};}gj.dropdown.config={base:{/** The data source of dropdown.
+         * @additionalinfo If set to string, then the dropdown is going to use this string as a url for ajax requests to the server.<br />
+         * If set to object, then the dropdown is going to use this object as settings for the <a href="http://api.jquery.com/jquery.ajax/" target="_new">jquery ajax</a> function.<br />
+         * If set to array, then the dropdown is going to use the array as data for dropdown nodes.
+         * @type (string|object|array)
+         * @default undefined
+         * @example Local.DataSource <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="200"></select>
+         * <script>
+         *     $('#dropdown').dropdown({
+         *         dataSource: [ { value: 1, text: 'One' }, { value: 2, text: 'Two' }, { value: 3, text: 'Three' } ]
+         *     });
+         * </script>
+         * @example Remote.DataSource <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="200"></select>
+         * <script>
+         *     $('#dropdown').dropdown({
+         *         dataSource: '/Locations/Get',
+         *         valueField: 'id'
+         *     });
+         * </script>
+         */dataSource:undefined,/** Text field name.
+         * @type string
+         * @default 'text'
+         * @example sample <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="200"></select>
+         * <script>
+         *     $('#dropdown').dropdown({
+         *         textField: 'newTextField',
+         *         dataSource: [ { value: 1, newTextField: 'One' }, { value: 2, newTextField: 'Two' }, { value: 3, newTextField: 'Three' } ]
+         *     });
+         * </script>
+         */textField:'text',/** Value field name.
+         * @type string
+         * @default 'value'
+         * @example sample <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="200"></select>
+         * <script>
+         *     $('#dropdown').dropdown({
+         *         valueField: 'newValueField',
+         *         dataSource: [ { newValueField: 1, text: 'One' }, { newValueField: 2, text: 'Two' }, { newValueField: 3, text: 'Three' } ]
+         *     });
+         * </script>
+         */valueField:'value',/** Selected field name.
+         * @type string
+         * @default 'selected'
+         * @example sample <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="200"></select>
+         * <script>
+         *     $('#dropdown').dropdown({
+         *         selectedField: 'newSelectedField',
+         *         dataSource: [ { value: 1, text: 'One' }, { value: 2, text: 'Two', newSelectedField: true }, { value: 3, text: 'Three' } ]
+         *     });
+         * </script>
+         */selectedField:'selected',/** The width of the dropdown.
+         * @type number
+         * @default undefined
+         * @example JS.Config <!-- materialicons, dropdown -->
+         * <select id="dropdown">
+         *     <option value="1">One</option>
+         *     <option value="2">Two</option>
+         *     <option value="3">Three</option>
+         * </select>
+         * <script>
+         *     $('#dropdown').dropdown({ width: 200 });
+         * </script>
+         * @example HTML.Config <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="200">
+         *     <option value="1">One</option>
+         *     <option value="2">Two</option>
+         *     <option value="3">Three</option>
+         * </select>
+         * <script>
+         *     $('#dropdown').dropdown();
+         * </script>
+         * @example 100.Percent <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="100%">
+         *     <option value=""></option>
+         *     <option value="1">One</option>
+         *     <option value="2">Two</option>
+         *     <option value="3">Three</option>
+         * </select>
+         * <script>
+         *     $('#dropdown').dropdown();
+         * </script>
+         */width:undefined,optionsDisplay:'materialdesign',fontSize:undefined,/** The name of the UI library that is going to be in use.
+         * @additionalinfo The css file for bootstrap should be manually included if you use bootstrap.
+         * @type (materialdesign|bootstrap|bootstrap4)
+         * @default materialdesign
+         * @example MaterialDesign <!-- materialicons, dropdown -->
+         * <select id="dropdown" width="200">
+         *     <option value="1">One</option>
+         *     <option value="2">Two</option>
+         *     <option value="3">Three</option>
+         * </select>
+         * <script>
+         *     var dropdown = $('#dropdown').dropdown({
+         *         uiLibrary: 'materialdesign'
+         *     });
+         * </script>
+         * @example Bootstrap.3 <!-- bootstrap, dropdown -->
+         * <select id="dropdown" width="200">
+         *     <option value="1">One</option>
+         *     <option value="2">Two</option>
+         *     <option value="3">Three</option>
+         * </select>
+         * <script>
+         *     $('#dropdown').dropdown({ uiLibrary: 'bootstrap' });
+         * </script>
+         * @example Bootstrap.4 <!-- materialicons, bootstrap4, dropdown -->
+         * <select id="dropdown" width="200">
+         *     <option value="1">One</option>
+         *     <option value="2">Two</option>
+         *     <option value="3">Three</option>
+         * </select>
+         * <script>
+         *     $('#dropdown').dropdown({ uiLibrary: 'bootstrap4', width: 300 });
+         * </script>
+         */uiLibrary:'materialdesign',/** The name of the icons library that is going to be in use. Currently we support Material Icons, Font Awesome and Glyphicons.
+         * @additionalinfo If you use Bootstrap 3 as uiLibrary, then the iconsLibrary is set to Glyphicons by default.<br/>
+         * If you use Material Design as uiLibrary, then the iconsLibrary is set to Material Icons by default.<br/>
+         * The css files for Material Icons, Font Awesome or Glyphicons should be manually included to the page where the grid is in use.
+         * @type (materialicons|fontawesome|glyphicons)
+         * @default 'materialicons'
+         * @example Bootstrap.Material.Icons <!-- bootstrap, materialicons, dropdown -->
+         * <select id="dropdown" width="200"></select>
+         * <script>
+         *     var dropdown = $('#dropdown').dropdown({
+         *         dataSource: '/Locations/Get',
+         *         uiLibrary: 'bootstrap',
+         *         iconsLibrary: 'materialicons',
+         *         valueField: 'id'
+         *     });
+         * </script>
+         * @example Bootstrap.4.Font.Awesome <!-- bootstrap4, fontawesome, dropdown -->
+         * <select id="dropdown" width="200"></select>
+         * <script>
+         *     var dropdown = $('#dropdown').dropdown({
+         *         dataSource: '/Locations/Get',
+         *         uiLibrary: 'bootstrap4',
+         *         iconsLibrary: 'fontawesome',
+         *         valueField: 'id'
+         *     });
+         * </script>
+         */iconsLibrary:'materialicons',icons:{/** DropDown icon definition.
+             * @alias icons.dropdown
+             * @type String
+             * @default '<i class="material-icons">arrow_drop_down</i>'
+             * @example Custom.Material.Icon <!-- materialicons, dropdown -->
+             * <select id="dropdown"></select>
+             * <script>
+             *     var dropdown = $('#dropdown').dropdown({
+             *         dataSource: '/Locations/Get',
+             *         valueField: 'id',
+             *         width: 200,
+             *         icons: { 
+             *             dropdown: '<i class="material-icons">keyboard_arrow_down</i>'
+             *         }
+             *     });
+             * </script>
+             * @example Custom.Glyphicon.Icon <!-- bootstrap, dropdown -->
+             * <select id="dropdown"></select>
+             * <script>
+             *     var dropdown = $('#dropdown').dropdown({
+             *         dataSource: '/Locations/Get',
+             *         valueField: 'id',
+             *         uiLibrary: 'bootstrap',
+             *         width: 200,
+             *         icons: { 
+             *             dropdown: '<span class="glyphicon glyphicon-triangle-bottom" />'
+             *         }
+             *     });
+             * </script>
+             */dropdown:'<i class="material-icons">arrow_drop_down</i>'},style:{wrapper:'gj-dropdown gj-dropdown-md gj-unselectable',list:'gj-list gj-list-md gj-dropdown-list-md',active:'gj-list-md-active'}},bootstrap:{style:{wrapper:'gj-dropdown gj-dropdown-bootstrap gj-dropdown-bootstrap-3 gj-unselectable',presenter:'btn btn-default',list:'gj-list gj-list-bootstrap gj-dropdown-list-bootstrap list-group',item:'list-group-item',active:'active'},iconsLibrary:'glyphicons',optionsDisplay:'standard'},bootstrap4:{style:{wrapper:'gj-dropdown gj-dropdown-bootstrap gj-dropdown-bootstrap-4 gj-unselectable',presenter:'btn btn-outline-secondary',list:'gj-list gj-list-bootstrap gj-dropdown-list-bootstrap list-group',item:'list-group-item',active:'active'},optionsDisplay:'standard'},materialicons:{style:{expander:'gj-dropdown-expander-mi'}},fontawesome:{icons:{dropdown:'<i class="fa fa-caret-down" aria-hidden="true"></i>'},style:{expander:'gj-dropdown-expander-fa'}},glyphicons:{icons:{dropdown:'<span class="caret"></span>'},style:{expander:'gj-dropdown-expander-glyphicons'}}};gj.dropdown.methods={init:function init(jsConfig){gj.widget.prototype.init.call(this,jsConfig,'dropdown');this.attr('data-dropdown','true');gj.dropdown.methods.initialize(this);return this;},initialize:function initialize($dropdown){var $item,data=$dropdown.data(),$wrapper=$dropdown.parent('div[role="wrapper"]'),$display=$('<span role="display"></span>'),$expander=$('<span role="expander">'+data.icons.dropdown+'</span>').addClass(data.style.expander),$presenter=$('<button role="presenter"></button>').addClass(data.style.presenter),$list=$('<ul role="list" class="'+data.style.list+'"></ul>').attr('guid',$dropdown.attr('data-guid'));if($wrapper.length===0){$wrapper=$('<div role="wrapper" />').addClass(data.style.wrapper);// The css class needs to be added before the wrapping, otherwise doesn't work.
+$dropdown.wrap($wrapper);}else{$wrapper.addClass(data.style.wrapper);}if(data.fontSize){$presenter.css('font-size',data.fontSize);}$presenter.on('click',function(e){if($list.is(':visible')){$list.hide();}else{gj.dropdown.methods.setListPosition($presenter,$list,data);$list.show();gj.dropdown.methods.setListPosition($presenter,$list,data);}});$presenter.on('blur',function(e){setTimeout(function(){$list.hide();},500);});$presenter.append($display).append($expander);$dropdown.hide();$dropdown.after($presenter);$('body').append($list);$list.hide();$dropdown.reload();},setListPosition:function setListPosition($presenter,$list,data){var offset=$presenter.offset();$list.css('left',offset.left).css('width',$presenter.outerWidth(true));if(data.optionsDisplay==='standard'){$list.css('top',offset.top+$presenter.outerHeight(true)+2);}else{$list.css('top',offset.top);}},useHtmlDataSource:function useHtmlDataSource($dropdown,data){var dataSource=[],i,$option,record,$options=$dropdown.find('option');for(i=0;i<$options.length;i++){$option=$($options[i]);record={};record[data.valueField]=$option.val();record[data.textField]=$option.html();record[data.selectedField]=$option.prop('selected');dataSource.push(record);}data.dataSource=dataSource;},filter:function filter($dropdown){var i,record,data=$dropdown.data();if(!data.dataSource){data.dataSource=[];}else if(typeof data.dataSource[0]==='string'){for(i=0;i<data.dataSource.length;i++){record={};record[data.valueField]=data.dataSource[i];record[data.textField]=data.dataSource[i];data.dataSource[i]=record;}}return data.dataSource;},render:function render($dropdown,response){var selectedInd=false,data=$dropdown.data(),$parent=$dropdown.parent(),$list=$('body').children('[role="list"][guid="'+$dropdown.attr('data-guid')+'"]'),$presenter=$parent.children('[role="presenter"]'),$expander=$presenter.children('[role="expander"]'),$display=$presenter.children('[role="display"]');$dropdown.data('records',response);$dropdown.empty();$list.empty();if(response&&response.length){$.each(response,function(){var value=this[data.valueField],text=this[data.textField],selected=this[data.selectedField]&&this[data.selectedField].toString().toLowerCase()==='true',$item,$option;$item=$('<li value="'+value+'"><div data-role="wrapper"><span data-role="display">'+text+'</span></div></li>');$item.addClass(data.style.item);$item.on('click',function(e){gj.dropdown.methods.select($dropdown,value);gj.dropdown.events.change($dropdown);});$list.append($item);$option=$('<option value="'+value+'">'+text+'</option>');$dropdown.append($option);if(selected){gj.dropdown.methods.select($dropdown,value);selectedInd=true;}});if(selectedInd===false){gj.dropdown.methods.select($dropdown,response[0][data.valueField]);}}if(data.width){$parent.css('width',data.width);$list.css('width',data.width);$presenter.css('width',data.width);//$display.css('width', $presenter.outerWidth(true) - $expander.outerWidth(true));
+}if(data.fontSize){$list.children('li').css('font-size',data.fontSize);}gj.dropdown.events.dataBound($dropdown);return $dropdown;},select:function select($dropdown,value){var data=$dropdown.data(),$list=$('body').children('[role="list"][guid="'+$dropdown.attr('data-guid')+'"]'),$item=$list.children('li[value="'+value+'"]'),record=gj.dropdown.methods.getRecordByValue($dropdown,value);$list.children('li').removeClass(data.style.active);$item.addClass(data.style.active);$dropdown.val(value);$dropdown.next('[role="presenter"]').find('[role="display"]').html(record[data.textField]);$list.hide();return $dropdown;},getRecordByValue:function getRecordByValue($dropdown,value){var data=$dropdown.data(),i,result=undefined;for(i=0;i<data.records.length;i++){if(data.records[i][data.valueField]===value){result=data.records[i];break;}}return result;},value:function value($dropdown,_value){if(typeof _value==="undefined"){return $dropdown.val();}else{gj.dropdown.methods.select($dropdown,_value);gj.dropdown.events.change($dropdown);return $dropdown;}},destroy:function destroy($dropdown){var data=$dropdown.data(),$parent=$dropdown.parent('div[role="wrapper"]');if(data){$dropdown.xhr&&$dropdown.xhr.abort();$dropdown.off();$dropdown.removeData();$dropdown.removeAttr('data-type').removeAttr('data-guid').removeAttr('data-dropdown');$dropdown.removeClass();if($parent.length>0){$parent.children('[role="presenter"]').remove();$parent.children('[role="list"]').remove();$dropdown.unwrap();}$dropdown.show();}return $tree;}};gj.dropdown.events={/**
+     * Triggered when the dropdown value is changed.
+     *
+     * @event change
+     * @param {object} e - event data
+     * @example sample <!-- dropdown, materialicons -->
+     * <select id="dropdown" width="200">
+     *     <option value="1">One</option>
+     *     <option value="2" selected>Two</option>
+     *     <option value="3">Three</option>
+     * </select>
+     * <script>
+     *     $('#dropdown').dropdown({
+     *         change: function (e) {
+     *             alert('Change is fired');
+     *         }
+     *     });
+     * </script>
+     */change:function change($dropdown){return $dropdown.triggerHandler('change');},/**
+     * Event fires after the loading of the data in the dropdown.
+     * @event dataBound
+     * @param {object} e - event data
+     * @example sample <!-- dropdown, materialicons -->
+     * <select id="dropdown" width="200">
+     *     <option value="1">One</option>
+     *     <option value="2" selected>Two</option>
+     *     <option value="3">Three</option>
+     * </select>
+     * <script>
+     *     $('#dropdown').dropdown({
+     *         dataBound: function (e) {
+     *             alert('dataBound is fired.');
+     *         }
+     *     });
+     * </script>
+     */dataBound:function dataBound($dropdown){return $dropdown.triggerHandler('dataBound');}};gj.dropdown.widget=function($element,jsConfig){var self=this,methods=gj.dropdown.methods;/** Gets or sets the value of the DropDown.
+     * @method
+     * @param {string} value - The value that needs to be selected.
+     * @return string
+     * @example Get <!-- dropdown, materialicons -->
+     * <button class="gj-button-md" onclick="alert($dropdown.value())">Get Value</button>
+     * <hr/>
+     * <select id="dropdown" width="200">
+     *     <option value="1">One</option>
+     *     <option value="2" selected>Two</option>
+     *     <option value="3">Three</option>
+     * </select>
+     * <script>
+     *     var $dropdown = $('#dropdown').dropdown();
+     * </script>
+     * @example Set <!-- dropdown, materialicons -->
+     * <button class="gj-button-md" onclick="$dropdown.value('3')">Set Value</button>
+     * <hr/>
+     * <select id="dropdown" width="200">
+     *     <option value="1">One</option>
+     *     <option value="2" selected>Two</option>
+     *     <option value="3">Three</option>
+     * </select>
+     * <script>
+     *     var $dropdown = $('#dropdown').dropdown();
+     * </script>
+     */self.value=function(value){return methods.value(this,value);};self.enable=function(){return methods.enable(this);};self.disable=function(){return methods.disable(this);};/** Remove dropdown functionality from the element.
+     * @method
+     * @return jquery element
+     * @example sample <!-- dropdown, materialicons -->
+     * <button class="gj-button-md" onclick="dropdown.destroy()">Destroy</button>
+     * <select id="dropdown" width="200">
+     *     <option value="1">One</option>
+     *     <option value="2" selected>Two</option>
+     *     <option value="3">Three</option>
+     * </select>
+     * <script>
+     *     var dropdown = $('#dropdown').dropdown();
+     * </script>
+     */self.destroy=function(){return methods.destroy(this);};$.extend($element,self);if('true'!==$element.attr('data-dropdown')){methods.init.call($element,jsConfig);}return $element;};gj.dropdown.widget.prototype=new gj.widget();gj.dropdown.widget.constructor=gj.dropdown.widget;(function($){$.fn.dropdown=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.dropdown.widget(this,method);}else{$widget=new gj.dropdown.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);/* global window alert jQuery gj *//**
+  * @widget DatePicker
+  * @plugin Base
+  */if(typeof gj.datepicker==='undefined'){gj.datepicker={plugins:{}};}gj.datepicker.config={base:{weekDays:['S','M','T','W','T','F','S'],/** Whether to display dates in other months at the start or end of the current month.
+         * @additionalinfo Set to true by default for Bootstrap.
+         * @type Boolean
+         * @default false
+         * @example True <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    var datepicker = $('#datepicker').datepicker({ 
+         *        showOtherMonths: true
+         *    });
+         * </script>
+         * @example False <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *     $('#datepicker').datepicker({ 
+         *         showOtherMonths: false
+         *     });
+         * </script>
+         */showOtherMonths:false,/** Whether days in other months shown before or after the current month are selectable.
+         * This only applies if the showOtherMonths option is set to true.
+         * @type Boolean
+         * @default true
+         * @example True <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    $('#datepicker').datepicker({
+         *        showOtherMonths: true,
+         *        selectOtherMonths: true
+         *    });
+         * </script>
+         * @example False <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *     $('#datepicker').datepicker({ 
+         *        showOtherMonths: true,
+         *        selectOtherMonths: false
+         *     });
+         * </script>
+         */selectOtherMonths:true,/** The width of the datepicker.
+         * @type number
+         * @default undefined
+         * @example JS.Config <!-- materialicons, datepicker -->
+         * <input id="datepicker" />
+         * <script>
+         *    $('#datepicker').datepicker({ width: 312 });
+         * </script>
+         * @example HTML.Config <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    $('#datepicker').datepicker();
+         * </script>
+         */width:undefined,/** The minimum selectable date. When not set, there is no minimum
+         * @type Date|String|Function
+         * @default undefined
+         * @example Today <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    var today, datepicker;
+         *    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+         *    datepicker = $('#datepicker').datepicker({
+         *        minDate: today
+         *    });
+         * </script>
+         * @example Yesterday <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *     $('#datepicker').datepicker({ 
+         *        minDate: function() {
+         *            var date = new Date();
+         *            date.setDate(date.getDate()-1);
+         *            return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+         *        }
+         *     });
+         * </script>
+         */minDate:undefined,/** The maximum selectable date. When not set, there is no maximum
+         * @type Date|String|Function
+         * @default undefined
+         * @example Today <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    var today, datepicker;
+         *    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+         *    datepicker = $('#datepicker').datepicker({
+         *        maxDate: today
+         *    });
+         * </script>
+         * @example Tomorrow <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *     $('#datepicker').datepicker({ 
+         *        maxDate: function() {
+         *            var date = new Date();
+         *            date.setDate(date.getDate()+1);
+         *            return new Date(date.getFullYear(), date.getMonth(), date.getDate());
+         *        }
+         *     });
+         * </script>
+         */maxDate:undefined,/** Specifies the format, which is used to format the value of the DatePicker displayed in the input.
+         * @additionalinfo <b>d</b> - Day of the month as digits; no leading zero for single-digit days.<br/>
+         * <b>dd</b> - Day of the month as digits; leading zero for single-digit days.<br/>
+         * <b>m</b> - Month as digits; no leading zero for single-digit months.<br/>
+         * <b>mm</b> - Month as digits; leading zero for single-digit months.<br/>
+         * <b>yy</b> - Year as last two digits; leading zero for years less than 10.<br/>
+         * <b>yyyy</b> - Year represented by four digits.<br/>
+         * @type String
+         * @default 'mm/dd/yyyy'
+         * @example Sample <!-- materialicons, datepicker -->
+         * <input id="datepicker" value="2017-25-07" />
+         * <script>
+         *     var datepicker = $('#datepicker').datepicker({
+         *         format: 'yyyy-dd-mm'
+         *     });
+         * </script>
+         * @example Short.Month.Format <!-- materialicons, datepicker -->
+         * <input id="datepicker" value="10 Oct 2017" />
+         * <script>
+         *     var datepicker = $('#datepicker').datepicker({
+         *         format: 'dd mmm yyyy'
+         *     });
+         * </script>
+         * @example Long.Month.Format <!-- materialicons, datepicker -->
+         * <input id="datepicker" value="10 October 2017" />
+         * <script>
+         *     var datepicker = $('#datepicker').datepicker({
+         *         format: 'dd mmmm yyyy'
+         *     });
+         * </script>
+         */format:'mm/dd/yyyy',/** The name of the UI library that is going to be in use.
+         * @additionalinfo The css file for bootstrap should be manually included if you use bootstrap.
+         * @type (materialdesign|bootstrap|bootstrap4)
+         * @default materialdesign
+         * @example MaterialDesign <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    var datepicker = $('#datepicker').datepicker({ 
+         *        uiLibrary: 'materialdesign'
+         *    });
+         * </script>
+         * @example Bootstrap.3 <!-- bootstrap, datepicker -->
+         * <input id="datepicker" width="270" />
+         * <script>
+         *     $('#datepicker').datepicker({ uiLibrary: 'bootstrap' });
+         * </script>
+         * @example Bootstrap.4.Material.Icons <!-- materialicons, bootstrap4, datepicker -->
+         * <input id="datepicker" width="276" />
+         * <script>
+         *     $('#datepicker').datepicker({ uiLibrary: 'bootstrap4' });
+         * </script>
+         * @example Bootstrap.4.FontAwesome <!-- fontawesome, bootstrap4, datepicker -->
+         * <input id="datepicker" width="276" />
+         * <script>
+         *     $('#datepicker').datepicker({ uiLibrary: 'bootstrap4', iconsLibrary: 'fontawesome' });
+         * </script>
+         */uiLibrary:'materialdesign',/** The name of the icons library that is going to be in use. Currently we support Material Icons, Font Awesome and Glyphicons.
+         * @additionalinfo If you use Bootstrap 3 as uiLibrary, then the iconsLibrary is set to Glyphicons by default.<br/>
+         * If you use Material Design as uiLibrary, then the iconsLibrary is set to Material Icons by default.<br/>
+         * The css files for Material Icons, Font Awesome or Glyphicons should be manually included to the page where the grid is in use.
+         * @type (materialicons|fontawesome|glyphicons)
+         * @default 'materialicons'
+         * @example Bootstrap.Material.Icons <!-- bootstrap, materialicons, datepicker -->
+         * <input id="datepicker" width="276" />
+         * <script>
+         *     $('#datepicker').datepicker({
+         *         uiLibrary: 'bootstrap',
+         *         iconsLibrary: 'materialicons'
+         *     });
+         * </script>
+         * @example Bootstrap.4.Font.Awesome <!-- bootstrap4, fontawesome, datepicker -->
+         * <input id="datepicker" width="276" />
+         * <script>
+         *     $('#datepicker').datepicker({
+         *         uiLibrary: 'bootstrap4',
+         *         iconsLibrary: 'fontawesome'
+         *     });
+         * </script>
+         */iconsLibrary:'materialicons',/** The initial datepicker value.
+         * @type String
+         * @default undefined
+         * @example Javascript <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    $('#datepicker').datepicker({
+         *        value: '01/01/2018'
+         *    });
+         * </script>
+         * @example HTML <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" value="01/01/2018" />
+         * <script>
+         *     $('#datepicker').datepicker();
+         * </script>
+         */value:undefined,/** Day of the week start. 0 (Sunday) to 6 (Saturday)
+         * @type Number
+         * @default 0
+         * @example Monday <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    $('#datepicker').datepicker({
+         *        weekStartDay: 1
+         *    });
+         * </script>
+         * @example Saturday <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    $('#datepicker').datepicker({
+         *        weekStartDay: 6
+         *    });
+         * </script>
+         */weekStartDay:0,/** An array or function that will be used to determine which dates to be disabled for selection by the widget.
+         * @type Array|Function
+         * @default undefined
+         * @example Array <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    $('#datepicker').datepicker({
+         *        value: '11/10/2017',
+         *        disableDates: [new Date(2017,10,11), '11/12/2017']
+         *    });
+         * </script>
+         * @example Function <!-- materialicons, datepicker -->
+         * <input id="datepicker" width="312" />
+         * <script>
+         *    $('#datepicker').datepicker({
+         *        value: '11/11/2017',
+         *        disableDates:  function (date) {
+         *            var disabled = [10,15,20,25];
+         *            if (disabled.indexOf(date.getDate()) == -1 ) {
+         *                return true;
+         *            } else {
+         *                return false;
+         *            }
+         *        }
+         *    });
+         * </script>
+         */disableDates:undefined,//TODO Config:
+disableDaysOfWeek:undefined,//array
+calendarWeeks:false,keyboardNavigation:true,locale:'en-us',icons:{/** datepicker icon definition.
+             * @alias icons.rightIcon
+             * @type String
+             * @default '<i class="material-icons">arrow_drop_down</i>'
+             * @example Custom.Material.Icon <!-- materialicons, datepicker -->
+             * <input id="datepicker" />
+             * <script>
+             *     $('#datepicker').datepicker({
+             *         icons: { 
+             *             rightIcon: '<i class="material-icons">date_range</i>'
+             *         }
+             *     });
+             * </script>
+             * @example Custom.Glyphicon.Icon <!-- bootstrap, datepicker -->
+             * <input id="datepicker" />
+             * <script>
+             *     $('#datepicker').datepicker({
+             *         uiLibrary: 'bootstrap',
+             *         icons: { 
+             *             rightIcon: '<span class="glyphicon glyphicon-chevron-down" />'
+             *         }
+             *     });
+             * </script>
+             */rightIcon:'<i class="material-icons">event</i>',previousMonth:'<i class="material-icons">keyboard_arrow_left</i>',nextMonth:'<i class="material-icons">keyboard_arrow_right</i>'},fontSize:undefined,style:{wrapper:'gj-datepicker gj-datepicker-md gj-unselectable',input:'gj-textbox-md',calendar:'gj-calendar gj-calendar-md'}},bootstrap:{style:{wrapper:'gj-datepicker gj-datepicker-bootstrap gj-unselectable input-group',input:'form-control',calendar:'gj-calendar gj-calendar-bootstrap'},iconsLibrary:'glyphicons',showOtherMonths:true},bootstrap4:{style:{wrapper:'gj-datepicker gj-datepicker-bootstrap gj-unselectable input-group',input:'form-control',calendar:'gj-calendar gj-calendar-bootstrap'},showOtherMonths:true},materialicons:{},fontawesome:{icons:{rightIcon:'<span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>',previousMonth:'<i class="fa fa-chevron-left" aria-hidden="true"></i>',nextMonth:'<i class="fa fa-chevron-right" aria-hidden="true"></i>'}},glyphicons:{icons:{rightIcon:'<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>',previousMonth:'<span class="glyphicon glyphicon-chevron-left"></span>',nextMonth:'<span class="glyphicon glyphicon-chevron-right"></span>'}}};gj.datepicker.methods={init:function init(jsConfig){gj.widget.prototype.init.call(this,jsConfig,'datepicker');this.attr('data-datepicker','true');gj.datepicker.methods.initialize(this);return this;},initialize:function initialize($datepicker){var data=$datepicker.data(),$wrapper=$datepicker.parent('div[role="wrapper"]'),$rightIcon=data.uiLibrary!=='materialdesign'&&data.iconsLibrary==='materialicons'?$('<span class="input-group-addon">'+data.icons.rightIcon+'</span>'):$(data.icons.rightIcon);$rightIcon.attr('role','right-icon');if($wrapper.length===0){$wrapper=$('<div role="wrapper" />').addClass(data.style.wrapper);// The css class needs to be added before the wrapping, otherwise doesn't work.
+$datepicker.wrap($wrapper);}else{$wrapper.addClass(data.style.wrapper);}$wrapper=$datepicker.parent('div[role="wrapper"]');data.width&&$wrapper.css('width',data.width);$datepicker.val(data.value).addClass(data.style.input).attr('role','input');data.fontSize&&$datepicker.css('font-size',data.fontSize);$rightIcon.on('click',function(e){if($('body').children('[role="calendar"][guid="'+$datepicker.attr('data-guid')+'"]').is(':visible')){gj.datepicker.methods.hide($datepicker);}else{gj.datepicker.methods.show($datepicker);}});$datepicker.on('blur',function(){$datepicker.timeout=setTimeout(function(){gj.datepicker.methods.hide($datepicker);},500);});$wrapper.append($rightIcon);gj.datepicker.methods.createCalendar($datepicker);},createCalendar:function createCalendar($datepicker){var date,data=$datepicker.data(),$calendar=$('<div role="calendar" />').addClass(data.style.calendar).attr('guid',$datepicker.attr('data-guid')),$table=$('<table/>'),$thead=$('<thead/>');data.fontSize&&$calendar.css('font-size',data.fontSize);date=gj.core.parseDate(data.value,data.format);if(!date||isNaN(date.getTime())){date=new Date();}else{$datepicker.attr('day',date.getFullYear()+'-'+date.getMonth()+'-'+date.getDate());}$datepicker.attr('month',date.getMonth());$datepicker.attr('year',date.getFullYear());$row=$('<tr role="month-manager" />');$row.append($('<th><div>'+data.icons.previousMonth+'</div></th>').on('click',gj.datepicker.methods.prevMonth($datepicker)));$row.append('<th colspan="5"><div role="month"></div></th>');$row.append($('<th><div>'+data.icons.nextMonth+'</div></th>').on('click',gj.datepicker.methods.nextMonth($datepicker)));$thead.append($row);$row=$('<tr role="week-days" />');for(i=data.weekStartDay;i<data.weekDays.length;i++){$row.append('<th><div>'+data.weekDays[i]+'</div></th>');}for(i=0;i<data.weekStartDay;i++){$row.append('<th><div>'+data.weekDays[i]+'</div></th>');}$thead.append($row);$table.append($thead);$table.append('<tbody/>');$calendar.append($table);$calendar.hide();$('body').append($calendar);return $calendar;},renderCalendar:function renderCalendar($datepicker){var weekDay,selectedDay,day,month,year,daysInMonth,total,firstDayPosition,i,now,prevMonth,nextMonth,$cell,$day,data=$datepicker.data(),$calendar=$('body').children('[role="calendar"][guid="'+$datepicker.attr('data-guid')+'"]'),$table=$calendar.children('table'),$tbody=$table.children('tbody');clearTimeout($datepicker.timeout);if($datepicker.attr('day')){selectedDay=$datepicker.attr('day').split('-');selectedDay=new Date(selectedDay[0],selectedDay[1],selectedDay[2]);}else{selectedDay=new Date(undefined);}month=parseInt($datepicker.attr('month'),10);year=parseInt($datepicker.attr('year'),10);$table.find('thead [role="month"]').text(gj.core.monthNames[month]+' '+year);daysInMonth=new Array(31,28,31,30,31,30,31,31,30,31,30,31);if(year%4==0&&year!=1900){daysInMonth[1]=29;}total=daysInMonth[month];firstDayPosition=(new Date(year,month,1).getDay()+7-data.weekStartDay)%7;$tbody.empty();weekDay=0;$row=$('<tr />');prevMonth=gj.datepicker.methods.getPrevMonth(month,year);for(i=1;i<=firstDayPosition;i++){day=daysInMonth[prevMonth.month]-firstDayPosition+i;if(prevMonth.year===selectedDay.getFullYear()&&prevMonth.month===selectedDay.getMonth()&&day===selectedDay.getDate()){$cell=$('<td type="selected" />');}else{$cell=$('<td type="other-month" />');}if(data.showOtherMonths){$day=$('<div>'+day+'</div>');$cell.append($day);if(data.selectOtherMonths&&gj.datepicker.methods.isSelectable(data,prevMonth.year,prevMonth.month,day)){$cell.addClass('gj-cursor-pointer');$day.on('click',gj.datepicker.methods.select($datepicker,$calendar,day,prevMonth.month,prevMonth.year));}else{$cell.addClass('disabled');}}$row.append($cell);weekDay++;}$tbody.append($row);now=new Date();for(i=1;i<=total;i++){if(weekDay==0){$row=$('<tr>');}if(year===selectedDay.getFullYear()&&month===selectedDay.getMonth()&&i===selectedDay.getDate()){$cell=$('<td type="selected" />');}else if(year===now.getFullYear()&&month===now.getMonth()&&i===now.getDate()){$cell=$('<td type="today" />');}else{$cell=$('<td type="current-month" />');}$day=$('<div>'+i+'</div>');if(gj.datepicker.methods.isSelectable(data,year,month,i)){$cell.addClass('gj-cursor-pointer');$day.on('click',gj.datepicker.methods.select($datepicker,$calendar,i,month,year));}else{$cell.addClass('disabled');}$cell.append($day);$row.append($cell);weekDay++;if(weekDay==7){$tbody.append($row);weekDay=0;}}nextMonth=gj.datepicker.methods.getNextMonth(month,year);for(i=1;weekDay!=0;i++){if(nextMonth.year===selectedDay.getFullYear()&&nextMonth.month===selectedDay.getMonth()&&i===selectedDay.getDate()){$cell=$('<td type="selected" />');}else{$cell=$('<td type="other-month" />');}if(data.showOtherMonths){$day=$('<div>'+i+'</div>');$cell.append($day);if(data.selectOtherMonths&&gj.datepicker.methods.isSelectable(data,nextMonth.year,nextMonth.month,i)){$cell.addClass('gj-cursor-pointer');$day.on('click',gj.datepicker.methods.select($datepicker,$calendar,i,nextMonth.month,nextMonth.year));}else{$cell.addClass('disabled');}}$row.append($cell);weekDay++;if(weekDay==7){$tbody.append($row);weekDay=0;}}},getMinDate:function getMinDate(data){var minDate;if(data.minDate){if(typeof data.minDate==='string'){minDate=new Date(data.minDate);}else if(typeof data.minDate==='function'){minDate=data.minDate();}else if(typeof data.minDate.getMonth==='function'){minDate=data.minDate;}}return minDate;},getMaxDate:function getMaxDate(data){var maxDate;if(data.maxDate){if(typeof data.maxDate==='string'){maxDate=new Date(data.maxDate);}else if(typeof data.maxDate==='function'){maxDate=data.maxDate();}else if(typeof data.maxDate.getMonth==='function'){maxDate=data.maxDate;}}return maxDate;},isSelectable:function isSelectable(data,year,month,day){var result=true,date=new Date(year,month,day),minDate=gj.datepicker.methods.getMinDate(data),maxDate=gj.datepicker.methods.getMaxDate(data),i;if(minDate&&date<minDate){result=false;}else if(maxDate&&date>maxDate){result=false;}else if(data.disableDates){if($.isArray(data.disableDates)){for(i=0;i<data.disableDates.length;i++){if(data.disableDates[i]instanceof Date&&data.disableDates[i].getTime()===date.getTime()){result=false;}else if(typeof data.disableDates[i]==='string'&&gj.core.parseDate(data.disableDates[i],data.format).getTime()===date.getTime()){result=false;}}}else if(data.disableDates instanceof Function){result=data.disableDates(date);}}return result;},getPrevMonth:function getPrevMonth(month,year){date=new Date(year,month,1);date.setMonth(date.getMonth()-1);return{month:date.getMonth(),year:date.getFullYear()};},getNextMonth:function getNextMonth(month,year){date=new Date(year,month,1);date.setMonth(date.getMonth()+1);return{month:date.getMonth(),year:date.getFullYear()};},prevMonth:function prevMonth($datepicker){return function(){var date,month=parseInt($datepicker.attr('month'),10),year=parseInt($datepicker.attr('year'),10);date=gj.datepicker.methods.getPrevMonth(month,year);$datepicker.attr('month',date.month);$datepicker.attr('year',date.year);gj.datepicker.methods.renderCalendar($datepicker);$datepicker.focus();};},nextMonth:function nextMonth($datepicker){return function(){var date,month=parseInt($datepicker.attr('month'),10),year=parseInt($datepicker.attr('year'),10);date=gj.datepicker.methods.getNextMonth(month,year);$datepicker.attr('month',date.month);$datepicker.attr('year',date.year);gj.datepicker.methods.renderCalendar($datepicker);$datepicker.focus();};},select:function select($datepicker,$calendar,day,month,year){return function(e){var date,value,data=$datepicker.data();date=new Date(year,month,day);value=gj.core.formatDate(date,data.format);$datepicker.val(value);gj.datepicker.events.change($datepicker);$datepicker.attr('day',year+'-'+month+'-'+day);$datepicker.attr('month',month);$datepicker.attr('year',year);gj.datepicker.methods.hide($datepicker);return $datepicker;};},show:function show($datepicker){var data=$datepicker.data(),offset=$datepicker.offset(),$calendar=$('body').children('[role="calendar"][guid="'+$datepicker.attr('data-guid')+'"]');gj.datepicker.methods.renderCalendar($datepicker);$calendar.css('left',offset.left).css('top',offset.top+$datepicker.outerHeight(true)+3);$calendar.show();$datepicker.focus();gj.datepicker.events.show($datepicker);},hide:function hide($datepicker){var $calendar=$('body').children('[role="calendar"][guid="'+$datepicker.attr('data-guid')+'"]');$calendar.hide();gj.datepicker.events.hide($datepicker);},value:function value($datepicker,_value2){var $calendar,date;if(typeof _value2==="undefined"){return $datepicker.val();}else{date=gj.core.parseDate(_value2,$datepicker.data().format);if(date){$calendar=$('body').children('[role="calendar"][guid="'+$datepicker.attr('data-guid')+'"]');gj.datepicker.methods.select($datepicker,$calendar,date.getDate(),date.getMonth(),date.getFullYear())();}else{$datepicker.val('');}return $datepicker;}},destroy:function destroy($datepicker){var data=$datepicker.data(),$parent=$datepicker.parent();if(data){$datepicker.off();$('body').children('[role="calendar"][guid="'+$datepicker.attr('data-guid')+'"]').remove();$datepicker.removeData();$datepicker.removeAttr('data-type').removeAttr('data-guid').removeAttr('data-datepicker');$datepicker.removeClass();$parent.children('[role="right-icon"]').remove();$datepicker.unwrap();}return $datepicker;}};gj.datepicker.events={/**
+     * Triggered when the datepicker value is changed.
+     *
+     * @event change
+     * @param {object} e - event data
+     * @example sample <!-- datepicker, materialicons -->
+     * <input id="datepicker" />
+     * <script>
+     *     $('#datepicker').datepicker({
+     *         change: function (e) {
+     *             alert('Change is fired');
+     *         }
+     *     });
+     * </script>
+     */change:function change($datepicker){return $datepicker.triggerHandler('change');},/**
+     * Event fires when the datepicker is opened.
+     * @event show
+     * @param {object} e - event data
+     * @example sample <!-- datepicker, materialicons -->
+     * <input id="datepicker" />
+     * <script>
+     *     $('#datepicker').datepicker({
+     *         show: function (e) {
+     *             alert('show is fired.');
+     *         }
+     *     });
+     * </script>
+     */show:function show($datepicker){return $datepicker.triggerHandler('show');},/**
+     * Event fires when the datepicker is closed.
+     * @event hide
+     * @param {object} e - event data
+     * @example sample <!-- datepicker, materialicons -->
+     * <input id="datepicker" />
+     * <script>
+     *     $('#datepicker').datepicker({
+     *         hide: function (e) {
+     *             alert('hide is fired.');
+     *         }
+     *     });
+     * </script>
+     */hide:function hide($datepicker){return $datepicker.triggerHandler('hide');}};gj.datepicker.widget=function($element,jsConfig){var self=this,methods=gj.datepicker.methods;/** Gets or sets the value of the datepicker.
+     * @method
+     * @param {string} value - The value that needs to be selected.
+     * @return string
+     * @example Get <!-- datepicker, materialicons -->
+     * <button class="gj-button-md" onclick="alert($datepicker.value())">Get Content</button>
+     * <hr/>
+     * <input id="datepicker" />
+     * <script>
+     *     var $datepicker = $('#datepicker').datepicker();
+     * </script>
+     * @example Set <!-- datepicker, materialicons -->
+     * <button class="gj-button-md" onclick="$datepicker.value('08/01/2017')">Set Value</button>
+     * <hr/>
+     * <input id="datepicker" />
+     * <script>
+     *     var $datepicker = $('#datepicker').datepicker();
+     * </script>
+     */self.value=function(value){return methods.value(this,value);};/** Remove datepicker functionality from the element.
+     * @method
+     * @return jquery element
+     * @example sample <!-- datepicker, materialicons -->
+     * <button class="gj-button-md" onclick="datepicker.destroy()">Destroy</button>
+     * <input id="datepicker" />
+     * <script>
+     *     var datepicker = $('#datepicker').datepicker();
+     * </script>
+     */self.destroy=function(){return methods.destroy(this);};/** Show the calendar.
+     * @method
+     * @return datepicker
+     * @example Show.Hide <!-- datepicker, materialicons -->
+     * <button class="gj-button-md" onclick="$datepicker.show()">Show</button>
+     * <button class="gj-button-md" onclick="$datepicker.hide()">Hide</button>
+     * <hr/>
+     * <input id="datepicker" />
+     * <script>
+     *     var $datepicker = $('#datepicker').datepicker();
+     * </script>
+     */self.show=function(){gj.datepicker.methods.show(this);};/** Hide the calendar.
+     * @method
+     * @return datepicker
+     * @example Show.Hide <!-- datepicker, materialicons -->
+     * <button class="gj-button-md" onclick="$datepicker.show()">Show</button>
+     * <button class="gj-button-md" onclick="$datepicker.hide()">Hide</button>
+     * <hr/>
+     * <input id="datepicker" />
+     * <script>
+     *     var $datepicker = $('#datepicker').datepicker();
+     * </script>
+     */self.hide=function(){gj.datepicker.methods.hide(this);};//TODO Methods:
+self.disableDates=function(dates){};self.disableWeekDay=function(){};self.setMinDate=function(){};self.setMaxDate=function(){};$.extend($element,self);if('true'!==$element.attr('data-datepicker')){methods.init.call($element,jsConfig);}return $element;};gj.datepicker.widget.prototype=new gj.widget();gj.datepicker.widget.constructor=gj.datepicker.widget;(function($){$.fn.datepicker=function(method){var $widget;if(this&&this.length){if((typeof method==='undefined'?'undefined':_typeof(method))==='object'||!method){return new gj.datepicker.widget(this,method);}else{$widget=new gj.datepicker.widget(this,null);if($widget[method]){return $widget[method].apply(this,Array.prototype.slice.call(arguments,1));}else{throw'Method '+method+' does not exist.';}}}};})(jQuery);
+
+/***/ }),
+/* 6 */
 /***/ (function(module, exports) {
 
 /*global $, document, Chart, LINECHART, data, options, window*/
@@ -11981,7 +18201,7 @@ $(document).ready(function () {
 });
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -12104,7 +18324,7 @@ window.$ = window.jQuery = __webpack_require__(0);
 });
 
 /***/ }),
-/* 7 */
+/* 8 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
@@ -12470,9 +18690,18 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 });
 
 /***/ }),
-/* 8 */,
 /* 9 */,
-/* 10 */
+/* 10 */,
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! Select2 4.0.5 | https://github.com/select2/select2/blob/master/LICENSE.md */!function(a){ true?!(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(0)], __WEBPACK_AMD_DEFINE_FACTORY__ = (a),
+				__WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ?
+				(__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__),
+				__WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__)):"object"==typeof module&&module.exports?module.exports=function(b,c){return void 0===c&&(c="undefined"!=typeof window?require("jquery"):require("jquery")(b)),a(c),c}:a(jQuery)}(function(a){var b=function(){if(a&&a.fn&&a.fn.select2&&a.fn.select2.amd)var b=a.fn.select2.amd;var b;return function(){if(!b||!b.requirejs){b?c=b:b={};var a,c,d;!function(b){function e(a,b){return v.call(a,b)}function f(a,b){var c,d,e,f,g,h,i,j,k,l,m,n,o=b&&b.split("/"),p=t.map,q=p&&p["*"]||{};if(a){for(a=a.split("/"),g=a.length-1,t.nodeIdCompat&&x.test(a[g])&&(a[g]=a[g].replace(x,"")),"."===a[0].charAt(0)&&o&&(n=o.slice(0,o.length-1),a=n.concat(a)),k=0;k<a.length;k++)if("."===(m=a[k]))a.splice(k,1),k-=1;else if(".."===m){if(0===k||1===k&&".."===a[2]||".."===a[k-1])continue;k>0&&(a.splice(k-1,2),k-=2)}a=a.join("/")}if((o||q)&&p){for(c=a.split("/"),k=c.length;k>0;k-=1){if(d=c.slice(0,k).join("/"),o)for(l=o.length;l>0;l-=1)if((e=p[o.slice(0,l).join("/")])&&(e=e[d])){f=e,h=k;break}if(f)break;!i&&q&&q[d]&&(i=q[d],j=k)}!f&&i&&(f=i,h=j),f&&(c.splice(0,h,f),a=c.join("/"))}return a}function g(a,c){return function(){var d=w.call(arguments,0);return"string"!=typeof d[0]&&1===d.length&&d.push(null),o.apply(b,d.concat([a,c]))}}function h(a){return function(b){return f(b,a)}}function i(a){return function(b){r[a]=b}}function j(a){if(e(s,a)){var c=s[a];delete s[a],u[a]=!0,n.apply(b,c)}if(!e(r,a)&&!e(u,a))throw new Error("No "+a);return r[a]}function k(a){var b,c=a?a.indexOf("!"):-1;return c>-1&&(b=a.substring(0,c),a=a.substring(c+1,a.length)),[b,a]}function l(a){return a?k(a):[]}function m(a){return function(){return t&&t.config&&t.config[a]||{}}}var n,o,p,q,r={},s={},t={},u={},v=Object.prototype.hasOwnProperty,w=[].slice,x=/\.js$/;p=function(a,b){var c,d=k(a),e=d[0],g=b[1];return a=d[1],e&&(e=f(e,g),c=j(e)),e?a=c&&c.normalize?c.normalize(a,h(g)):f(a,g):(a=f(a,g),d=k(a),e=d[0],a=d[1],e&&(c=j(e))),{f:e?e+"!"+a:a,n:a,pr:e,p:c}},q={require:function(a){return g(a)},exports:function(a){var b=r[a];return void 0!==b?b:r[a]={}},module:function(a){return{id:a,uri:"",exports:r[a],config:m(a)}}},n=function(a,c,d,f){var h,k,m,n,o,t,v,w=[],x=typeof d;if(f=f||a,t=l(f),"undefined"===x||"function"===x){for(c=!c.length&&d.length?["require","exports","module"]:c,o=0;o<c.length;o+=1)if(n=p(c[o],t),"require"===(k=n.f))w[o]=q.require(a);else if("exports"===k)w[o]=q.exports(a),v=!0;else if("module"===k)h=w[o]=q.module(a);else if(e(r,k)||e(s,k)||e(u,k))w[o]=j(k);else{if(!n.p)throw new Error(a+" missing "+k);n.p.load(n.n,g(f,!0),i(k),{}),w[o]=r[k]}m=d?d.apply(r[a],w):void 0,a&&(h&&h.exports!==b&&h.exports!==r[a]?r[a]=h.exports:m===b&&v||(r[a]=m))}else a&&(r[a]=d)},a=c=o=function(a,c,d,e,f){if("string"==typeof a)return q[a]?q[a](c):j(p(a,l(c)).f);if(!a.splice){if(t=a,t.deps&&o(t.deps,t.callback),!c)return;c.splice?(a=c,c=d,d=null):a=b}return c=c||function(){},"function"==typeof d&&(d=e,e=f),e?n(b,a,c,d):setTimeout(function(){n(b,a,c,d)},4),o},o.config=function(a){return o(a)},a._defined=r,d=function(a,b,c){if("string"!=typeof a)throw new Error("See almond README: incorrect module build, no module name");b.splice||(c=b,b=[]),e(r,a)||e(s,a)||(s[a]=[a,b,c])},d.amd={jQuery:!0}}(),b.requirejs=a,b.require=c,b.define=d}}(),b.define("almond",function(){}),b.define("jquery",[],function(){var b=a||$;return null==b&&console&&console.error&&console.error("Select2: An instance of jQuery or a jQuery-compatible library was not found. Make sure that you are including jQuery before Select2 on your web page."),b}),b.define("select2/utils",["jquery"],function(a){function b(a){var b=a.prototype,c=[];for(var d in b){"function"==typeof b[d]&&("constructor"!==d&&c.push(d))}return c}var c={};c.Extend=function(a,b){function c(){this.constructor=a}var d={}.hasOwnProperty;for(var e in b)d.call(b,e)&&(a[e]=b[e]);return c.prototype=b.prototype,a.prototype=new c,a.__super__=b.prototype,a},c.Decorate=function(a,c){function d(){var b=Array.prototype.unshift,d=c.prototype.constructor.length,e=a.prototype.constructor;d>0&&(b.call(arguments,a.prototype.constructor),e=c.prototype.constructor),e.apply(this,arguments)}function e(){this.constructor=d}var f=b(c),g=b(a);c.displayName=a.displayName,d.prototype=new e;for(var h=0;h<g.length;h++){var i=g[h];d.prototype[i]=a.prototype[i]}for(var j=(function(a){var b=function(){};a in d.prototype&&(b=d.prototype[a]);var e=c.prototype[a];return function(){return Array.prototype.unshift.call(arguments,b),e.apply(this,arguments)}}),k=0;k<f.length;k++){var l=f[k];d.prototype[l]=j(l)}return d};var d=function(){this.listeners={}};return d.prototype.on=function(a,b){this.listeners=this.listeners||{},a in this.listeners?this.listeners[a].push(b):this.listeners[a]=[b]},d.prototype.trigger=function(a){var b=Array.prototype.slice,c=b.call(arguments,1);this.listeners=this.listeners||{},null==c&&(c=[]),0===c.length&&c.push({}),c[0]._type=a,a in this.listeners&&this.invoke(this.listeners[a],b.call(arguments,1)),"*"in this.listeners&&this.invoke(this.listeners["*"],arguments)},d.prototype.invoke=function(a,b){for(var c=0,d=a.length;c<d;c++)a[c].apply(this,b)},c.Observable=d,c.generateChars=function(a){for(var b="",c=0;c<a;c++){b+=Math.floor(36*Math.random()).toString(36)}return b},c.bind=function(a,b){return function(){a.apply(b,arguments)}},c._convertData=function(a){for(var b in a){var c=b.split("-"),d=a;if(1!==c.length){for(var e=0;e<c.length;e++){var f=c[e];f=f.substring(0,1).toLowerCase()+f.substring(1),f in d||(d[f]={}),e==c.length-1&&(d[f]=a[b]),d=d[f]}delete a[b]}}return a},c.hasScroll=function(b,c){var d=a(c),e=c.style.overflowX,f=c.style.overflowY;return(e!==f||"hidden"!==f&&"visible"!==f)&&("scroll"===e||"scroll"===f||(d.innerHeight()<c.scrollHeight||d.innerWidth()<c.scrollWidth))},c.escapeMarkup=function(a){var b={"\\":"&#92;","&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;","/":"&#47;"};return"string"!=typeof a?a:String(a).replace(/[&<>"'\/\\]/g,function(a){return b[a]})},c.appendMany=function(b,c){if("1.7"===a.fn.jquery.substr(0,3)){var d=a();a.map(c,function(a){d=d.add(a)}),c=d}b.append(c)},c}),b.define("select2/results",["jquery","./utils"],function(a,b){function c(a,b,d){this.$element=a,this.data=d,this.options=b,c.__super__.constructor.call(this)}return b.Extend(c,b.Observable),c.prototype.render=function(){var b=a('<ul class="select2-results__options" role="tree"></ul>');return this.options.get("multiple")&&b.attr("aria-multiselectable","true"),this.$results=b,b},c.prototype.clear=function(){this.$results.empty()},c.prototype.displayMessage=function(b){var c=this.options.get("escapeMarkup");this.clear(),this.hideLoading();var d=a('<li role="treeitem" aria-live="assertive" class="select2-results__option"></li>'),e=this.options.get("translations").get(b.message);d.append(c(e(b.args))),d[0].className+=" select2-results__message",this.$results.append(d)},c.prototype.hideMessages=function(){this.$results.find(".select2-results__message").remove()},c.prototype.append=function(a){this.hideLoading();var b=[];if(null==a.results||0===a.results.length)return void(0===this.$results.children().length&&this.trigger("results:message",{message:"noResults"}));a.results=this.sort(a.results);for(var c=0;c<a.results.length;c++){var d=a.results[c],e=this.option(d);b.push(e)}this.$results.append(b)},c.prototype.position=function(a,b){b.find(".select2-results").append(a)},c.prototype.sort=function(a){return this.options.get("sorter")(a)},c.prototype.highlightFirstItem=function(){var a=this.$results.find(".select2-results__option[aria-selected]"),b=a.filter("[aria-selected=true]");b.length>0?b.first().trigger("mouseenter"):a.first().trigger("mouseenter"),this.ensureHighlightVisible()},c.prototype.setClasses=function(){var b=this;this.data.current(function(c){var d=a.map(c,function(a){return a.id.toString()});b.$results.find(".select2-results__option[aria-selected]").each(function(){var b=a(this),c=a.data(this,"data"),e=""+c.id;null!=c.element&&c.element.selected||null==c.element&&a.inArray(e,d)>-1?b.attr("aria-selected","true"):b.attr("aria-selected","false")})})},c.prototype.showLoading=function(a){this.hideLoading();var b=this.options.get("translations").get("searching"),c={disabled:!0,loading:!0,text:b(a)},d=this.option(c);d.className+=" loading-results",this.$results.prepend(d)},c.prototype.hideLoading=function(){this.$results.find(".loading-results").remove()},c.prototype.option=function(b){var c=document.createElement("li");c.className="select2-results__option";var d={role:"treeitem","aria-selected":"false"};b.disabled&&(delete d["aria-selected"],d["aria-disabled"]="true"),null==b.id&&delete d["aria-selected"],null!=b._resultId&&(c.id=b._resultId),b.title&&(c.title=b.title),b.children&&(d.role="group",d["aria-label"]=b.text,delete d["aria-selected"]);for(var e in d){var f=d[e];c.setAttribute(e,f)}if(b.children){var g=a(c),h=document.createElement("strong");h.className="select2-results__group";a(h);this.template(b,h);for(var i=[],j=0;j<b.children.length;j++){var k=b.children[j],l=this.option(k);i.push(l)}var m=a("<ul></ul>",{class:"select2-results__options select2-results__options--nested"});m.append(i),g.append(h),g.append(m)}else this.template(b,c);return a.data(c,"data",b),c},c.prototype.bind=function(b,c){var d=this,e=b.id+"-results";this.$results.attr("id",e),b.on("results:all",function(a){d.clear(),d.append(a.data),b.isOpen()&&(d.setClasses(),d.highlightFirstItem())}),b.on("results:append",function(a){d.append(a.data),b.isOpen()&&d.setClasses()}),b.on("query",function(a){d.hideMessages(),d.showLoading(a)}),b.on("select",function(){b.isOpen()&&(d.setClasses(),d.highlightFirstItem())}),b.on("unselect",function(){b.isOpen()&&(d.setClasses(),d.highlightFirstItem())}),b.on("open",function(){d.$results.attr("aria-expanded","true"),d.$results.attr("aria-hidden","false"),d.setClasses(),d.ensureHighlightVisible()}),b.on("close",function(){d.$results.attr("aria-expanded","false"),d.$results.attr("aria-hidden","true"),d.$results.removeAttr("aria-activedescendant")}),b.on("results:toggle",function(){var a=d.getHighlightedResults();0!==a.length&&a.trigger("mouseup")}),b.on("results:select",function(){var a=d.getHighlightedResults();if(0!==a.length){var b=a.data("data");"true"==a.attr("aria-selected")?d.trigger("close",{}):d.trigger("select",{data:b})}}),b.on("results:previous",function(){var a=d.getHighlightedResults(),b=d.$results.find("[aria-selected]"),c=b.index(a);if(0!==c){var e=c-1;0===a.length&&(e=0);var f=b.eq(e);f.trigger("mouseenter");var g=d.$results.offset().top,h=f.offset().top,i=d.$results.scrollTop()+(h-g);0===e?d.$results.scrollTop(0):h-g<0&&d.$results.scrollTop(i)}}),b.on("results:next",function(){var a=d.getHighlightedResults(),b=d.$results.find("[aria-selected]"),c=b.index(a),e=c+1;if(!(e>=b.length)){var f=b.eq(e);f.trigger("mouseenter");var g=d.$results.offset().top+d.$results.outerHeight(!1),h=f.offset().top+f.outerHeight(!1),i=d.$results.scrollTop()+h-g;0===e?d.$results.scrollTop(0):h>g&&d.$results.scrollTop(i)}}),b.on("results:focus",function(a){a.element.addClass("select2-results__option--highlighted")}),b.on("results:message",function(a){d.displayMessage(a)}),a.fn.mousewheel&&this.$results.on("mousewheel",function(a){var b=d.$results.scrollTop(),c=d.$results.get(0).scrollHeight-b+a.deltaY,e=a.deltaY>0&&b-a.deltaY<=0,f=a.deltaY<0&&c<=d.$results.height();e?(d.$results.scrollTop(0),a.preventDefault(),a.stopPropagation()):f&&(d.$results.scrollTop(d.$results.get(0).scrollHeight-d.$results.height()),a.preventDefault(),a.stopPropagation())}),this.$results.on("mouseup",".select2-results__option[aria-selected]",function(b){var c=a(this),e=c.data("data");if("true"===c.attr("aria-selected"))return void(d.options.get("multiple")?d.trigger("unselect",{originalEvent:b,data:e}):d.trigger("close",{}));d.trigger("select",{originalEvent:b,data:e})}),this.$results.on("mouseenter",".select2-results__option[aria-selected]",function(b){var c=a(this).data("data");d.getHighlightedResults().removeClass("select2-results__option--highlighted"),d.trigger("results:focus",{data:c,element:a(this)})})},c.prototype.getHighlightedResults=function(){return this.$results.find(".select2-results__option--highlighted")},c.prototype.destroy=function(){this.$results.remove()},c.prototype.ensureHighlightVisible=function(){var a=this.getHighlightedResults();if(0!==a.length){var b=this.$results.find("[aria-selected]"),c=b.index(a),d=this.$results.offset().top,e=a.offset().top,f=this.$results.scrollTop()+(e-d),g=e-d;f-=2*a.outerHeight(!1),c<=2?this.$results.scrollTop(0):(g>this.$results.outerHeight()||g<0)&&this.$results.scrollTop(f)}},c.prototype.template=function(b,c){var d=this.options.get("templateResult"),e=this.options.get("escapeMarkup"),f=d(b,c);null==f?c.style.display="none":"string"==typeof f?c.innerHTML=e(f):a(c).append(f)},c}),b.define("select2/keys",[],function(){return{BACKSPACE:8,TAB:9,ENTER:13,SHIFT:16,CTRL:17,ALT:18,ESC:27,SPACE:32,PAGE_UP:33,PAGE_DOWN:34,END:35,HOME:36,LEFT:37,UP:38,RIGHT:39,DOWN:40,DELETE:46}}),b.define("select2/selection/base",["jquery","../utils","../keys"],function(a,b,c){function d(a,b){this.$element=a,this.options=b,d.__super__.constructor.call(this)}return b.Extend(d,b.Observable),d.prototype.render=function(){var b=a('<span class="select2-selection" role="combobox"  aria-haspopup="true" aria-expanded="false"></span>');return this._tabindex=0,null!=this.$element.data("old-tabindex")?this._tabindex=this.$element.data("old-tabindex"):null!=this.$element.attr("tabindex")&&(this._tabindex=this.$element.attr("tabindex")),b.attr("title",this.$element.attr("title")),b.attr("tabindex",this._tabindex),this.$selection=b,b},d.prototype.bind=function(a,b){var d=this,e=(a.id,a.id+"-results");this.container=a,this.$selection.on("focus",function(a){d.trigger("focus",a)}),this.$selection.on("blur",function(a){d._handleBlur(a)}),this.$selection.on("keydown",function(a){d.trigger("keypress",a),a.which===c.SPACE&&a.preventDefault()}),a.on("results:focus",function(a){d.$selection.attr("aria-activedescendant",a.data._resultId)}),a.on("selection:update",function(a){d.update(a.data)}),a.on("open",function(){d.$selection.attr("aria-expanded","true"),d.$selection.attr("aria-owns",e),d._attachCloseHandler(a)}),a.on("close",function(){d.$selection.attr("aria-expanded","false"),d.$selection.removeAttr("aria-activedescendant"),d.$selection.removeAttr("aria-owns"),d.$selection.focus(),d._detachCloseHandler(a)}),a.on("enable",function(){d.$selection.attr("tabindex",d._tabindex)}),a.on("disable",function(){d.$selection.attr("tabindex","-1")})},d.prototype._handleBlur=function(b){var c=this;window.setTimeout(function(){document.activeElement==c.$selection[0]||a.contains(c.$selection[0],document.activeElement)||c.trigger("blur",b)},1)},d.prototype._attachCloseHandler=function(b){a(document.body).on("mousedown.select2."+b.id,function(b){var c=a(b.target),d=c.closest(".select2");a(".select2.select2-container--open").each(function(){var b=a(this);this!=d[0]&&b.data("element").select2("close")})})},d.prototype._detachCloseHandler=function(b){a(document.body).off("mousedown.select2."+b.id)},d.prototype.position=function(a,b){b.find(".selection").append(a)},d.prototype.destroy=function(){this._detachCloseHandler(this.container)},d.prototype.update=function(a){throw new Error("The `update` method must be defined in child classes.")},d}),b.define("select2/selection/single",["jquery","./base","../utils","../keys"],function(a,b,c,d){function e(){e.__super__.constructor.apply(this,arguments)}return c.Extend(e,b),e.prototype.render=function(){var a=e.__super__.render.call(this);return a.addClass("select2-selection--single"),a.html('<span class="select2-selection__rendered"></span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span>'),a},e.prototype.bind=function(a,b){var c=this;e.__super__.bind.apply(this,arguments);var d=a.id+"-container";this.$selection.find(".select2-selection__rendered").attr("id",d),this.$selection.attr("aria-labelledby",d),this.$selection.on("mousedown",function(a){1===a.which&&c.trigger("toggle",{originalEvent:a})}),this.$selection.on("focus",function(a){}),this.$selection.on("blur",function(a){}),a.on("focus",function(b){a.isOpen()||c.$selection.focus()}),a.on("selection:update",function(a){c.update(a.data)})},e.prototype.clear=function(){this.$selection.find(".select2-selection__rendered").empty()},e.prototype.display=function(a,b){var c=this.options.get("templateSelection");return this.options.get("escapeMarkup")(c(a,b))},e.prototype.selectionContainer=function(){return a("<span></span>")},e.prototype.update=function(a){if(0===a.length)return void this.clear();var b=a[0],c=this.$selection.find(".select2-selection__rendered"),d=this.display(b,c);c.empty().append(d),c.prop("title",b.title||b.text)},e}),b.define("select2/selection/multiple",["jquery","./base","../utils"],function(a,b,c){function d(a,b){d.__super__.constructor.apply(this,arguments)}return c.Extend(d,b),d.prototype.render=function(){var a=d.__super__.render.call(this);return a.addClass("select2-selection--multiple"),a.html('<ul class="select2-selection__rendered"></ul>'),a},d.prototype.bind=function(b,c){var e=this;d.__super__.bind.apply(this,arguments),this.$selection.on("click",function(a){e.trigger("toggle",{originalEvent:a})}),this.$selection.on("click",".select2-selection__choice__remove",function(b){if(!e.options.get("disabled")){var c=a(this),d=c.parent(),f=d.data("data");e.trigger("unselect",{originalEvent:b,data:f})}})},d.prototype.clear=function(){this.$selection.find(".select2-selection__rendered").empty()},d.prototype.display=function(a,b){var c=this.options.get("templateSelection");return this.options.get("escapeMarkup")(c(a,b))},d.prototype.selectionContainer=function(){return a('<li class="select2-selection__choice"><span class="select2-selection__choice__remove" role="presentation">&times;</span></li>')},d.prototype.update=function(a){if(this.clear(),0!==a.length){for(var b=[],d=0;d<a.length;d++){var e=a[d],f=this.selectionContainer(),g=this.display(e,f);f.append(g),f.prop("title",e.title||e.text),f.data("data",e),b.push(f)}var h=this.$selection.find(".select2-selection__rendered");c.appendMany(h,b)}},d}),b.define("select2/selection/placeholder",["../utils"],function(a){function b(a,b,c){this.placeholder=this.normalizePlaceholder(c.get("placeholder")),a.call(this,b,c)}return b.prototype.normalizePlaceholder=function(a,b){return"string"==typeof b&&(b={id:"",text:b}),b},b.prototype.createPlaceholder=function(a,b){var c=this.selectionContainer();return c.html(this.display(b)),c.addClass("select2-selection__placeholder").removeClass("select2-selection__choice"),c},b.prototype.update=function(a,b){var c=1==b.length&&b[0].id!=this.placeholder.id;if(b.length>1||c)return a.call(this,b);this.clear();var d=this.createPlaceholder(this.placeholder);this.$selection.find(".select2-selection__rendered").append(d)},b}),b.define("select2/selection/allowClear",["jquery","../keys"],function(a,b){function c(){}return c.prototype.bind=function(a,b,c){var d=this;a.call(this,b,c),null==this.placeholder&&this.options.get("debug")&&window.console&&console.error&&console.error("Select2: The `allowClear` option should be used in combination with the `placeholder` option."),this.$selection.on("mousedown",".select2-selection__clear",function(a){d._handleClear(a)}),b.on("keypress",function(a){d._handleKeyboardClear(a,b)})},c.prototype._handleClear=function(a,b){if(!this.options.get("disabled")){var c=this.$selection.find(".select2-selection__clear");if(0!==c.length){b.stopPropagation();for(var d=c.data("data"),e=0;e<d.length;e++){var f={data:d[e]};if(this.trigger("unselect",f),f.prevented)return}this.$element.val(this.placeholder.id).trigger("change"),this.trigger("toggle",{})}}},c.prototype._handleKeyboardClear=function(a,c,d){d.isOpen()||c.which!=b.DELETE&&c.which!=b.BACKSPACE||this._handleClear(c)},c.prototype.update=function(b,c){if(b.call(this,c),!(this.$selection.find(".select2-selection__placeholder").length>0||0===c.length)){var d=a('<span class="select2-selection__clear">&times;</span>');d.data("data",c),this.$selection.find(".select2-selection__rendered").prepend(d)}},c}),b.define("select2/selection/search",["jquery","../utils","../keys"],function(a,b,c){function d(a,b,c){a.call(this,b,c)}return d.prototype.render=function(b){var c=a('<li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="textbox" aria-autocomplete="list" /></li>');this.$searchContainer=c,this.$search=c.find("input");var d=b.call(this);return this._transferTabIndex(),d},d.prototype.bind=function(a,b,d){var e=this;a.call(this,b,d),b.on("open",function(){e.$search.trigger("focus")}),b.on("close",function(){e.$search.val(""),e.$search.removeAttr("aria-activedescendant"),e.$search.trigger("focus")}),b.on("enable",function(){e.$search.prop("disabled",!1),e._transferTabIndex()}),b.on("disable",function(){e.$search.prop("disabled",!0)}),b.on("focus",function(a){e.$search.trigger("focus")}),b.on("results:focus",function(a){e.$search.attr("aria-activedescendant",a.id)}),this.$selection.on("focusin",".select2-search--inline",function(a){e.trigger("focus",a)}),this.$selection.on("focusout",".select2-search--inline",function(a){e._handleBlur(a)}),this.$selection.on("keydown",".select2-search--inline",function(a){if(a.stopPropagation(),e.trigger("keypress",a),e._keyUpPrevented=a.isDefaultPrevented(),a.which===c.BACKSPACE&&""===e.$search.val()){var b=e.$searchContainer.prev(".select2-selection__choice");if(b.length>0){var d=b.data("data");e.searchRemoveChoice(d),a.preventDefault()}}});var f=document.documentMode,g=f&&f<=11;this.$selection.on("input.searchcheck",".select2-search--inline",function(a){if(g)return void e.$selection.off("input.search input.searchcheck");e.$selection.off("keyup.search")}),this.$selection.on("keyup.search input.search",".select2-search--inline",function(a){if(g&&"input"===a.type)return void e.$selection.off("input.search input.searchcheck");var b=a.which;b!=c.SHIFT&&b!=c.CTRL&&b!=c.ALT&&b!=c.TAB&&e.handleSearch(a)})},d.prototype._transferTabIndex=function(a){this.$search.attr("tabindex",this.$selection.attr("tabindex")),this.$selection.attr("tabindex","-1")},d.prototype.createPlaceholder=function(a,b){this.$search.attr("placeholder",b.text)},d.prototype.update=function(a,b){var c=this.$search[0]==document.activeElement;this.$search.attr("placeholder",""),a.call(this,b),this.$selection.find(".select2-selection__rendered").append(this.$searchContainer),this.resizeSearch(),c&&this.$search.focus()},d.prototype.handleSearch=function(){if(this.resizeSearch(),!this._keyUpPrevented){var a=this.$search.val();this.trigger("query",{term:a})}this._keyUpPrevented=!1},d.prototype.searchRemoveChoice=function(a,b){this.trigger("unselect",{data:b}),this.$search.val(b.text),this.handleSearch()},d.prototype.resizeSearch=function(){this.$search.css("width","25px");var a="";if(""!==this.$search.attr("placeholder"))a=this.$selection.find(".select2-selection__rendered").innerWidth();else{a=.75*(this.$search.val().length+1)+"em"}this.$search.css("width",a)},d}),b.define("select2/selection/eventRelay",["jquery"],function(a){function b(){}return b.prototype.bind=function(b,c,d){var e=this,f=["open","opening","close","closing","select","selecting","unselect","unselecting"],g=["opening","closing","selecting","unselecting"];b.call(this,c,d),c.on("*",function(b,c){if(-1!==a.inArray(b,f)){c=c||{};var d=a.Event("select2:"+b,{params:c});e.$element.trigger(d),-1!==a.inArray(b,g)&&(c.prevented=d.isDefaultPrevented())}})},b}),b.define("select2/translation",["jquery","require"],function(a,b){function c(a){this.dict=a||{}}return c.prototype.all=function(){return this.dict},c.prototype.get=function(a){return this.dict[a]},c.prototype.extend=function(b){this.dict=a.extend({},b.all(),this.dict)},c._cache={},c.loadPath=function(a){if(!(a in c._cache)){var d=b(a);c._cache[a]=d}return new c(c._cache[a])},c}),b.define("select2/diacritics",[],function(){return{"Ⓐ":"A","Ａ":"A","À":"A","Á":"A","Â":"A","Ầ":"A","Ấ":"A","Ẫ":"A","Ẩ":"A","Ã":"A","Ā":"A","Ă":"A","Ằ":"A","Ắ":"A","Ẵ":"A","Ẳ":"A","Ȧ":"A","Ǡ":"A","Ä":"A","Ǟ":"A","Ả":"A","Å":"A","Ǻ":"A","Ǎ":"A","Ȁ":"A","Ȃ":"A","Ạ":"A","Ậ":"A","Ặ":"A","Ḁ":"A","Ą":"A","Ⱥ":"A","Ɐ":"A","Ꜳ":"AA","Æ":"AE","Ǽ":"AE","Ǣ":"AE","Ꜵ":"AO","Ꜷ":"AU","Ꜹ":"AV","Ꜻ":"AV","Ꜽ":"AY","Ⓑ":"B","Ｂ":"B","Ḃ":"B","Ḅ":"B","Ḇ":"B","Ƀ":"B","Ƃ":"B","Ɓ":"B","Ⓒ":"C","Ｃ":"C","Ć":"C","Ĉ":"C","Ċ":"C","Č":"C","Ç":"C","Ḉ":"C","Ƈ":"C","Ȼ":"C","Ꜿ":"C","Ⓓ":"D","Ｄ":"D","Ḋ":"D","Ď":"D","Ḍ":"D","Ḑ":"D","Ḓ":"D","Ḏ":"D","Đ":"D","Ƌ":"D","Ɗ":"D","Ɖ":"D","Ꝺ":"D","Ǳ":"DZ","Ǆ":"DZ","ǲ":"Dz","ǅ":"Dz","Ⓔ":"E","Ｅ":"E","È":"E","É":"E","Ê":"E","Ề":"E","Ế":"E","Ễ":"E","Ể":"E","Ẽ":"E","Ē":"E","Ḕ":"E","Ḗ":"E","Ĕ":"E","Ė":"E","Ë":"E","Ẻ":"E","Ě":"E","Ȅ":"E","Ȇ":"E","Ẹ":"E","Ệ":"E","Ȩ":"E","Ḝ":"E","Ę":"E","Ḙ":"E","Ḛ":"E","Ɛ":"E","Ǝ":"E","Ⓕ":"F","Ｆ":"F","Ḟ":"F","Ƒ":"F","Ꝼ":"F","Ⓖ":"G","Ｇ":"G","Ǵ":"G","Ĝ":"G","Ḡ":"G","Ğ":"G","Ġ":"G","Ǧ":"G","Ģ":"G","Ǥ":"G","Ɠ":"G","Ꞡ":"G","Ᵹ":"G","Ꝿ":"G","Ⓗ":"H","Ｈ":"H","Ĥ":"H","Ḣ":"H","Ḧ":"H","Ȟ":"H","Ḥ":"H","Ḩ":"H","Ḫ":"H","Ħ":"H","Ⱨ":"H","Ⱶ":"H","Ɥ":"H","Ⓘ":"I","Ｉ":"I","Ì":"I","Í":"I","Î":"I","Ĩ":"I","Ī":"I","Ĭ":"I","İ":"I","Ï":"I","Ḯ":"I","Ỉ":"I","Ǐ":"I","Ȉ":"I","Ȋ":"I","Ị":"I","Į":"I","Ḭ":"I","Ɨ":"I","Ⓙ":"J","Ｊ":"J","Ĵ":"J","Ɉ":"J","Ⓚ":"K","Ｋ":"K","Ḱ":"K","Ǩ":"K","Ḳ":"K","Ķ":"K","Ḵ":"K","Ƙ":"K","Ⱪ":"K","Ꝁ":"K","Ꝃ":"K","Ꝅ":"K","Ꞣ":"K","Ⓛ":"L","Ｌ":"L","Ŀ":"L","Ĺ":"L","Ľ":"L","Ḷ":"L","Ḹ":"L","Ļ":"L","Ḽ":"L","Ḻ":"L","Ł":"L","Ƚ":"L","Ɫ":"L","Ⱡ":"L","Ꝉ":"L","Ꝇ":"L","Ꞁ":"L","Ǉ":"LJ","ǈ":"Lj","Ⓜ":"M","Ｍ":"M","Ḿ":"M","Ṁ":"M","Ṃ":"M","Ɱ":"M","Ɯ":"M","Ⓝ":"N","Ｎ":"N","Ǹ":"N","Ń":"N","Ñ":"N","Ṅ":"N","Ň":"N","Ṇ":"N","Ņ":"N","Ṋ":"N","Ṉ":"N","Ƞ":"N","Ɲ":"N","Ꞑ":"N","Ꞥ":"N","Ǌ":"NJ","ǋ":"Nj","Ⓞ":"O","Ｏ":"O","Ò":"O","Ó":"O","Ô":"O","Ồ":"O","Ố":"O","Ỗ":"O","Ổ":"O","Õ":"O","Ṍ":"O","Ȭ":"O","Ṏ":"O","Ō":"O","Ṑ":"O","Ṓ":"O","Ŏ":"O","Ȯ":"O","Ȱ":"O","Ö":"O","Ȫ":"O","Ỏ":"O","Ő":"O","Ǒ":"O","Ȍ":"O","Ȏ":"O","Ơ":"O","Ờ":"O","Ớ":"O","Ỡ":"O","Ở":"O","Ợ":"O","Ọ":"O","Ộ":"O","Ǫ":"O","Ǭ":"O","Ø":"O","Ǿ":"O","Ɔ":"O","Ɵ":"O","Ꝋ":"O","Ꝍ":"O","Ƣ":"OI","Ꝏ":"OO","Ȣ":"OU","Ⓟ":"P","Ｐ":"P","Ṕ":"P","Ṗ":"P","Ƥ":"P","Ᵽ":"P","Ꝑ":"P","Ꝓ":"P","Ꝕ":"P","Ⓠ":"Q","Ｑ":"Q","Ꝗ":"Q","Ꝙ":"Q","Ɋ":"Q","Ⓡ":"R","Ｒ":"R","Ŕ":"R","Ṙ":"R","Ř":"R","Ȑ":"R","Ȓ":"R","Ṛ":"R","Ṝ":"R","Ŗ":"R","Ṟ":"R","Ɍ":"R","Ɽ":"R","Ꝛ":"R","Ꞧ":"R","Ꞃ":"R","Ⓢ":"S","Ｓ":"S","ẞ":"S","Ś":"S","Ṥ":"S","Ŝ":"S","Ṡ":"S","Š":"S","Ṧ":"S","Ṣ":"S","Ṩ":"S","Ș":"S","Ş":"S","Ȿ":"S","Ꞩ":"S","Ꞅ":"S","Ⓣ":"T","Ｔ":"T","Ṫ":"T","Ť":"T","Ṭ":"T","Ț":"T","Ţ":"T","Ṱ":"T","Ṯ":"T","Ŧ":"T","Ƭ":"T","Ʈ":"T","Ⱦ":"T","Ꞇ":"T","Ꜩ":"TZ","Ⓤ":"U","Ｕ":"U","Ù":"U","Ú":"U","Û":"U","Ũ":"U","Ṹ":"U","Ū":"U","Ṻ":"U","Ŭ":"U","Ü":"U","Ǜ":"U","Ǘ":"U","Ǖ":"U","Ǚ":"U","Ủ":"U","Ů":"U","Ű":"U","Ǔ":"U","Ȕ":"U","Ȗ":"U","Ư":"U","Ừ":"U","Ứ":"U","Ữ":"U","Ử":"U","Ự":"U","Ụ":"U","Ṳ":"U","Ų":"U","Ṷ":"U","Ṵ":"U","Ʉ":"U","Ⓥ":"V","Ｖ":"V","Ṽ":"V","Ṿ":"V","Ʋ":"V","Ꝟ":"V","Ʌ":"V","Ꝡ":"VY","Ⓦ":"W","Ｗ":"W","Ẁ":"W","Ẃ":"W","Ŵ":"W","Ẇ":"W","Ẅ":"W","Ẉ":"W","Ⱳ":"W","Ⓧ":"X","Ｘ":"X","Ẋ":"X","Ẍ":"X","Ⓨ":"Y","Ｙ":"Y","Ỳ":"Y","Ý":"Y","Ŷ":"Y","Ỹ":"Y","Ȳ":"Y","Ẏ":"Y","Ÿ":"Y","Ỷ":"Y","Ỵ":"Y","Ƴ":"Y","Ɏ":"Y","Ỿ":"Y","Ⓩ":"Z","Ｚ":"Z","Ź":"Z","Ẑ":"Z","Ż":"Z","Ž":"Z","Ẓ":"Z","Ẕ":"Z","Ƶ":"Z","Ȥ":"Z","Ɀ":"Z","Ⱬ":"Z","Ꝣ":"Z","ⓐ":"a","ａ":"a","ẚ":"a","à":"a","á":"a","â":"a","ầ":"a","ấ":"a","ẫ":"a","ẩ":"a","ã":"a","ā":"a","ă":"a","ằ":"a","ắ":"a","ẵ":"a","ẳ":"a","ȧ":"a","ǡ":"a","ä":"a","ǟ":"a","ả":"a","å":"a","ǻ":"a","ǎ":"a","ȁ":"a","ȃ":"a","ạ":"a","ậ":"a","ặ":"a","ḁ":"a","ą":"a","ⱥ":"a","ɐ":"a","ꜳ":"aa","æ":"ae","ǽ":"ae","ǣ":"ae","ꜵ":"ao","ꜷ":"au","ꜹ":"av","ꜻ":"av","ꜽ":"ay","ⓑ":"b","ｂ":"b","ḃ":"b","ḅ":"b","ḇ":"b","ƀ":"b","ƃ":"b","ɓ":"b","ⓒ":"c","ｃ":"c","ć":"c","ĉ":"c","ċ":"c","č":"c","ç":"c","ḉ":"c","ƈ":"c","ȼ":"c","ꜿ":"c","ↄ":"c","ⓓ":"d","ｄ":"d","ḋ":"d","ď":"d","ḍ":"d","ḑ":"d","ḓ":"d","ḏ":"d","đ":"d","ƌ":"d","ɖ":"d","ɗ":"d","ꝺ":"d","ǳ":"dz","ǆ":"dz","ⓔ":"e","ｅ":"e","è":"e","é":"e","ê":"e","ề":"e","ế":"e","ễ":"e","ể":"e","ẽ":"e","ē":"e","ḕ":"e","ḗ":"e","ĕ":"e","ė":"e","ë":"e","ẻ":"e","ě":"e","ȅ":"e","ȇ":"e","ẹ":"e","ệ":"e","ȩ":"e","ḝ":"e","ę":"e","ḙ":"e","ḛ":"e","ɇ":"e","ɛ":"e","ǝ":"e","ⓕ":"f","ｆ":"f","ḟ":"f","ƒ":"f","ꝼ":"f","ⓖ":"g","ｇ":"g","ǵ":"g","ĝ":"g","ḡ":"g","ğ":"g","ġ":"g","ǧ":"g","ģ":"g","ǥ":"g","ɠ":"g","ꞡ":"g","ᵹ":"g","ꝿ":"g","ⓗ":"h","ｈ":"h","ĥ":"h","ḣ":"h","ḧ":"h","ȟ":"h","ḥ":"h","ḩ":"h","ḫ":"h","ẖ":"h","ħ":"h","ⱨ":"h","ⱶ":"h","ɥ":"h","ƕ":"hv","ⓘ":"i","ｉ":"i","ì":"i","í":"i","î":"i","ĩ":"i","ī":"i","ĭ":"i","ï":"i","ḯ":"i","ỉ":"i","ǐ":"i","ȉ":"i","ȋ":"i","ị":"i","į":"i","ḭ":"i","ɨ":"i","ı":"i","ⓙ":"j","ｊ":"j","ĵ":"j","ǰ":"j","ɉ":"j","ⓚ":"k","ｋ":"k","ḱ":"k","ǩ":"k","ḳ":"k","ķ":"k","ḵ":"k","ƙ":"k","ⱪ":"k","ꝁ":"k","ꝃ":"k","ꝅ":"k","ꞣ":"k","ⓛ":"l","ｌ":"l","ŀ":"l","ĺ":"l","ľ":"l","ḷ":"l","ḹ":"l","ļ":"l","ḽ":"l","ḻ":"l","ſ":"l","ł":"l","ƚ":"l","ɫ":"l","ⱡ":"l","ꝉ":"l","ꞁ":"l","ꝇ":"l","ǉ":"lj","ⓜ":"m","ｍ":"m","ḿ":"m","ṁ":"m","ṃ":"m","ɱ":"m","ɯ":"m","ⓝ":"n","ｎ":"n","ǹ":"n","ń":"n","ñ":"n","ṅ":"n","ň":"n","ṇ":"n","ņ":"n","ṋ":"n","ṉ":"n","ƞ":"n","ɲ":"n","ŉ":"n","ꞑ":"n","ꞥ":"n","ǌ":"nj","ⓞ":"o","ｏ":"o","ò":"o","ó":"o","ô":"o","ồ":"o","ố":"o","ỗ":"o","ổ":"o","õ":"o","ṍ":"o","ȭ":"o","ṏ":"o","ō":"o","ṑ":"o","ṓ":"o","ŏ":"o","ȯ":"o","ȱ":"o","ö":"o","ȫ":"o","ỏ":"o","ő":"o","ǒ":"o","ȍ":"o","ȏ":"o","ơ":"o","ờ":"o","ớ":"o","ỡ":"o","ở":"o","ợ":"o","ọ":"o","ộ":"o","ǫ":"o","ǭ":"o","ø":"o","ǿ":"o","ɔ":"o","ꝋ":"o","ꝍ":"o","ɵ":"o","ƣ":"oi","ȣ":"ou","ꝏ":"oo","ⓟ":"p","ｐ":"p","ṕ":"p","ṗ":"p","ƥ":"p","ᵽ":"p","ꝑ":"p","ꝓ":"p","ꝕ":"p","ⓠ":"q","ｑ":"q","ɋ":"q","ꝗ":"q","ꝙ":"q","ⓡ":"r","ｒ":"r","ŕ":"r","ṙ":"r","ř":"r","ȑ":"r","ȓ":"r","ṛ":"r","ṝ":"r","ŗ":"r","ṟ":"r","ɍ":"r","ɽ":"r","ꝛ":"r","ꞧ":"r","ꞃ":"r","ⓢ":"s","ｓ":"s","ß":"s","ś":"s","ṥ":"s","ŝ":"s","ṡ":"s","š":"s","ṧ":"s","ṣ":"s","ṩ":"s","ș":"s","ş":"s","ȿ":"s","ꞩ":"s","ꞅ":"s","ẛ":"s","ⓣ":"t","ｔ":"t","ṫ":"t","ẗ":"t","ť":"t","ṭ":"t","ț":"t","ţ":"t","ṱ":"t","ṯ":"t","ŧ":"t","ƭ":"t","ʈ":"t","ⱦ":"t","ꞇ":"t","ꜩ":"tz","ⓤ":"u","ｕ":"u","ù":"u","ú":"u","û":"u","ũ":"u","ṹ":"u","ū":"u","ṻ":"u","ŭ":"u","ü":"u","ǜ":"u","ǘ":"u","ǖ":"u","ǚ":"u","ủ":"u","ů":"u","ű":"u","ǔ":"u","ȕ":"u","ȗ":"u","ư":"u","ừ":"u","ứ":"u","ữ":"u","ử":"u","ự":"u","ụ":"u","ṳ":"u","ų":"u","ṷ":"u","ṵ":"u","ʉ":"u","ⓥ":"v","ｖ":"v","ṽ":"v","ṿ":"v","ʋ":"v","ꝟ":"v","ʌ":"v","ꝡ":"vy","ⓦ":"w","ｗ":"w","ẁ":"w","ẃ":"w","ŵ":"w","ẇ":"w","ẅ":"w","ẘ":"w","ẉ":"w","ⱳ":"w","ⓧ":"x","ｘ":"x","ẋ":"x","ẍ":"x","ⓨ":"y","ｙ":"y","ỳ":"y","ý":"y","ŷ":"y","ỹ":"y","ȳ":"y","ẏ":"y","ÿ":"y","ỷ":"y","ẙ":"y","ỵ":"y","ƴ":"y","ɏ":"y","ỿ":"y","ⓩ":"z","ｚ":"z","ź":"z","ẑ":"z","ż":"z","ž":"z","ẓ":"z","ẕ":"z","ƶ":"z","ȥ":"z","ɀ":"z","ⱬ":"z","ꝣ":"z","Ά":"Α","Έ":"Ε","Ή":"Η","Ί":"Ι","Ϊ":"Ι","Ό":"Ο","Ύ":"Υ","Ϋ":"Υ","Ώ":"Ω","ά":"α","έ":"ε","ή":"η","ί":"ι","ϊ":"ι","ΐ":"ι","ό":"ο","ύ":"υ","ϋ":"υ","ΰ":"υ","ω":"ω","ς":"σ"}}),b.define("select2/data/base",["../utils"],function(a){function b(a,c){b.__super__.constructor.call(this)}return a.Extend(b,a.Observable),b.prototype.current=function(a){throw new Error("The `current` method must be defined in child classes.")},b.prototype.query=function(a,b){throw new Error("The `query` method must be defined in child classes.")},b.prototype.bind=function(a,b){},b.prototype.destroy=function(){},b.prototype.generateResultId=function(b,c){var d=b.id+"-result-";return d+=a.generateChars(4),null!=c.id?d+="-"+c.id.toString():d+="-"+a.generateChars(4),d},b}),b.define("select2/data/select",["./base","../utils","jquery"],function(a,b,c){function d(a,b){this.$element=a,this.options=b,d.__super__.constructor.call(this)}return b.Extend(d,a),d.prototype.current=function(a){var b=[],d=this;this.$element.find(":selected").each(function(){var a=c(this),e=d.item(a);b.push(e)}),a(b)},d.prototype.select=function(a){var b=this;if(a.selected=!0,c(a.element).is("option"))return a.element.selected=!0,void this.$element.trigger("change");if(this.$element.prop("multiple"))this.current(function(d){var e=[];a=[a],a.push.apply(a,d);for(var f=0;f<a.length;f++){var g=a[f].id;-1===c.inArray(g,e)&&e.push(g)}b.$element.val(e),b.$element.trigger("change")});else{var d=a.id;this.$element.val(d),this.$element.trigger("change")}},d.prototype.unselect=function(a){var b=this;if(this.$element.prop("multiple")){if(a.selected=!1,c(a.element).is("option"))return a.element.selected=!1,void this.$element.trigger("change");this.current(function(d){for(var e=[],f=0;f<d.length;f++){var g=d[f].id;g!==a.id&&-1===c.inArray(g,e)&&e.push(g)}b.$element.val(e),b.$element.trigger("change")})}},d.prototype.bind=function(a,b){var c=this;this.container=a,a.on("select",function(a){c.select(a.data)}),a.on("unselect",function(a){c.unselect(a.data)})},d.prototype.destroy=function(){this.$element.find("*").each(function(){c.removeData(this,"data")})},d.prototype.query=function(a,b){var d=[],e=this;this.$element.children().each(function(){var b=c(this);if(b.is("option")||b.is("optgroup")){var f=e.item(b),g=e.matches(a,f);null!==g&&d.push(g)}}),b({results:d})},d.prototype.addOptions=function(a){b.appendMany(this.$element,a)},d.prototype.option=function(a){var b;a.children?(b=document.createElement("optgroup"),b.label=a.text):(b=document.createElement("option"),void 0!==b.textContent?b.textContent=a.text:b.innerText=a.text),void 0!==a.id&&(b.value=a.id),a.disabled&&(b.disabled=!0),a.selected&&(b.selected=!0),a.title&&(b.title=a.title);var d=c(b),e=this._normalizeItem(a);return e.element=b,c.data(b,"data",e),d},d.prototype.item=function(a){var b={};if(null!=(b=c.data(a[0],"data")))return b;if(a.is("option"))b={id:a.val(),text:a.text(),disabled:a.prop("disabled"),selected:a.prop("selected"),title:a.prop("title")};else if(a.is("optgroup")){b={text:a.prop("label"),children:[],title:a.prop("title")};for(var d=a.children("option"),e=[],f=0;f<d.length;f++){var g=c(d[f]),h=this.item(g);e.push(h)}b.children=e}return b=this._normalizeItem(b),b.element=a[0],c.data(a[0],"data",b),b},d.prototype._normalizeItem=function(a){c.isPlainObject(a)||(a={id:a,text:a}),a=c.extend({},{text:""},a);var b={selected:!1,disabled:!1};return null!=a.id&&(a.id=a.id.toString()),null!=a.text&&(a.text=a.text.toString()),null==a._resultId&&a.id&&null!=this.container&&(a._resultId=this.generateResultId(this.container,a)),c.extend({},b,a)},d.prototype.matches=function(a,b){return this.options.get("matcher")(a,b)},d}),b.define("select2/data/array",["./select","../utils","jquery"],function(a,b,c){function d(a,b){var c=b.get("data")||[];d.__super__.constructor.call(this,a,b),this.addOptions(this.convertToOptions(c))}return b.Extend(d,a),d.prototype.select=function(a){var b=this.$element.find("option").filter(function(b,c){return c.value==a.id.toString()});0===b.length&&(b=this.option(a),this.addOptions(b)),d.__super__.select.call(this,a)},d.prototype.convertToOptions=function(a){function d(a){return function(){return c(this).val()==a.id}}for(var e=this,f=this.$element.find("option"),g=f.map(function(){return e.item(c(this)).id}).get(),h=[],i=0;i<a.length;i++){var j=this._normalizeItem(a[i]);if(c.inArray(j.id,g)>=0){var k=f.filter(d(j)),l=this.item(k),m=c.extend(!0,{},j,l),n=this.option(m);k.replaceWith(n)}else{var o=this.option(j);if(j.children){var p=this.convertToOptions(j.children);b.appendMany(o,p)}h.push(o)}}return h},d}),b.define("select2/data/ajax",["./array","../utils","jquery"],function(a,b,c){function d(a,b){this.ajaxOptions=this._applyDefaults(b.get("ajax")),null!=this.ajaxOptions.processResults&&(this.processResults=this.ajaxOptions.processResults),d.__super__.constructor.call(this,a,b)}return b.Extend(d,a),d.prototype._applyDefaults=function(a){var b={data:function(a){return c.extend({},a,{q:a.term})},transport:function(a,b,d){var e=c.ajax(a);return e.then(b),e.fail(d),e}};return c.extend({},b,a,!0)},d.prototype.processResults=function(a){return a},d.prototype.query=function(a,b){function d(){var d=f.transport(f,function(d){var f=e.processResults(d,a);e.options.get("debug")&&window.console&&console.error&&(f&&f.results&&c.isArray(f.results)||console.error("Select2: The AJAX results did not return an array in the `results` key of the response.")),b(f)},function(){d.status&&"0"===d.status||e.trigger("results:message",{message:"errorLoading"})});e._request=d}var e=this;null!=this._request&&(c.isFunction(this._request.abort)&&this._request.abort(),this._request=null);var f=c.extend({type:"GET"},this.ajaxOptions);"function"==typeof f.url&&(f.url=f.url.call(this.$element,a)),"function"==typeof f.data&&(f.data=f.data.call(this.$element,a)),this.ajaxOptions.delay&&null!=a.term?(this._queryTimeout&&window.clearTimeout(this._queryTimeout),this._queryTimeout=window.setTimeout(d,this.ajaxOptions.delay)):d()},d}),b.define("select2/data/tags",["jquery"],function(a){function b(b,c,d){var e=d.get("tags"),f=d.get("createTag");void 0!==f&&(this.createTag=f);var g=d.get("insertTag");if(void 0!==g&&(this.insertTag=g),b.call(this,c,d),a.isArray(e))for(var h=0;h<e.length;h++){var i=e[h],j=this._normalizeItem(i),k=this.option(j);this.$element.append(k)}}return b.prototype.query=function(a,b,c){function d(a,f){for(var g=a.results,h=0;h<g.length;h++){var i=g[h],j=null!=i.children&&!d({results:i.children},!0);if((i.text||"").toUpperCase()===(b.term||"").toUpperCase()||j)return!f&&(a.data=g,void c(a))}if(f)return!0;var k=e.createTag(b);if(null!=k){var l=e.option(k);l.attr("data-select2-tag",!0),e.addOptions([l]),e.insertTag(g,k)}a.results=g,c(a)}var e=this;if(this._removeOldTags(),null==b.term||null!=b.page)return void a.call(this,b,c);a.call(this,b,d)},b.prototype.createTag=function(b,c){var d=a.trim(c.term);return""===d?null:{id:d,text:d}},b.prototype.insertTag=function(a,b,c){b.unshift(c)},b.prototype._removeOldTags=function(b){this._lastTag;this.$element.find("option[data-select2-tag]").each(function(){this.selected||a(this).remove()})},b}),b.define("select2/data/tokenizer",["jquery"],function(a){function b(a,b,c){var d=c.get("tokenizer");void 0!==d&&(this.tokenizer=d),a.call(this,b,c)}return b.prototype.bind=function(a,b,c){a.call(this,b,c),this.$search=b.dropdown.$search||b.selection.$search||c.find(".select2-search__field")},b.prototype.query=function(b,c,d){function e(b){var c=g._normalizeItem(b);if(!g.$element.find("option").filter(function(){return a(this).val()===c.id}).length){var d=g.option(c);d.attr("data-select2-tag",!0),g._removeOldTags(),g.addOptions([d])}f(c)}function f(a){g.trigger("select",{data:a})}var g=this;c.term=c.term||"";var h=this.tokenizer(c,this.options,e);h.term!==c.term&&(this.$search.length&&(this.$search.val(h.term),this.$search.focus()),c.term=h.term),b.call(this,c,d)},b.prototype.tokenizer=function(b,c,d,e){for(var f=d.get("tokenSeparators")||[],g=c.term,h=0,i=this.createTag||function(a){return{id:a.term,text:a.term}};h<g.length;){var j=g[h];if(-1!==a.inArray(j,f)){var k=g.substr(0,h),l=a.extend({},c,{term:k}),m=i(l);null!=m?(e(m),g=g.substr(h+1)||"",h=0):h++}else h++}return{term:g}},b}),b.define("select2/data/minimumInputLength",[],function(){function a(a,b,c){this.minimumInputLength=c.get("minimumInputLength"),a.call(this,b,c)}return a.prototype.query=function(a,b,c){if(b.term=b.term||"",b.term.length<this.minimumInputLength)return void this.trigger("results:message",{message:"inputTooShort",args:{minimum:this.minimumInputLength,input:b.term,params:b}});a.call(this,b,c)},a}),b.define("select2/data/maximumInputLength",[],function(){function a(a,b,c){this.maximumInputLength=c.get("maximumInputLength"),a.call(this,b,c)}return a.prototype.query=function(a,b,c){if(b.term=b.term||"",this.maximumInputLength>0&&b.term.length>this.maximumInputLength)return void this.trigger("results:message",{message:"inputTooLong",args:{maximum:this.maximumInputLength,input:b.term,params:b}});a.call(this,b,c)},a}),b.define("select2/data/maximumSelectionLength",[],function(){function a(a,b,c){this.maximumSelectionLength=c.get("maximumSelectionLength"),a.call(this,b,c)}return a.prototype.query=function(a,b,c){var d=this;this.current(function(e){var f=null!=e?e.length:0;if(d.maximumSelectionLength>0&&f>=d.maximumSelectionLength)return void d.trigger("results:message",{message:"maximumSelected",args:{maximum:d.maximumSelectionLength}});a.call(d,b,c)})},a}),b.define("select2/dropdown",["jquery","./utils"],function(a,b){function c(a,b){this.$element=a,this.options=b,c.__super__.constructor.call(this)}return b.Extend(c,b.Observable),c.prototype.render=function(){var b=a('<span class="select2-dropdown"><span class="select2-results"></span></span>');return b.attr("dir",this.options.get("dir")),this.$dropdown=b,b},c.prototype.bind=function(){},c.prototype.position=function(a,b){},c.prototype.destroy=function(){this.$dropdown.remove()},c}),b.define("select2/dropdown/search",["jquery","../utils"],function(a,b){function c(){}return c.prototype.render=function(b){var c=b.call(this),d=a('<span class="select2-search select2-search--dropdown"><input class="select2-search__field" type="search" tabindex="-1" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="textbox" /></span>');return this.$searchContainer=d,this.$search=d.find("input"),c.prepend(d),c},c.prototype.bind=function(b,c,d){var e=this;b.call(this,c,d),this.$search.on("keydown",function(a){e.trigger("keypress",a),e._keyUpPrevented=a.isDefaultPrevented()}),this.$search.on("input",function(b){a(this).off("keyup")}),this.$search.on("keyup input",function(a){e.handleSearch(a)}),c.on("open",function(){e.$search.attr("tabindex",0),e.$search.focus(),window.setTimeout(function(){e.$search.focus()},0)}),c.on("close",function(){e.$search.attr("tabindex",-1),e.$search.val("")}),c.on("focus",function(){c.isOpen()||e.$search.focus()}),c.on("results:all",function(a){if(null==a.query.term||""===a.query.term){e.showSearch(a)?e.$searchContainer.removeClass("select2-search--hide"):e.$searchContainer.addClass("select2-search--hide")}})},c.prototype.handleSearch=function(a){if(!this._keyUpPrevented){var b=this.$search.val();this.trigger("query",{term:b})}this._keyUpPrevented=!1},c.prototype.showSearch=function(a,b){return!0},c}),b.define("select2/dropdown/hidePlaceholder",[],function(){function a(a,b,c,d){this.placeholder=this.normalizePlaceholder(c.get("placeholder")),a.call(this,b,c,d)}return a.prototype.append=function(a,b){b.results=this.removePlaceholder(b.results),a.call(this,b)},a.prototype.normalizePlaceholder=function(a,b){return"string"==typeof b&&(b={id:"",text:b}),b},a.prototype.removePlaceholder=function(a,b){for(var c=b.slice(0),d=b.length-1;d>=0;d--){var e=b[d];this.placeholder.id===e.id&&c.splice(d,1)}return c},a}),b.define("select2/dropdown/infiniteScroll",["jquery"],function(a){function b(a,b,c,d){this.lastParams={},a.call(this,b,c,d),this.$loadingMore=this.createLoadingMore(),this.loading=!1}return b.prototype.append=function(a,b){this.$loadingMore.remove(),this.loading=!1,a.call(this,b),this.showLoadingMore(b)&&this.$results.append(this.$loadingMore)},b.prototype.bind=function(b,c,d){var e=this;b.call(this,c,d),c.on("query",function(a){e.lastParams=a,e.loading=!0}),c.on("query:append",function(a){e.lastParams=a,e.loading=!0}),this.$results.on("scroll",function(){var b=a.contains(document.documentElement,e.$loadingMore[0]);if(!e.loading&&b){e.$results.offset().top+e.$results.outerHeight(!1)+50>=e.$loadingMore.offset().top+e.$loadingMore.outerHeight(!1)&&e.loadMore()}})},b.prototype.loadMore=function(){this.loading=!0;var b=a.extend({},{page:1},this.lastParams);b.page++,this.trigger("query:append",b)},b.prototype.showLoadingMore=function(a,b){return b.pagination&&b.pagination.more},b.prototype.createLoadingMore=function(){var b=a('<li class="select2-results__option select2-results__option--load-more"role="treeitem" aria-disabled="true"></li>'),c=this.options.get("translations").get("loadingMore");return b.html(c(this.lastParams)),b},b}),b.define("select2/dropdown/attachBody",["jquery","../utils"],function(a,b){function c(b,c,d){this.$dropdownParent=d.get("dropdownParent")||a(document.body),b.call(this,c,d)}return c.prototype.bind=function(a,b,c){var d=this,e=!1;a.call(this,b,c),b.on("open",function(){d._showDropdown(),d._attachPositioningHandler(b),e||(e=!0,b.on("results:all",function(){d._positionDropdown(),d._resizeDropdown()}),b.on("results:append",function(){d._positionDropdown(),d._resizeDropdown()}))}),b.on("close",function(){d._hideDropdown(),d._detachPositioningHandler(b)}),this.$dropdownContainer.on("mousedown",function(a){a.stopPropagation()})},c.prototype.destroy=function(a){a.call(this),this.$dropdownContainer.remove()},c.prototype.position=function(a,b,c){b.attr("class",c.attr("class")),b.removeClass("select2"),b.addClass("select2-container--open"),b.css({position:"absolute",top:-999999}),this.$container=c},c.prototype.render=function(b){var c=a("<span></span>"),d=b.call(this);return c.append(d),this.$dropdownContainer=c,c},c.prototype._hideDropdown=function(a){this.$dropdownContainer.detach()},c.prototype._attachPositioningHandler=function(c,d){var e=this,f="scroll.select2."+d.id,g="resize.select2."+d.id,h="orientationchange.select2."+d.id,i=this.$container.parents().filter(b.hasScroll);i.each(function(){a(this).data("select2-scroll-position",{x:a(this).scrollLeft(),y:a(this).scrollTop()})}),i.on(f,function(b){var c=a(this).data("select2-scroll-position");a(this).scrollTop(c.y)}),a(window).on(f+" "+g+" "+h,function(a){e._positionDropdown(),e._resizeDropdown()})},c.prototype._detachPositioningHandler=function(c,d){var e="scroll.select2."+d.id,f="resize.select2."+d.id,g="orientationchange.select2."+d.id;this.$container.parents().filter(b.hasScroll).off(e),a(window).off(e+" "+f+" "+g)},c.prototype._positionDropdown=function(){var b=a(window),c=this.$dropdown.hasClass("select2-dropdown--above"),d=this.$dropdown.hasClass("select2-dropdown--below"),e=null,f=this.$container.offset();f.bottom=f.top+this.$container.outerHeight(!1);var g={height:this.$container.outerHeight(!1)};g.top=f.top,g.bottom=f.top+g.height;var h={height:this.$dropdown.outerHeight(!1)},i={top:b.scrollTop(),bottom:b.scrollTop()+b.height()},j=i.top<f.top-h.height,k=i.bottom>f.bottom+h.height,l={left:f.left,top:g.bottom},m=this.$dropdownParent;"static"===m.css("position")&&(m=m.offsetParent());var n=m.offset();l.top-=n.top,l.left-=n.left,c||d||(e="below"),k||!j||c?!j&&k&&c&&(e="below"):e="above",("above"==e||c&&"below"!==e)&&(l.top=g.top-n.top-h.height),null!=e&&(this.$dropdown.removeClass("select2-dropdown--below select2-dropdown--above").addClass("select2-dropdown--"+e),this.$container.removeClass("select2-container--below select2-container--above").addClass("select2-container--"+e)),this.$dropdownContainer.css(l)},c.prototype._resizeDropdown=function(){var a={width:this.$container.outerWidth(!1)+"px"};this.options.get("dropdownAutoWidth")&&(a.minWidth=a.width,a.position="relative",a.width="auto"),this.$dropdown.css(a)},c.prototype._showDropdown=function(a){this.$dropdownContainer.appendTo(this.$dropdownParent),this._positionDropdown(),this._resizeDropdown()},c}),b.define("select2/dropdown/minimumResultsForSearch",[],function(){function a(b){for(var c=0,d=0;d<b.length;d++){var e=b[d];e.children?c+=a(e.children):c++}return c}function b(a,b,c,d){this.minimumResultsForSearch=c.get("minimumResultsForSearch"),this.minimumResultsForSearch<0&&(this.minimumResultsForSearch=1/0),a.call(this,b,c,d)}return b.prototype.showSearch=function(b,c){return!(a(c.data.results)<this.minimumResultsForSearch)&&b.call(this,c)},b}),b.define("select2/dropdown/selectOnClose",[],function(){function a(){}return a.prototype.bind=function(a,b,c){var d=this;a.call(this,b,c),b.on("close",function(a){d._handleSelectOnClose(a)})},a.prototype._handleSelectOnClose=function(a,b){if(b&&null!=b.originalSelect2Event){var c=b.originalSelect2Event;if("select"===c._type||"unselect"===c._type)return}var d=this.getHighlightedResults();if(!(d.length<1)){var e=d.data("data");null!=e.element&&e.element.selected||null==e.element&&e.selected||this.trigger("select",{data:e})}},a}),b.define("select2/dropdown/closeOnSelect",[],function(){function a(){}return a.prototype.bind=function(a,b,c){var d=this;a.call(this,b,c),b.on("select",function(a){d._selectTriggered(a)}),b.on("unselect",function(a){d._selectTriggered(a)})},a.prototype._selectTriggered=function(a,b){var c=b.originalEvent;c&&c.ctrlKey||this.trigger("close",{originalEvent:c,originalSelect2Event:b})},a}),b.define("select2/i18n/en",[],function(){return{errorLoading:function(){return"The results could not be loaded."},inputTooLong:function(a){var b=a.input.length-a.maximum,c="Please delete "+b+" character";return 1!=b&&(c+="s"),c},inputTooShort:function(a){return"Please enter "+(a.minimum-a.input.length)+" or more characters"},loadingMore:function(){return"Loading more results…"},maximumSelected:function(a){var b="You can only select "+a.maximum+" item";return 1!=a.maximum&&(b+="s"),b},noResults:function(){return"No results found"},searching:function(){return"Searching…"}}}),b.define("select2/defaults",["jquery","require","./results","./selection/single","./selection/multiple","./selection/placeholder","./selection/allowClear","./selection/search","./selection/eventRelay","./utils","./translation","./diacritics","./data/select","./data/array","./data/ajax","./data/tags","./data/tokenizer","./data/minimumInputLength","./data/maximumInputLength","./data/maximumSelectionLength","./dropdown","./dropdown/search","./dropdown/hidePlaceholder","./dropdown/infiniteScroll","./dropdown/attachBody","./dropdown/minimumResultsForSearch","./dropdown/selectOnClose","./dropdown/closeOnSelect","./i18n/en"],function(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,A,B,C){function D(){this.reset()}return D.prototype.apply=function(l){if(l=a.extend(!0,{},this.defaults,l),null==l.dataAdapter){if(null!=l.ajax?l.dataAdapter=o:null!=l.data?l.dataAdapter=n:l.dataAdapter=m,l.minimumInputLength>0&&(l.dataAdapter=j.Decorate(l.dataAdapter,r)),l.maximumInputLength>0&&(l.dataAdapter=j.Decorate(l.dataAdapter,s)),l.maximumSelectionLength>0&&(l.dataAdapter=j.Decorate(l.dataAdapter,t)),l.tags&&(l.dataAdapter=j.Decorate(l.dataAdapter,p)),null==l.tokenSeparators&&null==l.tokenizer||(l.dataAdapter=j.Decorate(l.dataAdapter,q)),null!=l.query){var C=b(l.amdBase+"compat/query");l.dataAdapter=j.Decorate(l.dataAdapter,C)}if(null!=l.initSelection){var D=b(l.amdBase+"compat/initSelection");l.dataAdapter=j.Decorate(l.dataAdapter,D)}}if(null==l.resultsAdapter&&(l.resultsAdapter=c,null!=l.ajax&&(l.resultsAdapter=j.Decorate(l.resultsAdapter,x)),null!=l.placeholder&&(l.resultsAdapter=j.Decorate(l.resultsAdapter,w)),l.selectOnClose&&(l.resultsAdapter=j.Decorate(l.resultsAdapter,A))),null==l.dropdownAdapter){if(l.multiple)l.dropdownAdapter=u;else{var E=j.Decorate(u,v);l.dropdownAdapter=E}if(0!==l.minimumResultsForSearch&&(l.dropdownAdapter=j.Decorate(l.dropdownAdapter,z)),l.closeOnSelect&&(l.dropdownAdapter=j.Decorate(l.dropdownAdapter,B)),null!=l.dropdownCssClass||null!=l.dropdownCss||null!=l.adaptDropdownCssClass){var F=b(l.amdBase+"compat/dropdownCss");l.dropdownAdapter=j.Decorate(l.dropdownAdapter,F)}l.dropdownAdapter=j.Decorate(l.dropdownAdapter,y)}if(null==l.selectionAdapter){if(l.multiple?l.selectionAdapter=e:l.selectionAdapter=d,null!=l.placeholder&&(l.selectionAdapter=j.Decorate(l.selectionAdapter,f)),l.allowClear&&(l.selectionAdapter=j.Decorate(l.selectionAdapter,g)),l.multiple&&(l.selectionAdapter=j.Decorate(l.selectionAdapter,h)),null!=l.containerCssClass||null!=l.containerCss||null!=l.adaptContainerCssClass){var G=b(l.amdBase+"compat/containerCss");l.selectionAdapter=j.Decorate(l.selectionAdapter,G)}l.selectionAdapter=j.Decorate(l.selectionAdapter,i)}if("string"==typeof l.language)if(l.language.indexOf("-")>0){var H=l.language.split("-"),I=H[0];l.language=[l.language,I]}else l.language=[l.language];if(a.isArray(l.language)){var J=new k;l.language.push("en");for(var K=l.language,L=0;L<K.length;L++){var M=K[L],N={};try{N=k.loadPath(M)}catch(a){try{M=this.defaults.amdLanguageBase+M,N=k.loadPath(M)}catch(a){l.debug&&window.console&&console.warn&&console.warn('Select2: The language file for "'+M+'" could not be automatically loaded. A fallback will be used instead.');continue}}J.extend(N)}l.translations=J}else{var O=k.loadPath(this.defaults.amdLanguageBase+"en"),P=new k(l.language);P.extend(O),l.translations=P}return l},D.prototype.reset=function(){function b(a){function b(a){return l[a]||a}return a.replace(/[^\u0000-\u007E]/g,b)}function c(d,e){if(""===a.trim(d.term))return e;if(e.children&&e.children.length>0){for(var f=a.extend(!0,{},e),g=e.children.length-1;g>=0;g--){null==c(d,e.children[g])&&f.children.splice(g,1)}return f.children.length>0?f:c(d,f)}var h=b(e.text).toUpperCase(),i=b(d.term).toUpperCase();return h.indexOf(i)>-1?e:null}this.defaults={amdBase:"./",amdLanguageBase:"./i18n/",closeOnSelect:!0,debug:!1,dropdownAutoWidth:!1,escapeMarkup:j.escapeMarkup,language:C,matcher:c,minimumInputLength:0,maximumInputLength:0,maximumSelectionLength:0,minimumResultsForSearch:0,selectOnClose:!1,sorter:function(a){return a},templateResult:function(a){return a.text},templateSelection:function(a){return a.text},theme:"default",width:"resolve"}},D.prototype.set=function(b,c){var d=a.camelCase(b),e={};e[d]=c;var f=j._convertData(e);a.extend(this.defaults,f)},new D}),b.define("select2/options",["require","jquery","./defaults","./utils"],function(a,b,c,d){function e(b,e){if(this.options=b,null!=e&&this.fromElement(e),this.options=c.apply(this.options),e&&e.is("input")){var f=a(this.get("amdBase")+"compat/inputData");this.options.dataAdapter=d.Decorate(this.options.dataAdapter,f)}}return e.prototype.fromElement=function(a){var c=["select2"];null==this.options.multiple&&(this.options.multiple=a.prop("multiple")),null==this.options.disabled&&(this.options.disabled=a.prop("disabled")),null==this.options.language&&(a.prop("lang")?this.options.language=a.prop("lang").toLowerCase():a.closest("[lang]").prop("lang")&&(this.options.language=a.closest("[lang]").prop("lang"))),null==this.options.dir&&(a.prop("dir")?this.options.dir=a.prop("dir"):a.closest("[dir]").prop("dir")?this.options.dir=a.closest("[dir]").prop("dir"):this.options.dir="ltr"),a.prop("disabled",this.options.disabled),a.prop("multiple",this.options.multiple),a.data("select2Tags")&&(this.options.debug&&window.console&&console.warn&&console.warn('Select2: The `data-select2-tags` attribute has been changed to use the `data-data` and `data-tags="true"` attributes and will be removed in future versions of Select2.'),a.data("data",a.data("select2Tags")),a.data("tags",!0)),a.data("ajaxUrl")&&(this.options.debug&&window.console&&console.warn&&console.warn("Select2: The `data-ajax-url` attribute has been changed to `data-ajax--url` and support for the old attribute will be removed in future versions of Select2."),a.attr("ajax--url",a.data("ajaxUrl")),a.data("ajax--url",a.data("ajaxUrl")));var e={};e=b.fn.jquery&&"1."==b.fn.jquery.substr(0,2)&&a[0].dataset?b.extend(!0,{},a[0].dataset,a.data()):a.data();var f=b.extend(!0,{},e);f=d._convertData(f);for(var g in f)b.inArray(g,c)>-1||(b.isPlainObject(this.options[g])?b.extend(this.options[g],f[g]):this.options[g]=f[g]);return this},e.prototype.get=function(a){return this.options[a]},e.prototype.set=function(a,b){this.options[a]=b},e}),b.define("select2/core",["jquery","./options","./utils","./keys"],function(a,b,c,d){var e=function(a,c){null!=a.data("select2")&&a.data("select2").destroy(),this.$element=a,this.id=this._generateId(a),c=c||{},this.options=new b(c,a),e.__super__.constructor.call(this);var d=a.attr("tabindex")||0;a.data("old-tabindex",d),a.attr("tabindex","-1");var f=this.options.get("dataAdapter");this.dataAdapter=new f(a,this.options);var g=this.render();this._placeContainer(g);var h=this.options.get("selectionAdapter");this.selection=new h(a,this.options),this.$selection=this.selection.render(),this.selection.position(this.$selection,g);var i=this.options.get("dropdownAdapter");this.dropdown=new i(a,this.options),this.$dropdown=this.dropdown.render(),this.dropdown.position(this.$dropdown,g);var j=this.options.get("resultsAdapter");this.results=new j(a,this.options,this.dataAdapter),this.$results=this.results.render(),this.results.position(this.$results,this.$dropdown);var k=this;this._bindAdapters(),this._registerDomEvents(),this._registerDataEvents(),this._registerSelectionEvents(),this._registerDropdownEvents(),this._registerResultsEvents(),this._registerEvents(),this.dataAdapter.current(function(a){k.trigger("selection:update",{data:a})}),a.addClass("select2-hidden-accessible"),a.attr("aria-hidden","true"),this._syncAttributes(),a.data("select2",this)};return c.Extend(e,c.Observable),e.prototype._generateId=function(a){var b="";return b=null!=a.attr("id")?a.attr("id"):null!=a.attr("name")?a.attr("name")+"-"+c.generateChars(2):c.generateChars(4),b=b.replace(/(:|\.|\[|\]|,)/g,""),b="select2-"+b},e.prototype._placeContainer=function(a){a.insertAfter(this.$element);var b=this._resolveWidth(this.$element,this.options.get("width"));null!=b&&a.css("width",b)},e.prototype._resolveWidth=function(a,b){var c=/^width:(([-+]?([0-9]*\.)?[0-9]+)(px|em|ex|%|in|cm|mm|pt|pc))/i;if("resolve"==b){var d=this._resolveWidth(a,"style");return null!=d?d:this._resolveWidth(a,"element")}if("element"==b){var e=a.outerWidth(!1);return e<=0?"auto":e+"px"}if("style"==b){var f=a.attr("style");if("string"!=typeof f)return null;for(var g=f.split(";"),h=0,i=g.length;h<i;h+=1){var j=g[h].replace(/\s/g,""),k=j.match(c);if(null!==k&&k.length>=1)return k[1]}return null}return b},e.prototype._bindAdapters=function(){this.dataAdapter.bind(this,this.$container),this.selection.bind(this,this.$container),this.dropdown.bind(this,this.$container),this.results.bind(this,this.$container)},e.prototype._registerDomEvents=function(){var b=this;this.$element.on("change.select2",function(){b.dataAdapter.current(function(a){b.trigger("selection:update",{data:a})})}),this.$element.on("focus.select2",function(a){b.trigger("focus",a)}),this._syncA=c.bind(this._syncAttributes,this),this._syncS=c.bind(this._syncSubtree,this),this.$element[0].attachEvent&&this.$element[0].attachEvent("onpropertychange",this._syncA);var d=window.MutationObserver||window.WebKitMutationObserver||window.MozMutationObserver;null!=d?(this._observer=new d(function(c){a.each(c,b._syncA),a.each(c,b._syncS)}),this._observer.observe(this.$element[0],{attributes:!0,childList:!0,subtree:!1})):this.$element[0].addEventListener&&(this.$element[0].addEventListener("DOMAttrModified",b._syncA,!1),this.$element[0].addEventListener("DOMNodeInserted",b._syncS,!1),this.$element[0].addEventListener("DOMNodeRemoved",b._syncS,!1))},e.prototype._registerDataEvents=function(){var a=this;this.dataAdapter.on("*",function(b,c){a.trigger(b,c)})},e.prototype._registerSelectionEvents=function(){var b=this,c=["toggle","focus"];this.selection.on("toggle",function(){b.toggleDropdown()}),this.selection.on("focus",function(a){b.focus(a)}),this.selection.on("*",function(d,e){-1===a.inArray(d,c)&&b.trigger(d,e)})},e.prototype._registerDropdownEvents=function(){var a=this;this.dropdown.on("*",function(b,c){a.trigger(b,c)})},e.prototype._registerResultsEvents=function(){var a=this;this.results.on("*",function(b,c){a.trigger(b,c)})},e.prototype._registerEvents=function(){var a=this;this.on("open",function(){a.$container.addClass("select2-container--open")}),this.on("close",function(){a.$container.removeClass("select2-container--open")}),this.on("enable",function(){a.$container.removeClass("select2-container--disabled")}),this.on("disable",function(){a.$container.addClass("select2-container--disabled")}),this.on("blur",function(){a.$container.removeClass("select2-container--focus")}),this.on("query",function(b){a.isOpen()||a.trigger("open",{}),this.dataAdapter.query(b,function(c){a.trigger("results:all",{data:c,query:b})})}),this.on("query:append",function(b){this.dataAdapter.query(b,function(c){a.trigger("results:append",{data:c,query:b})})}),this.on("keypress",function(b){var c=b.which;a.isOpen()?c===d.ESC||c===d.TAB||c===d.UP&&b.altKey?(a.close(),b.preventDefault()):c===d.ENTER?(a.trigger("results:select",{}),b.preventDefault()):c===d.SPACE&&b.ctrlKey?(a.trigger("results:toggle",{}),b.preventDefault()):c===d.UP?(a.trigger("results:previous",{}),b.preventDefault()):c===d.DOWN&&(a.trigger("results:next",{}),b.preventDefault()):(c===d.ENTER||c===d.SPACE||c===d.DOWN&&b.altKey)&&(a.open(),b.preventDefault())})},e.prototype._syncAttributes=function(){this.options.set("disabled",this.$element.prop("disabled")),this.options.get("disabled")?(this.isOpen()&&this.close(),this.trigger("disable",{})):this.trigger("enable",{})},e.prototype._syncSubtree=function(a,b){var c=!1,d=this;if(!a||!a.target||"OPTION"===a.target.nodeName||"OPTGROUP"===a.target.nodeName){if(b)if(b.addedNodes&&b.addedNodes.length>0)for(var e=0;e<b.addedNodes.length;e++){var f=b.addedNodes[e];f.selected&&(c=!0)}else b.removedNodes&&b.removedNodes.length>0&&(c=!0);else c=!0;c&&this.dataAdapter.current(function(a){d.trigger("selection:update",{data:a})})}},e.prototype.trigger=function(a,b){var c=e.__super__.trigger,d={open:"opening",close:"closing",select:"selecting",unselect:"unselecting"};if(void 0===b&&(b={}),a in d){var f=d[a],g={prevented:!1,name:a,args:b};if(c.call(this,f,g),g.prevented)return void(b.prevented=!0)}c.call(this,a,b)},e.prototype.toggleDropdown=function(){this.options.get("disabled")||(this.isOpen()?this.close():this.open())},e.prototype.open=function(){this.isOpen()||this.trigger("query",{})},e.prototype.close=function(){this.isOpen()&&this.trigger("close",{})},e.prototype.isOpen=function(){return this.$container.hasClass("select2-container--open")},e.prototype.hasFocus=function(){return this.$container.hasClass("select2-container--focus")},e.prototype.focus=function(a){this.hasFocus()||(this.$container.addClass("select2-container--focus"),this.trigger("focus",{}))},e.prototype.enable=function(a){this.options.get("debug")&&window.console&&console.warn&&console.warn('Select2: The `select2("enable")` method has been deprecated and will be removed in later Select2 versions. Use $element.prop("disabled") instead.'),null!=a&&0!==a.length||(a=[!0]);var b=!a[0];this.$element.prop("disabled",b)},e.prototype.data=function(){this.options.get("debug")&&arguments.length>0&&window.console&&console.warn&&console.warn('Select2: Data can no longer be set using `select2("data")`. You should consider setting the value instead using `$element.val()`.');var a=[];return this.dataAdapter.current(function(b){a=b}),a},e.prototype.val=function(b){if(this.options.get("debug")&&window.console&&console.warn&&console.warn('Select2: The `select2("val")` method has been deprecated and will be removed in later Select2 versions. Use $element.val() instead.'),null==b||0===b.length)return this.$element.val();var c=b[0];a.isArray(c)&&(c=a.map(c,function(a){return a.toString()})),this.$element.val(c).trigger("change")},e.prototype.destroy=function(){this.$container.remove(),this.$element[0].detachEvent&&this.$element[0].detachEvent("onpropertychange",this._syncA),null!=this._observer?(this._observer.disconnect(),this._observer=null):this.$element[0].removeEventListener&&(this.$element[0].removeEventListener("DOMAttrModified",this._syncA,!1),this.$element[0].removeEventListener("DOMNodeInserted",this._syncS,!1),this.$element[0].removeEventListener("DOMNodeRemoved",this._syncS,!1)),this._syncA=null,this._syncS=null,this.$element.off(".select2"),this.$element.attr("tabindex",this.$element.data("old-tabindex")),this.$element.removeClass("select2-hidden-accessible"),this.$element.attr("aria-hidden","false"),this.$element.removeData("select2"),this.dataAdapter.destroy(),this.selection.destroy(),this.dropdown.destroy(),this.results.destroy(),this.dataAdapter=null,this.selection=null,this.dropdown=null,this.results=null},e.prototype.render=function(){var b=a('<span class="select2 select2-container"><span class="selection"></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>');return b.attr("dir",this.options.get("dir")),this.$container=b,this.$container.addClass("select2-container--"+this.options.get("theme")),b.data("element",this.$element),b},e}),b.define("jquery-mousewheel",["jquery"],function(a){return a}),b.define("jquery.select2",["jquery","jquery-mousewheel","./select2/core","./select2/defaults"],function(a,b,c,d){if(null==a.fn.select2){var e=["open","close","destroy"];a.fn.select2=function(b){if("object"==typeof(b=b||{}))return this.each(function(){var d=a.extend(!0,{},b);new c(a(this),d)}),this;if("string"==typeof b){var d,f=Array.prototype.slice.call(arguments,1);return this.each(function(){var c=a(this).data("select2");null==c&&window.console&&console.error&&console.error("The select2('"+b+"') method was called on an element that is not using Select2."),d=c[b].apply(c,f)}),a.inArray(b,e)>-1?this:d}throw new Error("Invalid arguments for Select2: "+b)}}return null==a.fn.select2.defaults&&(a.fn.select2.defaults=d),c}),{define:b.define,require:b.require}}(),c=b.require("jquery.select2");return a.fn.select2.amd=b,c});
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1.10.16
@@ -27721,7 +33950,7 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! DataTables 1
 
 
 /***/ }),
-/* 11 */
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_RESULT__;/*! tether 1.4.0 */
@@ -29542,17 +35771,19 @@ return Tether;
 
 
 /***/ }),
-/* 12 */,
-/* 13 */
+/* 14 */,
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(1);
-__webpack_require__(6);
 __webpack_require__(7);
+__webpack_require__(8);
 __webpack_require__(2);
 __webpack_require__(3);
+__webpack_require__(6);
+__webpack_require__(4);
 __webpack_require__(5);
-module.exports = __webpack_require__(4);
+module.exports = __webpack_require__(11);
 
 
 /***/ })

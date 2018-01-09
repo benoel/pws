@@ -5,7 +5,7 @@
         <!-- Navbar Header-->
         <div class="navbar-header">
           <!-- Navbar Brand -->
-          <a href="index.html" class="navbar-brand">
+          <a href="{{ url('') }}" class="navbar-brand">
             <div class="brand-text brand-big hidden-lg-down">
               <span>PT. PRIMANTARA WISESA </span>
               <strong>SEJAHTERA</strong>

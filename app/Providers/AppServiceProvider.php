@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        \Carbon\Carbon::setLocale('id');
         Schema::defaultStringLength(191);
+        $day = array(
+            'Sun' => 'Minggu',
+            'Mon' => 'Senin',
+            'Tue' => 'Selasa',
+            'Wed' => 'Rabu',
+            'Thu' => 'Kamis',
+            'Fri' => 'Jumat',
+            'Sat' => 'Sabtu'
+        );
+        View::share('hari', $day[\Carbon\Carbon::now()->format('D')]);
     }
 
     /**

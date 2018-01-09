@@ -6,7 +6,31 @@
 // @import "variables";
 
 // Bootstrap
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 // @import "styles";
 
+// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "styles_app";
+@import "node_modules/select2/src/scss/core";
+
+
+span.selection{
+	width: 100%;
+}
+.select2-container--default .select2-selection--single{
+	border: 1px solid #e6e6e6;
+	border-radius: 0;
+	display: block;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered{
+	padding: 10px 15px;
+	font-size: 1rem;
+	line-height: 1.25;
+	color: #464a4c;
+	background-color: #fff;
+	background-image: none;
+}
+
+.select2-container .select2-selection--single{
+	height: auto;
+}

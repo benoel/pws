@@ -17,8 +17,15 @@ class Admin
     public function handle($request, Closure $next)
     {
         if ( Auth::check() && Auth::user()->isAdmin() ) {
-            return $next($request);
+            if (Auth::user()->isActive()) {
+                return $next($request);
+            }else{
+                // dd('admin di block');
+                Auth::logout();
+                return redirect('/login')->with('alert-info', 'User tidak aktif!');
+            }
         }
+
         return redirect('/login');
     }
 }

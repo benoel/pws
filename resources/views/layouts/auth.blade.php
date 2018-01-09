@@ -11,25 +11,20 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Styles -->
+    <!-- Styles -->
     <link href="{{ asset('css/vendor.css') }}" rel="stylesheet">
-    
-    <!-- Google fonts - Roboto -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,700">
-
-    <!-- Font Awesome CDN-->
-    <!-- you can replace it by local Font Awesome-->
-    {{-- <script src="https://use.fontawesome.com/99347ac47f.js"></script> --}}
-    <!-- Font Icons CSS-->
-    <link rel="stylesheet" href="https://file.myfontastic.com/da58YPMQ7U5HY8Rb6UxkNf/icons.css">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- Scripts -->
+    <script src="{{ asset('vendor/js/jquery-1.11.0.min.js') }}"></script>
+    <script src="{{ asset('vendor/js/Charts.min.js') }}"></script>
+    <script src="{{ asset('js/vendor.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 
 </head>
 <body>
     <div id="app">
         @yield('content')
     </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/vendor.js') }}"></script>
+    
 </body>
 </html>

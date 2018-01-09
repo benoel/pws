@@ -16,9 +16,16 @@ class Tenant
      */
     public function handle($request, Closure $next)
     {
-       if ( Auth::check() && Auth::user()->isTenant() ) {
-        return $next($request);
+        if ( Auth::check() && Auth::user()->isTenant() ) {
+            if (Auth::user()->isActive()) {
+                return $next($request);
+            }else{
+                // dd('tenant di block');
+                Auth::logout();
+                return redirect('/login')->with('alert-info', 'User tidak aktif!');
+            }
+        }
+
+        return redirect('/login');
     }
-    return redirect('/login');
-}
 }

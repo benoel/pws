@@ -34,8 +34,8 @@ return [
     'date'                 => 'The :attribute is not a valid date.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
-    'digits'               => 'The :attribute must be :digits digits.',
-    'digits_between'       => 'The :attribute must be between :min and :max digits.',
+    'digits'               => ':attribute harus :digits digit.',
+    'digits_between'       => ':attribute harus minimal :min dan maksimal :max digit.',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'The :attribute must be a valid email address.',
@@ -49,7 +49,7 @@ return [
     'ip'                   => 'The :attribute must be a valid IP address.',
     'json'                 => 'The :attribute must be a valid JSON string.',
     'max'                  => [
-        'numeric' => 'The :attribute may not be greater than :max.',
+        'numeric' => ':attribute tidak boleh lebih dari :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
         'string'  => ':attribute tidak boleh lebih dari :max karakter.',
         'array'   => 'The :attribute may not have more than :max items.',
@@ -63,7 +63,7 @@ return [
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'The selected :attribute is invalid.',
-    'numeric'              => 'The :attribute must be a number.',
+    'numeric'              => ':attribute harus angka.',
     'present'              => 'The :attribute field must be present.',
     'regex'                => 'The :attribute format is invalid.',
     'required'             => ':attribute tidak boleh kosong.',
@@ -73,7 +73,7 @@ return [
     'required_with_all'    => 'The :attribute field is required when :values is present.',
     'required_without'     => 'The :attribute field is required when :values is not present.',
     'required_without_all' => 'The :attribute field is required when none of :values are present.',
-    'same'                 => 'The :attribute and :other must match.',
+    'same'                 => ':attribute dan :other tidak sama.',
     'size'                 => [
         'numeric' => 'The :attribute must be :size.',
         'file'    => 'The :attribute must be :size kilobytes.',
@@ -114,6 +114,34 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'name' => 'Nama',
+        'email' => 'Email',
+        'address' => 'Alamat',
+        'phone_number' => 'Nomor Telepon',
+        'company' => 'Perusahaan',
+        'identity_card_number' => 'Nomor Identitas',
+        'npwp' => 'NPWP',
+        'business_field' => 'Jenis Usaha',
+        'cost_service' => 'Biaya Service',
+        'cost_devolution' => 'Biaya Peralihan',
+        'cost_other' => 'Biaya',
+        'unit_identity' => 'Nomor Unit',
+        'va_number' => 'Nomor VA',
+        'capacious' => 'Luas Unit',
+        'floor_id' => 'Lantai Unit',
+        'block_id' => 'Blok Unit',
+        'type_id' => 'Tipe Unit',
+        'cost_unit' => 'Harga Unit',
+        'invoice_number' => 'Nomor Invoice',
+        'user_id' => 'Penyewa',
+        'unit_id' => 'Unit',
+        'rent_length' => 'Lama Sewa',
+        'note' => 'Keterangan',
+        'new_password' => 'Password Baru',
+        'old_password' => 'Password Lama',
+        'new_confirm_password' => 'Password Baru tidak sama',
+    ],
+
 
 ];

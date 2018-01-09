@@ -13,6 +13,6 @@ class BusinessField extends Model
 		return $this->hasMany('App\Unit');
 	}
 	public function business(){
-		return $this->belongsTo('App\Business')
+		return $this->belongsTo('App\Business');
 	}
 }
