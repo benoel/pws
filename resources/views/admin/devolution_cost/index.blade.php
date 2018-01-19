@@ -24,7 +24,9 @@
 						<td width="25">{{ $i++ }}</td>
 						<td>Rp. {{ number_format($dc->cost, 0, '.', '.') }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
 							<a href="{{ route('admin.devolution_cost.edit', [$dc->id]) }}" class="btn btn-primary">Edit</a>
+							@endif
 						</td>
 					</tr>
 					@endforeach

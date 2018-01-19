@@ -26,6 +26,13 @@
 						<td>{{ $ot->note }}</td>
 						<td>Rp. {{ number_format($ot->cost, 0, '.', '.') }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
+							<form class="form-aksi" action="{{ route('admin.other_transaction.destroy', [$ot->id]) }}" method="post">
+								{{csrf_field()}}
+								<input type="hidden" name="_method" value="delete">
+								<button type="submit" class="btn btn-primary">Hapus</button>
+							</form>
+							@endif
 							<a href="{{ route('admin.other_transaction.receipt', [$ot->id]) }}" class="btn btn-primary">Lihat</a>
 						</td>
 					</tr>

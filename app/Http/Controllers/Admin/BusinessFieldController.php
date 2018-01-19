@@ -102,6 +102,10 @@ class BusinessFieldController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = BusinessField::destroy($id);
+        if ($delete) {
+            return redirect()->back()->with('alert-success', 'Berhasil dihapus.');
+        }
+        return redirect()->back()->with('alert-danger', 'Gagal dihapus.');
     }
 }

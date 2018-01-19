@@ -47,16 +47,17 @@ class DevolutionDetailController extends Controller
     {
 
         $units = $request->unit_id;
+        $devolution = Devolution::find($devolution_id);
         
         foreach($units as $unit) {
-            DevolutionDetail::create([
-                'devolution_id' => $devolution_id,
-                'unit_id' => $unit,
-            ]);
+            // DevolutionDetail::create([
+            //     'devolution_id' => $devolution_id,
+            //     'unit_id' => $unit,
+            // ]);
+            $devolution->devolution_details()->attach($unit);
         }
 
         $devolution_cost = count($units) * DevolutionCost::first()->cost;
-        $devolution = Devolution::find($devolution_id);
 
         $rents = Rent::where('user_id', $devolution->from_user)->whereIn('unit_id', $units)->get();
         

@@ -4,77 +4,46 @@
 <div class="container">
   <div class="card">
     <div class="card-body">
-      <form method="post" action="{{ route('admin.unit.update', [$unit->id]) }}">
-        {{csrf_field()}}
+      <form method="post" action="{{ route('admin.rent.update', $rent->id) }}">
         <input type="hidden" name="_method" value="PUT">
-        <div class="form-group{{ $errors->has('unit_identity') ? ' has-danger' : '' }}">
-          <label class="form-control-label">Kode Unit</label>
-          <input type="text" name="unit_identity" value="{{ $unit->unit_identity }}" class="form-control">
-          @if ($errors->has('unit_identity'))
-          <small class="form-text">{{ $errors->first('unit_identity') }}</small>
-          @endif
+        {{csrf_field()}}
+        <div class="form-group{{ $errors->has('invoice_number') ? ' has-danger' : '' }}">
+          <label class="form-control-label">Nomor Invoice</label>&nbsp;:&nbsp;
+          {{ $rent->invoice_number }}
         </div>
-        <div class="form-group{{ $errors->has('va_number') ? ' has-danger' : '' }}">
-          <label class="form-control-label">Nomor VA</label>
-          <input type="text" name="va_number" value="{{ $unit->va_number }}" class="form-control">
-          @if ($errors->has('va_number'))
-          <small class="form-text">{{ $errors->first('va_number') }}</small>
-          @endif
-        </div>
-        <div class="form-group{{ $errors->has('capacious') ? ' has-danger' : '' }}">
-          <label class="form-control-label">Luas Unit/m<sup>2</sup></label>
-          <input type="text" name="capacious" value="{{ $unit->capacious }}" class="form-control">
-          @if ($errors->has('capacious'))
-          <small class="form-text">{{ $errors->first('capacious') }}</small>
-          @endif
-        </div>
-        <div class="form-group{{ $errors->has('floor_id') ? ' has-danger' : '' }}">
-          <label class="form-control-label">Lantai Unit</label>
-          <select name="floor_id" class="form-control select2">
-            <option selected disabled>Pilih lantai</option>
-            @foreach ($floors as $floor)
-            <option {{ $unit->floor->id == $floor->id ? 'selected' : '' }} value="{{ $floor->id }}">{{ $floor->name }}</option>
+        <div class="form-group{{ $errors->has('unit_id') ? ' has-danger' : '' }}">
+          <label class="form-control-label">Nomor Unit</label>
+          <select name="unit_id" class="form-control select2">
+            <option selected disabled>Pilih Unit</option>
+            @foreach ($units as $unit)
+            <option {{ $rent->unit->id == $unit->id ? 'selected' : '' }} value="{{ $unit->id }}">{{ $unit->unit_identity }}</option>
             @endforeach
           </select>
-          @if ($errors->has('floor_id'))
-          <small class="form-text">{{ $errors->first('floor_id') }}</small>
+          @if ($errors->has('unit_id'))
+          <small class="form-text">{{ $errors->first('unit_id') }}</small>
           @endif
         </div>
-        <div class="form-group{{ $errors->has('block_id') ? ' has-danger' : '' }}">
-          <label class="form-control-label">Blok Unit</label>
-          <select name="block_id" class="form-control select2">
-            <option selected disabled>Pilih blok</option>
-            @foreach ($blocks as $block)
-            <option {{ $unit->block->id == $block->id ? 'selected' : '' }} value="{{ $block->id }}">{{ $block->name }}</option>
+        <div class="form-group{{ $errors->has('user_id') ? ' has-danger' : '' }}">
+          <label class="form-control-label">Penyewa</label>
+          <select name="user_id" class="form-control select2">
+            <option selected disabled>Pilih Unit</option>
+            @foreach ($users as $user)
+            <option {{ $rent->user->id == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach
           </select>
-          @if ($errors->has('block_id'))
-          <small class="form-text">{{ $errors->first('block_id') }}</small>
+          @if ($errors->has('user_id'))
+          <small class="form-text">{{ $errors->first('user_id') }}</small>
           @endif
         </div>
-        <div class="form-group{{ $errors->has('type_id') ? ' has-danger' : '' }}">
-          <label class="form-control-label">Tipe Unit</label>
-          <select name="type_id" class="form-control select2">
-            <option selected disabled>Pilih tipe</option>
-            @foreach ($types as $type)
-            <option {{ $unit->type->id == $type->id ? 'selected' : '' }} value="{{ $type->id }}">{{ $type->name }}</option>
-            @endforeach
-          </select>
-          @if ($errors->has('type_id'))
-          <small class="form-text">{{ $errors->first('type_id') }}</small>
-          @endif
-        </div>
-        <div class="form-group{{ $errors->has('cost_unit') ? ' has-danger' : '' }}">
-          <label class="form-control-label">Harga Unit/bulan</label>
-          <input type="text" name="cost_unit" value="{{ $unit->cost }}" class="form-control">
-          @if ($errors->has('cost_unit'))
-          <small class="form-text">{{ $errors->first('cost_unit') }}</small>
-          @else
-          <small class="form-text" style="color: #999;">Tuliskan tanpa "," atau "."</small>
+        <div class="form-group{{ $errors->has('rent_length') ? ' has-danger' : '' }}">
+          <label class="form-control-label">Lama sewa</label>
+          <input type="text" name="rent_length" value="{{ $rent->rent_length }}" class="form-control">
+          @if ($errors->has('rent_length'))
+          <small class="form-text">{{ $errors->first('rent_length') }}</small>
           @endif
         </div>
         <div class="form-group">       
-          <input type="submit" value="Edit" class="btn btn-primary">
+          <input type="submit" value="Ubah" class="btn btn-primary">
         </div>
       </form>
     </div>

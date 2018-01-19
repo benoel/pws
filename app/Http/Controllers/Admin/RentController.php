@@ -8,6 +8,7 @@ use App\Rent;
 use App\User;
 use App\Unit;
 use App\ServiceCharge;
+use App\RentPayment;
 use Auth;
 
 class RentController extends Controller
@@ -122,7 +123,11 @@ class RentController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_header = 'Edit Transaksi Sewa';
+        $users = User::where('role', 0)->get();
+        $units = Unit::all();
+        $rent = Rent::find($id);
+        return view('admin.rent.edit', compact('rent', 'units', 'users', 'page_header'));
     }
 
     /**
@@ -134,7 +139,35 @@ class RentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'user_id' => 'required',
+            'unit_id' => 'required',
+            'rent_length' => 'required|numeric|max:36',
+        ]);
+
+        if (Rent::where([
+            'user_id' => $request->user_id,
+            'unit_id' => $request->unit_id
+        ])->count() == 1) {
+            return redirect()->back()->with('alert-danger', 'Unit sudah disewa Penyewa.');
+        }
+
+        $sc = ServiceCharge::first()->cost * $request->rent_length;
+        $uc = Unit::find($request->unit_id)->cost * $request->rent_length;
+        $total_cost = $uc + $sc;
+
+        $rent = Rent::find($id)->update([
+            'user_id' => $request->user_id,
+            'unit_id' => $request->unit_id,
+            'service_charge' => $sc,
+            'rent_length' => $request->rent_length,
+            'total_cost' => $total_cost,
+            'created_by' => Auth::user()->id,
+        ])->id;
+
+        return redirect('admin/rent/'.$rent)->with('alert-success', 'Berhasil diubah.');
+
+
     }
 
     /**
@@ -145,7 +178,12 @@ class RentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = Rent::destroy($id);
+        if ($delete) {
+            RentPayment::where('rent_id', $id)->delete();
+            return redirect('admin/rent')->with('alert-success', 'Berhasil dihapus.');
+        }
+        return redirect()->back()->with('alert-danger', 'Gagal dihapus.');
     }
 
     public function agreement($id){

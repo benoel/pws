@@ -22,6 +22,13 @@
 						<td width="25">{{ $i++ }}</td>
 						<td>{{ $block->name }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
+							<form class="form-aksi" action="{{ route('admin.block.destroy', [$block->id]) }}" method="post">
+								{{csrf_field()}}
+								<input type="hidden" name="_method" value="delete">
+								<button type="submit" class="btn btn-primary">Hapus</button>
+							</form>
+							@endif
 							<a href="{{ route('admin.block.edit', [$block->id]) }}" class="btn btn-primary">Edit</a>
 						</td>
 					</tr>

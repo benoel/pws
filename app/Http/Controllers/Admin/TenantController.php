@@ -80,6 +80,7 @@ class TenantController extends Controller
     {
         $page_header = 'Detail Penyewa';
         $tenant = User::find($id);
+        // dd($tenant->rents);
         return view('admin.tenant.show', compact('tenant', 'page_header'));
     }
 
@@ -91,7 +92,10 @@ class TenantController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_header = 'Edit Penyewa';
+        $tenant = User::find($id);
+        $business_fields = BusinessField::all();
+        return view('admin.tenant.edit', compact('business_fields', 'tenant', 'page_header'));
     }
 
     /**
@@ -103,7 +107,28 @@ class TenantController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|max:30',
+            'email' => 'required|unique:users,email',
+            'address' => 'required',
+            'identity_card_number' => 'required|numeric|digits_between:10,16',
+            'npwp' => 'digits:16',
+            'phone_number' => 'required|numeric|digits_between:10,14',
+            'business_field_id' => 'required',
+        ]);  
+
+        User::find($id)->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'address' => $request->address,
+            'phone_number' => $request->phone_number,
+            'identity_card_number' => $request->identity_card_number,
+            'npwp' => $request->npwp,
+            'company' => $request->company,
+            'business_field_id' => $request->business_field_id
+        ]);
+
+        return redirect('admin/tenant')->with('alert-success', 'Berhasil diedit.');
     }
 
     /**

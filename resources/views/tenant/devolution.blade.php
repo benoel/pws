@@ -26,7 +26,7 @@
 						<td>Rp. {{ number_format($devolution->cost, 0, '.', '.') }}</td>
 						<td>
 							<a class="btn btn-primary" href="{{ route('tenant.devolution.agreement', [$devolution->id ]) }}">Surat Peralihan</a>
-
+							<a class="btn btn-primary" href="{{ route('tenant.devolution.receipt', [$devolution->id ]) }}">Kwitansi</a>
 						</td>
 					</tr>
 					@endforeach

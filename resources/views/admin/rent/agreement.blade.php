@@ -88,9 +88,9 @@
     BIAYA SEWA & CARA PEMBAYARAN
   </div>
   <ul>
-    <li>3.1. Biaya atas obyek sewa dimaksud di Pasal 1, yaitu : <strong>{{ $rent->payment_per_month}} per-m<sup>2</sup> per-bulan</strong></li>
-    <li>3.2. Total biaya sewa yang harus dibayar Pihak Kedua : <strong>Rp. {{ number_format($rent->total_cost, 0, '.', '.') }}</strong></li>
-    <li>3.4. Belum termasuk biaya pemakaian listrik yang harus dibayar setiap bulan sesuai tarif yang berlaku.</li>
+    <li>3.1. Biaya atas obyek sewa dimaksud di Pasal 1, yaitu : <strong>Rp. {{ number_format($rent->unit->cost, 0, '.', '.') }}</strong> / bulan</li>
+    <li>3.2. Dari keterangan pasal 2, maka total biaya sewa yang harus dibayar : <strong>Rp. {{ number_format($rent->grand_total, 0, '.', '.') }}</strong></li>
+    <li>3.4. Biaya diatas sudah termasuk biaya service, ppn, dan pph.</li>
   </ul>
   <p>
     Perjanjian ini dibuat rangkap dua, ditanda-tangani di Jakarta oleh Kedua Pihak, bermaterai cukup dan mempunyai kekuatan hukum yang sama, serta dilandasi oleh niat baik.

@@ -18,9 +18,14 @@ class Devolution extends Model
 		return $this->belongsTo('App\User', 'to_user');
 	}
 	
+	// public function devolution_details()
+	// {
+	// 	return $this->hasMany('App\DevolutionDetail');
+	// }
+
 	public function devolution_details()
 	{
-		return $this->hasMany('App\DevolutionDetail');
+		return $this->belongsToMany('App\Unit', 'devolution_details')->withTimestamps();
 	}
 
 }

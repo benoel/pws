@@ -126,7 +126,11 @@ class OtherTransactionController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = OtherTransaction::destroy($id);
+        if ($delete) {
+            return redirect()->back()->with('alert-success', 'Berhasil dihapus.');
+        }
+        return redirect()->back()->with('alert-danger', 'Gagal dihapus.');
     }
 
     public function receipt($id){

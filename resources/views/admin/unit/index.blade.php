@@ -28,6 +28,13 @@
 						<td>{{ $unit->floor->name }}</td>
 						<td>{{ $unit->block->name }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
+							<form class="form-aksi" action="{{ route('admin.unit.destroy', [$unit->id]) }}" method="post">
+								{{csrf_field()}}
+								<input type="hidden" name="_method" value="delete">
+								<button type="submit" class="btn btn-primary">Hapus</button>
+							</form>
+							@endif
 							<a href="{{ route('admin.unit.edit', [$unit->id]) }}" class="btn btn-primary">Edit</a>
 							<a href="{{ route('admin.unit.show', [$unit->id]) }}" class="btn btn-primary">Detail</a>
 						</td>

@@ -83,19 +83,19 @@
 							<td>{{ $i++ }}</td>
 							<td>Nomor</td>
 							<td>:</td>
-							<td>{{ $dd->unit->unit_identity }}</td>
+							<td>{{ $dd->unit_identity }}</td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Lokasi</td>
 							<td>:</td>
-							<td>{{ $dd->unit->floor->name }}</td>
+							<td>{{ $dd->floor->name }}</td>
 						</tr>
 						<tr>
 							<td></td>
 							<td>Luas</td>
 							<td>:</td>
-							<td>{{ $dd->unit->capacious}} m<sup>2</sup></td>
+							<td>{{ $dd->capacious}} m<sup>2</sup></td>
 						</tr>
 					</table>
 					@endforeach

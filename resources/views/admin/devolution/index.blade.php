@@ -24,8 +24,15 @@
 						<td>Dari {{ $devolution->fromUser->name }} ke {{ $devolution->toUser->name }}</td>
 						<td>Rp. {{ number_format($devolution->cost, 0, '.', '.') }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
+							<form class="form-aksi" action="{{ route('admin.devolution.destroy', [$devolution->id]) }}" method="post">
+								{{csrf_field()}}
+								<input type="hidden" name="_method" value="delete">
+								<button type="submit" class="btn btn-primary">Hapus</button>
+							</form>
+							@endif
 							<a class="btn btn-primary" href="{{ route('admin.devolution.agreement', [$devolution->id ]) }}">Surat Peralihan</a>
-
+							<a class="btn btn-primary" href="{{ route('admin.devolution.receipt', [$devolution->id ]) }}">Kwitansi</a>
 						</td>
 					</tr>
 					@endforeach

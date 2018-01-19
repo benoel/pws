@@ -32,6 +32,7 @@ Route::group(['middleware' => ['admin']], function () {
 	//DEVOLUTION
 	Route::resource('/devolution', 'DevolutionController', ['names' => 'admin.devolution']);
 	Route::get('/devolution/{devolution}/agreement', 'DevolutionController@agreement')->name('admin.devolution.agreement');
+	Route::get('/devolution/{devolution}/receipt', 'DevolutionController@receipt')->name('admin.devolution.receipt');
 	
 	//DEVOLUTION DETAIL
 	Route::resource('/devolution/{devolution}/devolution_detail', 'DevolutionDetailController', ['names' => 'admin.devolution_detail']);

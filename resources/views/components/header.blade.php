@@ -23,7 +23,7 @@
         <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
           <!-- Logout -->
           <li class="nav-item">
-            <a href="{{ route('logout') }}" 
+            <a href="#" 
             onclick="event.preventDefault(); document.getElementById('logout-form').submit();" 
             class="nav-link logout">Keluar<i class="fa fa-sign-out"></i></a>
           </li>

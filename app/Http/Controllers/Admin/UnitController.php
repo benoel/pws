@@ -8,6 +8,7 @@ use App\Unit;
 use App\Floor;
 use App\Block;
 use App\Type;
+use App\Rent;
 
 class UnitController extends Controller
 {
@@ -138,6 +139,13 @@ class UnitController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Rent::where('unit_id', $id)->get()->count() > 0) {
+            return redirect()->back()->with('alert-danger', 'Gagal dihapus, terdapat transaksi pada unit ini!');
+        }
+        $delete = Unit::destroy($id);
+        if ($delete) {
+            return redirect()->back()->with('alert-success', 'Berhasil dihapus.');
+        }
+        return redirect()->back()->with('alert-danger', 'Gagal dihapus.');
     }
 }

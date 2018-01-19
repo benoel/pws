@@ -25,7 +25,7 @@
         <div class="form-group{{ $errors->has('user_id') ? ' has-danger' : '' }}">
           <label class="form-control-label">Penyewa</label>
           <select name="user_id" class="form-control select2">
-            <option selected disabled>Pilih Unit</option>
+            <option selected disabled>Pilih Penyewa</option>
             @foreach ($users as $user)
             <option {{ old('user_id') == $user->id ? 'selected' : '' }} value="{{ $user->id }}">{{ $user->name }}</option>
             @endforeach

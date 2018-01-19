@@ -47,6 +47,15 @@ class User extends Authenticatable
     public function devolutions_to(){
         return $this->hasMany('App\Devolution', 'to_user');
     }
+    // public function rents(){
+    //     return $this->belongsToMany('App\Unit', 'rents')->withPivot(
+    //         'invoice_number',
+    //         'rent_length',
+    //         'service_charge',
+    //         'total_cost',
+    //         'created_by',
+    //     )->withTimestamps();
+    // }
 
 
 
@@ -75,6 +84,9 @@ class User extends Authenticatable
     public function isActive(){
         // this looks for an active column in users table
         return $this->active == 0 ? true : false; 
+    }
+    public function GetEndRentAttribute(){
+        return $this->created_at->addMonths($this->rent_length)->format('d M Y');
     }
 
 

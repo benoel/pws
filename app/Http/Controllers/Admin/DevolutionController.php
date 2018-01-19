@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Devolution;
 use App\DevolutionCost;
+use App\DevolutionDetail;
 use App\User;
 use App\Rent;
 
@@ -137,13 +138,28 @@ class DevolutionController extends Controller
      */
     public function destroy($id)
     {
-        Devolution::destroy($id);
-        return redirect('admin/devolution');
+        // dd(DevolutionDetail::where('devolution_id',$id)->get());
+        if (DevolutionDetail::where('devolution_id',$id)->get()->count() > 0) {
+            // dd('ada');
+            $detach = Devolution::find($id)->devolution_details()->detach();
+            if ($detach) {
+                Devolution::destroy($id);
+            }
+        }else{
+            // dd('kosong');
+            Devolution::destroy($id);
+        }
+        return redirect('admin/devolution')->with('alert-success', 'Berhasil dihapus.');
     }
 
     public function agreement($id){
         $devolution = Devolution::find($id);
         return view('admin.devolution.agreement', compact('devolution'));
+    }
+
+    public function receipt($id){
+        $devolution = Devolution::find($id);
+        return view('admin.devolution.receipt', compact('devolution'));
     }
 
 }

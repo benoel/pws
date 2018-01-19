@@ -65,7 +65,7 @@
         </div>
         <div class="form-group{{ $errors->has('cost_unit') ? ' has-danger' : '' }}">
           <label class="form-control-label">Harga Unit/bulan</label>
-          <input type="text" name="cost_unit" value="{{ old('cost') }}" class="form-control">
+          <input type="text" name="cost_unit" value="{{ old('cost_unit') }}" class="form-control">
           @if ($errors->has('cost_unit'))
           <small class="form-text">{{ $errors->first('cost_unit') }}</small>
           @else

@@ -25,6 +25,7 @@
 						<td>{{ $tenant->email }}</td>
 						<td>
 							<a href="{{ route('admin.tenant.show', [$tenant->id]) }}" class="btn btn-primary">Lihat</a>
+							@if (Auth::user()->role == 2)
 							@if ($tenant->active == 0)
 							<form class="form-aksi" action="{{ route('admin.tenant.block_user') }}" method="post">
 								{{ csrf_field() }}
@@ -38,6 +39,8 @@
 								<input type="submit" class="btn btn-primary" onclick="return conf('Yakin ingin aktifkan penyewa?')" value="Aktifkan Penyewa">
 							</form>
 							@endif
+							@endif
+							{{-- <a href="{{ route('admin.tenant.edit', [$tenant->id]) }}" class="btn btn-primary">Edit</a> --}}
 						</td>
 					</tr>
 					@endforeach

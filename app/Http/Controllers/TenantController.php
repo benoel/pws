@@ -169,4 +169,9 @@ class TenantController extends Controller
         return view('tenant.devolution_agreement', compact('devolution'));
     }
 
+    public function devolution_receipt($id){
+        $devolution = Devolution::find($id);
+        return view('tenant.devolution_receipt', compact('devolution'));
+    }
+
 }

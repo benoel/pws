@@ -102,6 +102,10 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $delete = Type::destroy($id);
+        if ($delete) {
+            return redirect()->back()->with('alert-success', 'Berhasil dihapus.');
+        }
+        return redirect()->back()->with('alert-danger', 'Gagal dihapus.');
     }
 }

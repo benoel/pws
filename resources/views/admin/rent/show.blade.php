@@ -9,6 +9,14 @@
 					@if ($rent->status != 'Lunas')
 					<a class="btn btn-primary" href="{{ route('admin.rent_payment.create', [$rent->id ]) }}">Input Pembayaran</a>
 					@endif
+					<a class="btn btn-primary" href="{{ route('admin.rent.index') }}">Kembali</a>
+					@if (Auth::user()->role == 2)
+					<form class="form-aksi" action="{{ route('admin.rent.destroy', [$rent->id]) }}" method="post">
+						{{csrf_field()}}
+						<input type="hidden" name="_method" value="delete">
+						<button type="submit" class="btn btn-primary">Hapus</button>
+					</form>
+					@endif
 					<a class="btn btn-primary" href="{{ route('admin.rent.agreement', [$rent->id ]) }}">Surat Perjanjian</a>
 					<a class="btn btn-primary" href="{{ route('admin.rent.invoice', [$rent->id ]) }}">Invoice</a>
 				</div>
@@ -31,6 +39,20 @@
 				<tr>
 					<td>Lama Sewa</td>
 					<td>: {{ $rent->rent_length }} Bulan</td>
+				</tr>
+				<tr>
+					<td>Mulai Tanggal Sewa</td>
+					<td>: {{ $rent->created_at->format('d M Y') }}</td>
+				</tr>
+				<tr>
+					<td>Akhir Tanggal Sewa</td>
+					@php ($color = '#666')
+					@php ($status = '')
+					@if ($rent->end_rent > date('d M Y'))
+					@php ($color = '#CD483E')
+					@php ($status = '(Sudah Lewat)')
+					@endif
+					<td style="color:{{ $color }}">: {{ $rent->end_rent }} {{ $status }}</td>
 				</tr>
 				<tr>
 					<td>Total Sewa</td>
@@ -84,7 +106,8 @@
 					<tr>
 						<td>{{ $rent_payment->receipt_number }}</td>
 						<td>Rp {{ number_format($rent_payment->payment_amount, 0, '.', '.') }}</td>
-						<td>{{ $rent_payment->created_at->diffForHumans() }}</td>
+						{{-- <td>{{ $rent_payment->created_at->diffForHumans() }}</td> --}}
+						<td>{{ $rent_payment->created_at->format('d M Y') }}</td>
 						<td>
 							<a href="{{ route('admin.rent_payment.receipt', [$rent->id, $rent_payment->id]) }}" class="btn btn-primary">Kwitansi</a>
 						</td>

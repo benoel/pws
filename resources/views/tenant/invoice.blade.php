@@ -29,7 +29,7 @@
 						<td>{{ $rent->status }}</td>
 						<td>{{ $rent->created_at->format('d M Y')}}</td>
 						<td>
-							<a href="{{ route('tenant.receipt', [$rent->id]) }}">Detail Kwitansi</a> || <a href="{{ route('tenant.agreement', [$rent->id]) }}">Surat Perjanjian</a>
+							<a class="btn btn-primary" href="{{ route('tenant.receipt', [$rent->id]) }}"> Kwitansi</a> <a class="btn btn-primary" href="{{ route('tenant.agreement', [$rent->id]) }}">S.Perjanjian</a>
 						</td>
 					</tr>
 					@endforeach
@@ -38,4 +38,9 @@
 		</div>
 	</div>
 </div>
+<style>
+/*.inline-block{
+	display: inline-block;
+	}*/
+</style>
 @endsection

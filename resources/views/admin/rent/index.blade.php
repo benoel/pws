@@ -28,6 +28,13 @@
 						<td>{{ $rent->rent_length }} Bulan</td>
 						<td>{{ $rent->status }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
+							<form class="form-aksi" action="{{ route('admin.rent.destroy', [$rent->id]) }}" method="post">
+								{{csrf_field()}}
+								<input type="hidden" name="_method" value="delete">
+								<button type="submit" class="btn btn-primary">Hapus</button>
+							</form>
+							@endif
 							<a href="{{ route('admin.rent.show', [$rent->id]) }}" class="btn btn-primary">Lihat</a>
 						</td>
 					</tr>

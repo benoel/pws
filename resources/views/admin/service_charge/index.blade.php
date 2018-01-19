@@ -24,7 +24,9 @@
 						<td width="25">{{ $i++ }}</td>
 						<td>Rp. {{ number_format($sc->cost, 0, '.', '.') }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
 							<a href="{{ route('admin.service_charge.edit', [$sc->id]) }}" class="btn btn-primary">Edit</a>
+							@endif
 						</td>
 					</tr>
 					@endforeach

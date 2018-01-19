@@ -13,7 +13,7 @@ class Rent extends Model
 	{
 		return $this->belongsTo('App\User');
 	}
-	public function create_by()
+	public function created_by()
 	{
 		return $this->belongsTo('App\User', 'created_by');
 	}

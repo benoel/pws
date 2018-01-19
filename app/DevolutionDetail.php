@@ -8,11 +8,11 @@ class DevolutionDetail extends Model
 {
 	protected $guarded = [];
 
-	public function devolution()
-	{
-		return $this->belongsTo('App\Devolution');
-	}
-	public function unit(){
-		return $this->belongsTo('App\Unit');
-	}
+	// public function devolution()
+	// {
+	// 	return $this->belongsTo('App\Devolution');
+	// }
+	// public function unit(){
+	// 	return $this->belongsTo('App\Unit');
+	// }
 }

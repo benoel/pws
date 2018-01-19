@@ -33,7 +33,7 @@
                                 </div>
                                 <button type="submit" id="login" class="btn btn-primary">Masuk</button>
                             </form>
-                            <a href="#" class="forgot-pass">Lupa Password?</a><br>
+                            {{-- <a href="#" class="forgot-pass">Lupa Password?</a><br> --}}
                         </div>
                     </div>
                 </div>

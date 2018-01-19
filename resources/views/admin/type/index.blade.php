@@ -22,6 +22,13 @@
 						<td width="25">{{ $i++ }}</td>
 						<td>{{ $type->name }}</td>
 						<td>
+							@if (Auth::user()->role == 2)
+							<form class="form-aksi" action="{{ route('admin.type.destroy', [$type->id]) }}" method="post">
+								{{csrf_field()}}
+								<input type="hidden" name="_method" value="delete">
+								<button type="submit" class="btn btn-primary">Hapus</button>
+							</form>
+							@endif
 							<a href="{{ route('admin.type.edit', [$type->id]) }}" class="btn btn-primary">Edit</a>
 						</td>
 					</tr>
