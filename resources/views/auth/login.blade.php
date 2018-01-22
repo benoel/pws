@@ -41,7 +41,7 @@
         </div>
     </div>
     <div class="copyrights text-center">
-        <p style="color: #333;">Copyright © 2017 <a href="https://facebook.com/ibnu.a.azis">Ibnu Abdul Azis</a></p>
+        <p style="color: #333;">Copyright © 2017 <a href="https://facebook.com/ibnu.a.azis">Ibnu Abdul Azis.</a></p>
     </div>
 </div>
 @endsection
