@@ -26,7 +26,7 @@ mix.js([
 	'public/vendor/js/front.js',
 	'public/vendor/js/dataTables.bootstrap4.min.js',
 	'public/vendor/js/datepicker_by_gijgo.js',
-	'node_modules/select2/dist/js/select2.min.js'
+	'public/vendor/js/select2.min.js'
 	], 'public/js/vendor.js')
 .autoload({
 	tether: ['Tether', 'window.Tether']

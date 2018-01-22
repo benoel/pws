@@ -10,7 +10,8 @@
 
 // @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "styles_app";
-@import "node_modules/select2/src/scss/core";
+// @import "node_modules/select2/src/scss/core";
+@import "public/vendor/css/select2.min";
 
 
 span.selection{
