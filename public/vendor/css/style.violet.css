@@ -1865,7 +1865,7 @@ STYLE SWITCHER FOR DEMO
 /*
  * 1. NAVBAR
  */
-.navbar {
+ .navbar {
   padding: 0.5rem 1rem;
 }
 
@@ -1980,7 +1980,7 @@ STYLE SWITCHER FOR DEMO
 /*
  * 2. BUTTONS
  */
-.btn {
+ .btn {
   font-weight: normal;
   line-height: 1.25;
   border: 1px solid transparent;
@@ -2367,7 +2367,7 @@ fieldset[disabled] a.btn {
 /*
  * 3. TYPE
  */
-body {
+ body {
   font-family: "Poppins", sans-serif;
   font-size: 1rem;
   font-weight: normal;
@@ -2482,7 +2482,7 @@ a.text-primary:focus, a.text-primary:hover {
 /*
  * 4. PAGINATION
  */
-.page-item:first-child .page-link {
+ .page-item:first-child .page-link {
   margin-left: 0;
   border-bottom-left-radius: 0.25rem;
   border-top-left-radius: 0.25rem;
